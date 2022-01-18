@@ -1,0 +1,87 @@
+<?php
+
+declare(strict_types=1);
+
+namespace CCT\SDK\CampaignWizard\ViewModel\Campaign\WidgetValues\Options;
+
+use Assert\Assertion;
+use Assert\AssertionFailedException;
+use CCT\Component\ValueObject\ValueObjectInterface;
+use CCT\SDK\CampaignWizard\ValueObject\Enabled;
+use CCT\SDK\CampaignWizard\ViewModel\Campaign\AbstractValueObject;
+use CCT\SDK\CampaignWizard\ViewModel\Campaign\Video\Video;
+
+final class AdvancedSlideshow extends AbstractValueObject
+{
+    /**
+     * @var Enabled
+     */
+    private $enabled;
+
+    /**
+     * @var Video|null
+     */
+    private $video;
+
+    /**
+     * AdvancedSlideshow constructor.
+     *
+     * @param Enabled    $enabled
+     * @param Video|null $video
+     */
+    public function __construct(Enabled $enabled, ?Video $video = null)
+    {
+        $this->enabled = $enabled;
+        $this->video = $video;
+    }
+
+    /**
+     * @param array $data
+     *
+     * @return self
+     *
+     * @throws AssertionFailedException
+     */
+    public static function fromArray(array $data): self
+    {
+        Assertion::keyExists($data, 'enabled', null, self::errorPropertyPath());
+
+        return new self(
+            Enabled::fromMixed($data['enabled']),
+            isset($data['video']) ? Video::fromArray($data['video']) : null
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return [
+            'enabled' => $this->enabled->toBool(),
+            'video' => $this->video ? $this->video->toArray() : null,
+        ];
+    }
+
+    /**
+     * @param ValueObjectInterface $valueObject
+     *
+     * @return bool
+     */
+    public function equals(ValueObjectInterface $valueObject): bool
+    {
+        if (!$valueObject instanceof self) {
+            return false;
+        }
+
+        return $this->toArray() === $valueObject->toArray();
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return (string) json_encode($this->toArray());
+    }
+}

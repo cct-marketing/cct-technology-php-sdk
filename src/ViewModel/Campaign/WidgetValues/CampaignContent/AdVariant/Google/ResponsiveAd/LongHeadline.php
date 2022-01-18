@@ -1,0 +1,91 @@
+<?php
+
+declare(strict_types=1);
+
+namespace CCT\SDK\CampaignWizard\ViewModel\Campaign\WidgetValues\CampaignContent\AdVariant\Google\ResponsiveAd;
+
+use Assert\Assertion;
+use Assert\AssertionFailedException;
+use CCT\Component\ValueObject\ValueObjectInterface;
+use CCT\SDK\CampaignWizard\ViewModel\Campaign\AbstractValueObject;
+
+final class LongHeadline extends AbstractValueObject
+{
+    /**
+     * @var string
+     */
+    private $headline;
+
+    /**
+     * @param string $headline
+     *
+     * @return self
+     *
+     * @throws AssertionFailedException
+     */
+    public static function fromString(string $headline): self
+    {
+        return new self($headline);
+    }
+
+    /**
+     * LongHeadline constructor.
+     *
+     * @param string $headline
+     *
+     * @throws AssertionFailedException
+     */
+    private function __construct(string $headline)
+    {
+        $this->guard($headline);
+        $this->headline = $headline;
+    }
+
+    /**
+     * @return string
+     */
+    public function headline(): string
+    {
+        return $this->headline;
+    }
+
+    /**
+     * @return string
+     */
+    public function toString(): string
+    {
+        return $this->headline;
+    }
+
+    /**
+     * @param ValueObjectInterface $valueObject
+     *
+     * @return bool
+     */
+    public function equals(ValueObjectInterface $valueObject): bool
+    {
+        if (!$valueObject instanceof self) {
+            return false;
+        }
+
+        return $this->headline === $valueObject->headline();
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->headline;
+    }
+
+    /**
+     * @param string $headline
+     *
+     * @throws AssertionFailedException
+     */
+    private function guard(string $headline): void
+    {
+        Assertion::maxLength($headline, 90, null, self::errorPropertyPath());
+    }
+}

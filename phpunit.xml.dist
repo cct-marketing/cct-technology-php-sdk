@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+	<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			 xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/7.5/phpunit.xsd"
+			 backupGlobals="false"
+			 colors="true"
+			 convertErrorsToExceptions="true"
+			 convertNoticesToExceptions="true"
+			 convertWarningsToExceptions="true"
+			 stopOnFailure="false"
+	>
+	<php>
+		<env name="CAMPAIGN_WIZARD_URL" value="http://10.254.254.254" />
+		<env name="ENABLE_DEBUG" value="true" />
+		<env name="USE_MOCK_RESPONSES" value="true" />
+	</php>
+	<testsuites>
+		<testsuite name="Unit Tests">
+			<directory>tests</directory>
+		</testsuite>
+	</testsuites>
+</phpunit>
