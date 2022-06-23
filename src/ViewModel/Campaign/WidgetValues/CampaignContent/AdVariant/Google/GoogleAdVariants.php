@@ -14,11 +14,6 @@ final class GoogleAdVariants extends AbstractValueObject
      */
     private $googleAdVariants;
 
-    /**
-     * @param array $googleAdVariants
-     *
-     * @return self
-     */
     public static function fromArray(array $googleAdVariants): self
     {
         return new self(...array_map(static function (array $googleAdVariant) {
@@ -28,17 +23,12 @@ final class GoogleAdVariants extends AbstractValueObject
 
     /**
      * @param GoogleAdVariant ...$googleAdVariants
-     *
-     * @return self
      */
     public static function fromItems(GoogleAdVariant ...$googleAdVariants): self
     {
         return new self(...$googleAdVariants);
     }
 
-    /**
-     * @return self
-     */
     public static function emptyList(): self
     {
         return new self();
@@ -54,11 +44,6 @@ final class GoogleAdVariants extends AbstractValueObject
         $this->googleAdVariants = $googleAdVariants;
     }
 
-    /**
-     * @param GoogleAdVariant $googleAdVariant
-     *
-     * @return self
-     */
     public function push(GoogleAdVariant $googleAdVariant): self
     {
         $copy = clone $this;
@@ -67,9 +52,6 @@ final class GoogleAdVariants extends AbstractValueObject
         return $copy;
     }
 
-    /**
-     * @return self
-     */
     public function pop(): self
     {
         $copy = clone $this;
@@ -78,17 +60,11 @@ final class GoogleAdVariants extends AbstractValueObject
         return $copy;
     }
 
-    /**
-     * @return GoogleAdVariant|null
-     */
     public function first(): ?GoogleAdVariant
     {
         return $this->googleAdVariants[0] ?? null;
     }
 
-    /**
-     * @return GoogleAdVariant|null
-     */
     public function last(): ?GoogleAdVariant
     {
         if (count($this->googleAdVariants) === 0) {
@@ -98,11 +74,6 @@ final class GoogleAdVariants extends AbstractValueObject
         return $this->googleAdVariants[count($this->googleAdVariants) - 1];
     }
 
-    /**
-     * @param GoogleAdVariant $googleAdVariant
-     *
-     * @return bool
-     */
     public function contains(GoogleAdVariant $googleAdVariant): bool
     {
         foreach ($this->googleAdVariants as $existingGoogleAdVariant) {
@@ -122,9 +93,6 @@ final class GoogleAdVariants extends AbstractValueObject
         return $this->googleAdVariants;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return array_map(static function (GoogleAdVariant $googleAdVariant) {
@@ -132,11 +100,6 @@ final class GoogleAdVariants extends AbstractValueObject
         }, $this->googleAdVariants);
     }
 
-    /**
-     * @param ValueObjectInterface $other
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $other): bool
     {
         if (!$other instanceof self) {
@@ -146,25 +109,16 @@ final class GoogleAdVariants extends AbstractValueObject
         return $this->toArray() === $other->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
     }
 
-    /**
-     * @return int
-     */
     public function count(): int
     {
         return count($this->googleAdVariants);
     }
 
-    /**
-     * @return self
-     */
     public function removeEmptyVariants(): self
     {
         $items = array_values(

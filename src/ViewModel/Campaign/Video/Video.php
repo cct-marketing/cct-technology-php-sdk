@@ -30,9 +30,6 @@ final class Video extends AbstractValueObject implements VideoInterface
     /**
      * Video constructor
      *
-     * @param Uri           $videoUrl
-     * @param UuidInterface $uuid
-     *
      * @throws AssertionFailedException
      */
     public function __construct(Uri $videoUrl, UuidInterface $uuid)
@@ -41,27 +38,16 @@ final class Video extends AbstractValueObject implements VideoInterface
         $this->videoUrl = $videoUrl;
     }
 
-    /**
-     * @return Uri
-     */
     public function videoUrl(): Uri
     {
         return $this->videoUrl;
     }
 
-    /**
-     * @return string
-     */
     public function uuid(): string
     {
         return $this->uuid->toString();
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -82,10 +68,6 @@ final class Video extends AbstractValueObject implements VideoInterface
     }
 
     /**
-     * @param mixed $data
-     *
-     * @return self
-     *
      * @throws AssertionFailedException
      */
     public static function deserialize($data): self
@@ -96,8 +78,6 @@ final class Video extends AbstractValueObject implements VideoInterface
     }
 
     /**
-     * @param array $data
-     *
      * @return Video
      *
      * @throws AssertionFailedException
@@ -113,9 +93,6 @@ final class Video extends AbstractValueObject implements VideoInterface
         );
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -124,9 +101,6 @@ final class Video extends AbstractValueObject implements VideoInterface
         ];
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());

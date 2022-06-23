@@ -18,8 +18,6 @@ final class NewPrice extends AbstractValueObject
 
     /**
      * NewPrice constructor.
-     *
-     * @param Enabled $enabled
      */
     public function __construct(Enabled $enabled)
     {
@@ -49,17 +47,12 @@ final class NewPrice extends AbstractValueObject
 
     /**
      * True to apply pricing to campaign total, otherwise false
-     *
-     * @return bool
      */
     public function applyPricing(): bool
     {
         return $this->enabled->isEnabled();
     }
 
-    /**
-     * @return bool
-     */
     public function isEnabled(): bool
     {
         return $this->enabled->isEnabled();

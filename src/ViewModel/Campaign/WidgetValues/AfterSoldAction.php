@@ -17,8 +17,6 @@ final class AfterSoldAction extends AbstractValueObject
 
     /**
      * AfterSoldAction constructor.
-     *
-     * @param ActionType $actionType
      */
     private function __construct(ActionType $actionType)
     {
@@ -26,10 +24,6 @@ final class AfterSoldAction extends AbstractValueObject
     }
 
     /**
-     * @param array $data
-     *
-     * @return self
-     *
      * @throws AssertionFailedException
      */
     public static function fromArray(array $data): self
@@ -41,19 +35,11 @@ final class AfterSoldAction extends AbstractValueObject
         );
     }
 
-    /**
-     * @param ActionType $actionType
-     *
-     * @return self
-     */
     public static function create(ActionType $actionType): self
     {
         return new self($actionType);
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -61,11 +47,6 @@ final class AfterSoldAction extends AbstractValueObject
         ];
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -75,9 +56,6 @@ final class AfterSoldAction extends AbstractValueObject
         return $this->toArray() === $valueObject->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());

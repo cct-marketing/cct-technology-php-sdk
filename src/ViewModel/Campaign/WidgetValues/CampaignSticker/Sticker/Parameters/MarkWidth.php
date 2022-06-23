@@ -15,8 +15,6 @@ final class MarkWidth extends AbstractValueObject
     private $value;
 
     /**
-     * @param float $value
-     *
      * @return static
      *
      * @throws AssertionFailedException
@@ -29,8 +27,6 @@ final class MarkWidth extends AbstractValueObject
     /**
      * MarkWidth constructor.
      *
-     * @param float $value
-     *
      * @throws AssertionFailedException
      */
     private function __construct(float $value)
@@ -39,17 +35,12 @@ final class MarkWidth extends AbstractValueObject
         $this->value = $value;
     }
 
-    /**
-     * @return float
-     */
     public function value(): float
     {
         return $this->value;
     }
 
     /**
-     * @param float $value
-     *
      * @throws AssertionFailedException
      */
     private function guard(float $value): void
@@ -58,19 +49,11 @@ final class MarkWidth extends AbstractValueObject
         Assertion::max($value, 1);
     }
 
-    /**
-     * @return float
-     */
     public function toFloat(): float
     {
         return $this->value();
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CCT\SDK\CampaignWizard\Exception;
 
-use Cassandra\Exception\RuntimeException;
+use RuntimeException;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -50,17 +50,11 @@ final class BadRequestException extends RuntimeException
         );
     }
 
-    /**
-     * @return RequestInterface
-     */
     public function request(): RequestInterface
     {
         return $this->request;
     }
 
-    /**
-     * @return ResponseInterface|null
-     */
     public function response(): ?ResponseInterface
     {
         return $this->response;

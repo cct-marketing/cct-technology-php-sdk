@@ -6,7 +6,6 @@ namespace CCT\SDK\CampaignWizard\ViewModel\Campaign\WidgetValues\CampaignSticker
 
 use CCT\Component\ValueObject\ValueObjectInterface;
 use CCT\SDK\CampaignWizard\ViewModel\Campaign\AbstractValueObject;
-
 use function array_map;
 use function array_pop;
 use function json_encode;
@@ -18,11 +17,6 @@ final class StickerCollection extends AbstractValueObject
      */
     private $stickers;
 
-    /**
-     * @param array $stickers
-     *
-     * @return self
-     */
     public static function fromArray(array $stickers): self
     {
         return new self(...array_map(static function (array $sticker) {
@@ -32,17 +26,12 @@ final class StickerCollection extends AbstractValueObject
 
     /**
      * @param Sticker ...$stickers
-     *
-     * @return self
      */
     public static function fromItems(Sticker ...$stickers): self
     {
         return new self(...$stickers);
     }
 
-    /**
-     * @return self
-     */
     public static function emptyList(): self
     {
         return new self();
@@ -58,11 +47,6 @@ final class StickerCollection extends AbstractValueObject
         $this->stickers = $stickers;
     }
 
-    /**
-     * @param Sticker $sticker
-     *
-     * @return self
-     */
     public function push(Sticker $sticker): self
     {
         $copy = clone $this;
@@ -71,9 +55,6 @@ final class StickerCollection extends AbstractValueObject
         return $copy;
     }
 
-    /**
-     * @return self
-     */
     public function pop(): self
     {
         $copy = clone $this;
@@ -82,17 +63,11 @@ final class StickerCollection extends AbstractValueObject
         return $copy;
     }
 
-    /**
-     * @return Sticker|null
-     */
     public function first(): ?Sticker
     {
         return $this->stickers[0] ?? null;
     }
 
-    /**
-     * @return Sticker|null
-     */
     public function last(): ?Sticker
     {
         if (count($this->stickers) === 0) {
@@ -102,11 +77,6 @@ final class StickerCollection extends AbstractValueObject
         return $this->stickers[count($this->stickers) - 1];
     }
 
-    /**
-     * @param Sticker $sticker
-     *
-     * @return bool
-     */
     public function contains(Sticker $sticker): bool
     {
         foreach ($this->stickers as $existingSticker) {
@@ -126,9 +96,6 @@ final class StickerCollection extends AbstractValueObject
         return $this->stickers;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return array_map(static function (Sticker $sticker) {
@@ -136,11 +103,6 @@ final class StickerCollection extends AbstractValueObject
         }, $this->stickers);
     }
 
-    /**
-     * @param ValueObjectInterface $other
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $other): bool
     {
         if (!$other instanceof self) {
@@ -150,17 +112,11 @@ final class StickerCollection extends AbstractValueObject
         return $this->toArray() === $other->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
     }
 
-    /**
-     * @return int
-     */
     public function count(): int
     {
         return count($this->stickers);

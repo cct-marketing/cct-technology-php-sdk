@@ -29,10 +29,6 @@ final class GoogleAdVariant extends AbstractValueObject
 
     /**
      * GoogleAdVariant constructor.
-     *
-     * @param string               $textLine1
-     * @param string               $textLine2
-     * @param ImageCollection|null $imageCollection
      */
     public function __construct(string $textLine1, string $textLine2, ?ImageCollection $imageCollection = null)
     {
@@ -42,25 +38,16 @@ final class GoogleAdVariant extends AbstractValueObject
         $this->imageCollection = $imageCollection;
     }
 
-    /**
-     * @return string
-     */
     public function getTextLine1(): string
     {
         return $this->textLine1;
     }
 
-    /**
-     * @return string
-     */
     public function getTextLine2(): string
     {
         return $this->textLine2;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -71,8 +58,6 @@ final class GoogleAdVariant extends AbstractValueObject
     }
 
     /**
-     * @param array $data
-     *
      * @return GoogleAdVariant
      *
      * @throws AssertionFailedException
@@ -89,21 +74,12 @@ final class GoogleAdVariant extends AbstractValueObject
         );
     }
 
-    /**
-     * @param string $textLine1
-     * @param string $textLine2
-     */
     private function guard(string $textLine1, string $textLine2)
     {
         Assertion::maxLength($textLine1, 45, null, 'google_ad_variant');
         Assertion::maxLength($textLine2, 45, null, 'google_ad_variant');
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -113,11 +89,6 @@ final class GoogleAdVariant extends AbstractValueObject
         return $this->toArray() === $valueObject->toArray();
     }
 
-    /**
-     * @param ImageCollection $images
-     *
-     * @return self
-     */
     public static function withOnlyImages(ImageCollection $images): self
     {
         return new self(
@@ -127,9 +98,6 @@ final class GoogleAdVariant extends AbstractValueObject
         );
     }
 
-    /**
-     * @return self
-     */
     public static function withNoContent(): self
     {
         return new self(
@@ -139,9 +107,6 @@ final class GoogleAdVariant extends AbstractValueObject
         );
     }
 
-    /**
-     * @return bool
-     */
     public function isEmpty(): bool
     {
         return $this->textLine1 === '' && $this->textLine2 === '';

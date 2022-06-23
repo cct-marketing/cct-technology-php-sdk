@@ -16,9 +16,8 @@ class EmailAddress extends AbstractValueObject
     private $email;
 
     /**
-     * @param string $email
-     *
      * @return static
+     * @psalm-suppress UnsafeInstantiation
      */
     public static function fromString(string $email)
     {
@@ -27,8 +26,6 @@ class EmailAddress extends AbstractValueObject
 
     /**
      * AgentEmail constructor.
-     *
-     * @param string $email
      */
     private function __construct(string $email)
     {
@@ -36,27 +33,16 @@ class EmailAddress extends AbstractValueObject
         $this->email = $email;
     }
 
-    /**
-     * @return string
-     */
     public function email(): string
     {
         return $this->email;
     }
 
-    /**
-     * @return string
-     */
     public function toString(): string
     {
         return $this->email;
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -66,17 +52,11 @@ class EmailAddress extends AbstractValueObject
         return $this->email === $valueObject->email();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return $this->email;
     }
 
-    /**
-     * @param string $email
-     */
     private function guard(string $email): void
     {
         Assertion::email($email, null, self::errorPropertyPath());

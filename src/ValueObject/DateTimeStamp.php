@@ -9,7 +9,6 @@ use CCT\SDK\CampaignWizard\ViewModel\Campaign\AbstractValueObject;
 use DateInterval;
 use DateTime;
 use DateTimeImmutable;
-use DateTimeInterface;
 use DateTimeZone;
 use Exception;
 use LogicException;
@@ -36,8 +35,6 @@ final class DateTimeStamp extends AbstractValueObject
     }
 
     /**
-     * @param DateTimeImmutable $date
-     *
      * @return DateTimeStamp
      */
     public static function fromDateTime(DateTimeImmutable $date): self
@@ -48,8 +45,6 @@ final class DateTimeStamp extends AbstractValueObject
     }
 
     /**
-     * @param string $dateString
-     *
      * @return DateTimeStamp
      */
     public static function fromString(string $dateString): self
@@ -69,8 +64,6 @@ final class DateTimeStamp extends AbstractValueObject
 
     /**
      * Date constructor.
-     *
-     * @param DateTimeImmutable $date
      */
     private function __construct(DateTimeImmutable $date)
     {
@@ -78,8 +71,6 @@ final class DateTimeStamp extends AbstractValueObject
     }
 
     /**
-     * @param string $dateString
-     *
      * @return DateTimeImmutable|false
      */
     private static function createFromString(string $dateString)
@@ -100,25 +91,17 @@ final class DateTimeStamp extends AbstractValueObject
         return false;
     }
 
-    /**
-     * @return string
-     */
     public function toString(): string
     {
         return $this->date->format(self::FORMAT);
     }
 
-    /**
-     * @return DateTimeImmutable
-     */
     public function dateTime(): DateTimeImmutable
     {
         return $this->date;
     }
 
     /**
-     * @param DateInterval $interval
-     *
      * @return DateTimeStamp
      */
     public function add(DateInterval $interval): self
@@ -127,8 +110,6 @@ final class DateTimeStamp extends AbstractValueObject
     }
 
     /**
-     * @param DateInterval $interval
-     *
      * @return DateTimeStamp
      */
     public function sub(DateInterval $interval): self
@@ -136,19 +117,11 @@ final class DateTimeStamp extends AbstractValueObject
         return new self($this->date->sub($interval));
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return $this->toString();
     }
 
-    /**
-     * @param DateTimeImmutable $date
-     *
-     * @return DateTimeImmutable
-     */
     private static function ensureUTC(DateTimeImmutable $date): DateTimeImmutable
     {
         if ($date->getTimezone()->getName() === 'UTC') {
@@ -158,11 +131,6 @@ final class DateTimeStamp extends AbstractValueObject
         return $date->setTimezone(new DateTimeZone('UTC'));
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {

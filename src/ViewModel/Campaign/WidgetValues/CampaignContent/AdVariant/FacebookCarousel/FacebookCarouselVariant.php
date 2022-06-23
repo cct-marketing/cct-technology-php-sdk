@@ -23,9 +23,6 @@ final class FacebookCarouselVariant extends AbstractValueObject
 
     /**
      * FacebookCarouselVariant constructor.
-     *
-     * @param string                         $text
-     * @param FacebookCarouselCardCollection $cardCollection
      */
     public function __construct(string $text, FacebookCarouselCardCollection $cardCollection)
     {
@@ -34,36 +31,21 @@ final class FacebookCarouselVariant extends AbstractValueObject
         $this->cardCollection = $cardCollection;
     }
 
-    /**
-     * @return string
-     */
     public function text(): string
     {
         return $this->text;
     }
 
-    /**
-     * @return FacebookCarouselCardCollection
-     */
     public function cardCollection(): FacebookCarouselCardCollection
     {
         return $this->cardCollection;
     }
 
-    /**
-     * @param string                         $text
-     * @param FacebookCarouselCardCollection $cardCollection
-     */
     private function guard(string $text, FacebookCarouselCardCollection $cardCollection)
     {
         Assertion::maxLength($text, 200, null, self::errorPropertyPath());
     }
 
-    /**
-     * @param array $data
-     *
-     * @return self
-     */
     public static function fromArray(array $data): self
     {
         Assertion::keyExists($data, 'text', null, self::errorPropertyPath());
@@ -75,9 +57,6 @@ final class FacebookCarouselVariant extends AbstractValueObject
         );
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -86,11 +65,6 @@ final class FacebookCarouselVariant extends AbstractValueObject
         ];
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -100,17 +74,12 @@ final class FacebookCarouselVariant extends AbstractValueObject
         return $this->toArray() === $valueObject->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
     }
 
     /**
-     * @param ImageCollection $images
-     *
      * @return FacebookCarouselVariant
      */
     public function withImages(ImageCollection $images): self
@@ -121,9 +90,6 @@ final class FacebookCarouselVariant extends AbstractValueObject
         );
     }
 
-    /**
-     * @return bool
-     */
     public function isEmpty(): bool
     {
         return $this->text === '' && $this->cardCollection->isEmpty();

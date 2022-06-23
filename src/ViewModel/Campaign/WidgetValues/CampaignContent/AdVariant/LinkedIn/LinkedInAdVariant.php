@@ -27,9 +27,6 @@ final class LinkedInAdVariant extends AbstractValueObject
     /**
      * LinkedInAdVariant constructor.
      *
-     * @param string               $text
-     * @param ImageCollection|null $imageCollection
-     *
      * @throws AssertionFailedException
      */
     public function __construct(string $text, ?ImageCollection $imageCollection = null)
@@ -39,17 +36,11 @@ final class LinkedInAdVariant extends AbstractValueObject
         $this->imageCollection = $imageCollection;
     }
 
-    /**
-     * @return string
-     */
     public function text(): string
     {
         return $this->text;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -59,8 +50,6 @@ final class LinkedInAdVariant extends AbstractValueObject
     }
 
     /**
-     * @param array $data
-     *
      * @return LinkedInAdVariant
      *
      * @throws AssertionFailedException
@@ -76,8 +65,6 @@ final class LinkedInAdVariant extends AbstractValueObject
     }
 
     /**
-     * @param string $text
-     *
      * @throws AssertionFailedException
      */
     private function guard(string $text)
@@ -87,8 +74,6 @@ final class LinkedInAdVariant extends AbstractValueObject
 
     /**
      * @param ValueObjectInterface|self $valueObject
-     *
-     * @return bool
      */
     public function equals(ValueObjectInterface $valueObject): bool
     {
@@ -100,10 +85,6 @@ final class LinkedInAdVariant extends AbstractValueObject
     }
 
     /**
-     * @param ImageCollection $images
-     *
-     * @return self
-     *
      * @throws AssertionFailedException
      */
     public static function withOnlyImages(ImageCollection $images): self
@@ -115,8 +96,6 @@ final class LinkedInAdVariant extends AbstractValueObject
     }
 
     /**
-     * @return self
-     *
      * @throws AssertionFailedException
      */
     public static function withNoContent(): self
@@ -127,9 +106,6 @@ final class LinkedInAdVariant extends AbstractValueObject
         );
     }
 
-    /**
-     * @return bool
-     */
     public function isEmpty(): bool
     {
         return $this->text === '';

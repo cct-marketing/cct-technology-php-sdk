@@ -14,11 +14,6 @@ final class ItemPriceCollection extends AbstractValueObject
      */
     private $itemPrices;
 
-    /**
-     * @param array $itemPrices
-     *
-     * @return self
-     */
     public static function fromArray(array $itemPrices): self
     {
         return new self(...array_map(static function (array $itemPrice) {
@@ -28,19 +23,12 @@ final class ItemPriceCollection extends AbstractValueObject
 
     /**
      * @param ItemPrice ...$itemPrices
-     *
-     * @return self
      */
     public static function fromItems(ItemPrice ...$itemPrices): self
     {
         return new self(...$itemPrices);
     }
 
-    /**
-     * @param array $itemPrices
-     *
-     * @return self
-     */
     public static function fromItemPrices(array $itemPrices): self
     {
         if (0 === count($itemPrices)) {
@@ -50,9 +38,6 @@ final class ItemPriceCollection extends AbstractValueObject
         return new self(...$itemPrices);
     }
 
-    /**
-     * @return self
-     */
     public static function emptyList(): self
     {
         return new self();
@@ -68,11 +53,6 @@ final class ItemPriceCollection extends AbstractValueObject
         $this->itemPrices = $itemPrices;
     }
 
-    /**
-     * @param ItemPrice $itemPrice
-     *
-     * @return self
-     */
     public function push(ItemPrice $itemPrice): self
     {
         $copy = clone $this;
@@ -81,9 +61,6 @@ final class ItemPriceCollection extends AbstractValueObject
         return $copy;
     }
 
-    /**
-     * @return self
-     */
     public function pop(): self
     {
         $copy = clone $this;
@@ -92,17 +69,11 @@ final class ItemPriceCollection extends AbstractValueObject
         return $copy;
     }
 
-    /**
-     * @return ItemPrice|null
-     */
     public function first(): ?ItemPrice
     {
         return $this->itemPrices[0] ?? null;
     }
 
-    /**
-     * @return ItemPrice|null
-     */
     public function last(): ?ItemPrice
     {
         if (count($this->itemPrices) === 0) {
@@ -112,11 +83,6 @@ final class ItemPriceCollection extends AbstractValueObject
         return $this->itemPrices[count($this->itemPrices) - 1];
     }
 
-    /**
-     * @param ItemPrice $itemPrice
-     *
-     * @return bool
-     */
     public function contains(ItemPrice $itemPrice): bool
     {
         foreach ($this->itemPrices as $existingItemPrice) {
@@ -136,9 +102,6 @@ final class ItemPriceCollection extends AbstractValueObject
         return $this->itemPrices;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return array_map(
@@ -149,11 +112,6 @@ final class ItemPriceCollection extends AbstractValueObject
         );
     }
 
-    /**
-     * @param ValueObjectInterface $other
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $other): bool
     {
         if (!$other instanceof self) {
@@ -163,17 +121,11 @@ final class ItemPriceCollection extends AbstractValueObject
         return $this->toArray() === $other->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
     }
 
-    /**
-     * @return int
-     */
     public function count(): int
     {
         return count($this->itemPrices);

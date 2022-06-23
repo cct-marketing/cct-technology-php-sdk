@@ -142,10 +142,6 @@ final class CampaignWidgets extends AbstractValueObject
     private $campaignStickers;
 
     /**
-     * @param array $data
-     *
-     * @return self
-     *
      * @throws Exception
      */
     public static function fromArray(array $data): self
@@ -192,29 +188,6 @@ final class CampaignWidgets extends AbstractValueObject
 
     /**
      * CampaignWidgets constructor.
-     *
-     * @param Targeting|null                  $targeting
-     * @param LandingPage|null                $landingPage
-     * @param CampaignPeriod|null             $campaignPeriod
-     * @param PostFirstVariantToFacebook|null $postFirstVariantToFacebook
-     * @param Comment|null                    $comment
-     * @param CampaignTag|null                $campaignTag
-     * @param CampaignTitle|null              $campaignTitle
-     * @param LocalBoost|null                 $localBoost
-     * @param LocationTargeting|null          $locationTargeting
-     * @param IndustryAddress|null            $industryAddress
-     * @param Product|null                    $product
-     * @param CampaignContent|null            $campaignContent
-     * @param CampaignPhases|null             $campaignPhases
-     * @param OpenHouse|null                  $openHouse
-     * @param NewPrice|null                   $newPrice
-     * @param LeadForm|null                   $leadForm
-     * @param FacebookSlideshow|null          $facebookSlideshow
-     * @param AdvancedSlideshow|null          $advancedSlideshow
-     * @param Notifications|null              $notifications
-     * @param AfterSoldAction|null            $afterSoldAction
-     * @param Options|null                    $options
-     * @param CampaignStickers|null           $campaignStickers
      */
     private function __construct(
         ?Targeting $targeting,
@@ -264,9 +237,6 @@ final class CampaignWidgets extends AbstractValueObject
         $this->campaignStickers = $campaignStickers;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -296,11 +266,6 @@ final class CampaignWidgets extends AbstractValueObject
         ];
     }
 
-    /**
-     * @param ValueObjectInterface $other
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $other): bool
     {
         if (!$other instanceof self) {
@@ -310,201 +275,126 @@ final class CampaignWidgets extends AbstractValueObject
         return $this->toArray() === $other->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
     }
 
-    /**
-     * @return LandingPage|null
-     */
     public function landingPage(): ?LandingPage
     {
         return $this->landingPage;
     }
 
-    /**
-     * @return CampaignPeriod|null
-     */
     public function campaignPeriod(): ?CampaignPeriod
     {
         return $this->campaignPeriod;
     }
 
-    /**
-     * @return PostFirstVariantToFacebook|null
-     */
     public function postFirstVariantToFacebook(): ?PostFirstVariantToFacebook
     {
         return $this->postFirstVariantToFacebook;
     }
 
-    /**
-     * @return Comment|null
-     */
     public function comment(): ?Comment
     {
         return $this->comment;
     }
 
-    /**
-     * @return CampaignTag|null
-     */
     public function campaignTag(): ?CampaignTag
     {
         return $this->campaignTag;
     }
 
-    /**
-     * @return CampaignTitle|null
-     */
     public function campaignTitle(): ?CampaignTitle
     {
         return $this->campaignTitle;
     }
 
-    /**
-     * @return LocalBoost|null
-     */
     public function localBoost(): ?LocalBoost
     {
         return $this->localBoost;
     }
 
-    /**
-     * @return LocationTargeting|null
-     */
     public function locationTargeting(): ?LocationTargeting
     {
         return $this->locationTargeting;
     }
 
-    /**
-     * @return IndustryAddress|null
-     */
     public function industryAddress(): ?IndustryAddress
     {
         return $this->industryAddress;
     }
 
-    /**
-     * @return Product|null
-     */
     public function product(): ?Product
     {
         return $this->product;
     }
 
-    /**
-     * @return CampaignContent|null
-     */
     public function campaignContent(): ?CampaignContent
     {
         return $this->campaignContent;
     }
 
-    /**
-     * @return CampaignPhases|null
-     */
     public function campaignPhases(): ?CampaignPhases
     {
         return $this->campaignPhases;
     }
 
-    /**
-     * @return OpenHouse|null
-     */
     public function openHouse(): ?OpenHouse
     {
         return $this->openHouse;
     }
 
-    /**
-     * @return NewPrice|null
-     */
     public function newPrice(): ?NewPrice
     {
         return $this->newPrice;
     }
 
-    /**
-     * @return LeadForm|null
-     */
     public function leadForm(): ?LeadForm
     {
         return $this->leadForm;
     }
 
-    /**
-     * @return FacebookSlideshow|null
-     */
     public function facebookSlideshow(): ?FacebookSlideshow
     {
         return $this->facebookSlideshow;
     }
 
-    /**
-     * @return AdvancedSlideshow|null
-     */
     public function advancedSlideshow(): ?AdvancedSlideshow
     {
         return $this->advancedSlideshow;
     }
 
-    /**
-     * @param LocationTargeting $locationTargeting
-     */
     public function updateLocationTargeting(LocationTargeting $locationTargeting)
     {
         $this->locationTargeting = $locationTargeting;
     }
 
-    /**
-     * @param IndustryAddress $industryAddress
-     */
     public function updateIndustryAddress(IndustryAddress $industryAddress)
     {
         $this->industryAddress = $industryAddress;
     }
 
-    /**
-     * @return Targeting|null
-     */
     public function targeting(): ?Targeting
     {
         return $this->targeting;
     }
 
-    /**
-     * @return Notifications|null
-     */
     public function notifications(): ?Notifications
     {
         return $this->notifications;
     }
 
-    /**
-     * @return AfterSoldAction|null
-     */
     public function afterSoldAction(): ?AfterSoldAction
     {
         return $this->afterSoldAction;
     }
 
-    /**
-     * @return Options|null
-     */
     public function options(): ?Options
     {
         return $this->options;
     }
 
-    /**
-     * @return CampaignStickers|null
-     */
     public function campaignStickers(): ?CampaignStickers
     {
         return $this->campaignStickers;

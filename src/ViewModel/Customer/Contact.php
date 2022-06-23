@@ -20,11 +20,6 @@ final class Contact extends AbstractValueObject
      */
     private $email;
 
-    /**
-     * @param array $data
-     *
-     * @return self
-     */
     public static function fromArray(array $data): self
     {
         Assertion::keyExists($data, 'contact_type', null, self::errorPropertyPath());
@@ -38,9 +33,6 @@ final class Contact extends AbstractValueObject
 
     /**
      * Contact constructor.
-     *
-     * @param string  $contactType
-     * @param string $email
      */
     private function __construct(string $contactType, string $email)
     {
@@ -48,9 +40,6 @@ final class Contact extends AbstractValueObject
         $this->email = $email;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -59,11 +48,6 @@ final class Contact extends AbstractValueObject
         ];
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -73,25 +57,16 @@ final class Contact extends AbstractValueObject
         return $this->toArray() === $valueObject->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
     }
 
-    /**
-     * @return string
-     */
     public function contactType(): string
     {
         return $this->contactType;
     }
 
-    /**
-     * @return string
-     */
     public function email(): string
     {
         return $this->email;

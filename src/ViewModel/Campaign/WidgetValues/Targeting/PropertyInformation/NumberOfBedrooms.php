@@ -14,11 +14,6 @@ final class NumberOfBedrooms extends AbstractValueObject
      */
     private $bedrooms;
 
-    /**
-     * @param int $bedrooms
-     *
-     * @return self
-     */
     public static function fromInt(int $bedrooms): self
     {
         return new self($bedrooms);
@@ -26,27 +21,17 @@ final class NumberOfBedrooms extends AbstractValueObject
 
     /**
      * NumberOfBedrooms constructor.
-     *
-     * @param int $bedrooms
      */
     public function __construct(int $bedrooms)
     {
         $this->bedrooms = $bedrooms;
     }
 
-    /**
-     * @return int
-     */
     public function toInt(): int
     {
         return $this->bedrooms;
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -56,9 +41,6 @@ final class NumberOfBedrooms extends AbstractValueObject
         return $this->bedrooms === $valueObject->bedrooms;
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) $this->bedrooms;

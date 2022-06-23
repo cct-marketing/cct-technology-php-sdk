@@ -14,11 +14,6 @@ final class CampaignPhaseCollection extends AbstractValueObject
      */
     private $openHouses;
 
-    /**
-     * @param array $openHouses
-     *
-     * @return self
-     */
     public static function fromArray(array $openHouses): self
     {
         return new self(...array_map(static function (array $openHouse) {
@@ -28,17 +23,12 @@ final class CampaignPhaseCollection extends AbstractValueObject
 
     /**
      * @param OpenHouse ...$openHouses
-     *
-     * @return self
      */
     public static function fromItems(OpenHouse ...$openHouses): self
     {
         return new self(...$openHouses);
     }
 
-    /**
-     * @return self
-     */
     public static function emptyList(): self
     {
         return new self();
@@ -54,11 +44,6 @@ final class CampaignPhaseCollection extends AbstractValueObject
         $this->openHouses = $openHouses;
     }
 
-    /**
-     * @param OpenHouse $openHouse
-     *
-     * @return self
-     */
     public function push(OpenHouse $openHouse): self
     {
         $copy = clone $this;
@@ -67,9 +52,6 @@ final class CampaignPhaseCollection extends AbstractValueObject
         return $copy;
     }
 
-    /**
-     * @return self
-     */
     public function pop(): self
     {
         $copy = clone $this;
@@ -78,17 +60,11 @@ final class CampaignPhaseCollection extends AbstractValueObject
         return $copy;
     }
 
-    /**
-     * @return OpenHouse|null
-     */
     public function first(): ?OpenHouse
     {
         return $this->openHouses[0] ?? null;
     }
 
-    /**
-     * @return OpenHouse|null
-     */
     public function last(): ?OpenHouse
     {
         if (count($this->openHouses) === 0) {
@@ -98,11 +74,6 @@ final class CampaignPhaseCollection extends AbstractValueObject
         return $this->openHouses[count($this->openHouses) - 1];
     }
 
-    /**
-     * @param OpenHouse $openHouse
-     *
-     * @return bool
-     */
     public function contains(OpenHouse $openHouse): bool
     {
         foreach ($this->openHouses as $existingOpenHouse) {
@@ -122,9 +93,6 @@ final class CampaignPhaseCollection extends AbstractValueObject
         return $this->openHouses;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return array_map(
@@ -135,11 +103,6 @@ final class CampaignPhaseCollection extends AbstractValueObject
         );
     }
 
-    /**
-     * @param ValueObjectInterface $other
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $other): bool
     {
         if (!$other instanceof self) {
@@ -149,17 +112,11 @@ final class CampaignPhaseCollection extends AbstractValueObject
         return $this->toArray() === $other->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
     }
 
-    /**
-     * @return int
-     */
     public function count(): int
     {
         return count($this->openHouses);

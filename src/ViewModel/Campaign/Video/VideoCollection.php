@@ -23,11 +23,6 @@ final class VideoCollection extends AbstractValueObject
      */
     private $videos;
 
-    /**
-     * @param array $videos
-     *
-     * @return self
-     */
     public static function fromArray(array $videos): self
     {
         return new self(...array_map(static function (array $video) {
@@ -48,17 +43,12 @@ final class VideoCollection extends AbstractValueObject
 
     /**
      * @param VideoInterface ...$videos
-     *
-     * @return self
      */
     public static function fromItems(VideoInterface ...$videos): self
     {
         return new self(...$videos);
     }
 
-    /**
-     * @return self
-     */
     public static function emptyList(): self
     {
         return new self();
@@ -74,11 +64,6 @@ final class VideoCollection extends AbstractValueObject
         $this->videos = $videos;
     }
 
-    /**
-     * @param VideoInterface $video
-     *
-     * @return self
-     */
     public function push(VideoInterface $video): self
     {
         $copy = clone $this;
@@ -87,9 +72,6 @@ final class VideoCollection extends AbstractValueObject
         return $copy;
     }
 
-    /**
-     * @return self
-     */
     public function pop(): self
     {
         $copy = clone $this;
@@ -98,17 +80,11 @@ final class VideoCollection extends AbstractValueObject
         return $copy;
     }
 
-    /**
-     * @return VideoInterface|null
-     */
     public function first(): ?VideoInterface
     {
         return $this->videos[0] ?? null;
     }
 
-    /**
-     * @return VideoInterface|null
-     */
     public function last(): ?VideoInterface
     {
         if (count($this->videos) === 0) {
@@ -118,11 +94,6 @@ final class VideoCollection extends AbstractValueObject
         return $this->videos[count($this->videos) - 1];
     }
 
-    /**
-     * @param VideoInterface $video
-     *
-     * @return bool
-     */
     public function contains(VideoInterface $video): bool
     {
         foreach ($this->videos as $existingVideo) {
@@ -142,9 +113,6 @@ final class VideoCollection extends AbstractValueObject
         return $this->videos;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return array_map(
@@ -170,11 +138,6 @@ final class VideoCollection extends AbstractValueObject
         );
     }
 
-    /**
-     * @param ValueObjectInterface $other
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $other): bool
     {
         if (!$other instanceof self) {
@@ -184,17 +147,11 @@ final class VideoCollection extends AbstractValueObject
         return $this->toArray() === $other->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
     }
 
-    /**
-     * @return int
-     */
     public function count(): int
     {
         return count($this->videos);

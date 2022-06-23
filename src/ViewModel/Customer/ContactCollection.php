@@ -14,11 +14,6 @@ final class ContactCollection extends AbstractValueObject
      */
     private $contacts;
 
-    /**
-     * @param array $contacts
-     *
-     * @return self
-     */
     public static function fromArray(array $contacts): self
     {
         return new self(...array_map(static function (array $contact) {
@@ -28,17 +23,12 @@ final class ContactCollection extends AbstractValueObject
 
     /**
      * @param Contact ...$contacts
-     *
-     * @return self
      */
     public static function fromItems(Contact ...$contacts): self
     {
         return new self(...$contacts);
     }
 
-    /**
-     * @return self
-     */
     public static function emptyList(): self
     {
         return new self();
@@ -54,11 +44,6 @@ final class ContactCollection extends AbstractValueObject
         $this->contacts = $contacts;
     }
 
-    /**
-     * @param Contact $contact
-     *
-     * @return self
-     */
     public function push(Contact $contact): self
     {
         $copy = clone $this;
@@ -67,9 +52,6 @@ final class ContactCollection extends AbstractValueObject
         return $copy;
     }
 
-    /**
-     * @return self
-     */
     public function pop(): self
     {
         $copy = clone $this;
@@ -78,17 +60,11 @@ final class ContactCollection extends AbstractValueObject
         return $copy;
     }
 
-    /**
-     * @return Contact|null
-     */
     public function first(): ?Contact
     {
         return $this->contacts[0] ?? null;
     }
 
-    /**
-     * @return Contact|null
-     */
     public function last(): ?Contact
     {
         if (count($this->contacts) === 0) {
@@ -98,11 +74,6 @@ final class ContactCollection extends AbstractValueObject
         return $this->contacts[count($this->contacts) - 1];
     }
 
-    /**
-     * @param Contact $contact
-     *
-     * @return bool
-     */
     public function contains(Contact $contact): bool
     {
         foreach ($this->contacts as $existingContact) {
@@ -116,10 +87,6 @@ final class ContactCollection extends AbstractValueObject
 
     /**
      * Get contact at position
-     *
-     * @param int $index
-     *
-     * @return Contact|null
      */
     public function position(int $index): ?Contact
     {
@@ -134,9 +101,6 @@ final class ContactCollection extends AbstractValueObject
         return $this->contacts;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return array_map(static function (Contact $contact) {
@@ -144,11 +108,6 @@ final class ContactCollection extends AbstractValueObject
         }, $this->contacts);
     }
 
-    /**
-     * @param ValueObjectInterface $other
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $other): bool
     {
         if (!$other instanceof self) {
@@ -158,25 +117,16 @@ final class ContactCollection extends AbstractValueObject
         return $this->toArray() === $other->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
     }
 
-    /**
-     * @return int
-     */
     public function count(): int
     {
         return count($this->contacts);
     }
 
-    /**
-     * @return bool
-     */
     public function isEmpty(): bool
     {
         return $this->count() === 0;

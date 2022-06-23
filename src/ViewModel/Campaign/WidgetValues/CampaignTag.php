@@ -19,8 +19,6 @@ final class CampaignTag extends AbstractValueObject
     /**
      * CampaignTag constructor.
      *
-     * @param string $tag
-     *
      * @throws AssertionFailedException
      */
     public function __construct(string $tag)
@@ -29,9 +27,6 @@ final class CampaignTag extends AbstractValueObject
         $this->tag = $tag;
     }
 
-    /**
-     * @return string
-     */
     public function getTag(): string
     {
         return $this->tag;
@@ -46,10 +41,6 @@ final class CampaignTag extends AbstractValueObject
     }
 
     /**
-     * @param string $data
-     *
-     * @return CampaignTag
-     *
      * @throws AssertionFailedException
      */
     public static function fromString(string $data): CampaignTag
@@ -58,8 +49,6 @@ final class CampaignTag extends AbstractValueObject
     }
 
     /**
-     * @param string $tag
-     *
      * @throws AssertionFailedException
      */
     private function guard(string $tag): void
@@ -75,11 +64,6 @@ final class CampaignTag extends AbstractValueObject
         return $this->tag;
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {

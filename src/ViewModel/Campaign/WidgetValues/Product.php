@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace CCT\SDK\CampaignWizard\ViewModel\Campaign\WidgetValues;
 
 use Assert\Assertion;
-use Assert\AssertionFailedException;
 use CCT\Component\ValueObject\ValueObjectInterface;
 use CCT\SDK\CampaignWizard\ValueObject\Price;
 use CCT\SDK\CampaignWizard\ViewModel\Campaign\AbstractValueObject;
@@ -27,15 +26,6 @@ final class Product extends AbstractValueObject
      */
     private $mapTo;
 
-    /**
-     * Product constructor.
-     *
-     * @param string      $name
-     * @param Price|null  $additionalSpending
-     * @param string|null $mapTo
-     *
-     * @throws AssertionFailedException
-     */
     public function __construct(string $name, ?Price $additionalSpending, ?string $mapTo = null)
     {
         $this->guard($name, $mapTo);
@@ -44,11 +34,6 @@ final class Product extends AbstractValueObject
         $this->mapTo = $mapTo;
     }
 
-    /**
-     * @param ValueObjectInterface|CampaignTitle $product
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $product): bool
     {
         if (!$product instanceof self) {
@@ -58,25 +43,21 @@ final class Product extends AbstractValueObject
         return $this->toArray() === $product->toArray();
     }
 
-    /**
-     * @return string
-     */
-    public function getName(): string
+    public function name(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return Price
-     */
-    public function getAdditionalSpending(): ?Price
+    public function additionalSpending(): ?Price
     {
         return $this->additionalSpending;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    public function mapTo(): ?string
+    {
+        return $this->mapTo;
+    }
+
     public function toArray(): array
     {
         return [
@@ -86,13 +67,6 @@ final class Product extends AbstractValueObject
         ];
     }
 
-    /**
-     * @param array $data
-     *
-     * @return self
-     *
-     * @throws AssertionFailedException
-     */
     public static function fromArray(array $data): self
     {
         Assertion::keyExists($data, 'name', null, 'product');
@@ -105,12 +79,6 @@ final class Product extends AbstractValueObject
         );
     }
 
-    /**
-     * @param string      $name
-     * @param string|null $mapTo
-     *
-     * @throws AssertionFailedException
-     */
     private function guard(string $name, ?string $mapTo): void
     {
         Assertion::maxLength($name, 120, null, self::errorPropertyPath());
@@ -120,9 +88,6 @@ final class Product extends AbstractValueObject
         }
     }
 
-    /**
-     * @return string
-     */
     public function __toString()
     {
         return $this->name;

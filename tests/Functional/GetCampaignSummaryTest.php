@@ -14,8 +14,11 @@ final class GetCampaignSummaryTest extends AbstractFunctionalTestCase
 {
     public function testGetCampaignSummary(): void
     {
+        $campaignSummaryResponse = $this->responseText(__DIR__.'/responses/campaign_summary.json');
+        $data = json_decode($campaignSummaryResponse, true);
+
         $mock = new MockHandler(
-            [new Response(200, [], $this->responseText(__DIR__.'/responses/campaign_summary.json'))]
+            [new Response(200, [], $campaignSummaryResponse)]
         );
 
         $client = $this->createCampaignWizardClient($mock);
@@ -26,6 +29,7 @@ final class GetCampaignSummaryTest extends AbstractFunctionalTestCase
             $this->fail($e->getResponse()->getBody()->getContents());
         }
 
-        $this->assertInstanceOf(CampaignSummaryResponse::class, $campaignSummaryResponse);
+
+        $this->assertEquals($data['campaign'], $campaignSummaryResponse->toArray());
     }
 }

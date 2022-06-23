@@ -25,8 +25,6 @@ final class InitialPercentageSize extends AbstractValueObject
     }
 
     /**
-     * @param int $size
-     *
      * @return static
      *
      * @throws AssertionFailedException
@@ -39,8 +37,6 @@ final class InitialPercentageSize extends AbstractValueObject
     /**
      * InitialPercentageSize constructor.
      *
-     * @param int $size
-     *
      * @throws AssertionFailedException
      */
     private function __construct(int $size)
@@ -49,19 +45,11 @@ final class InitialPercentageSize extends AbstractValueObject
         $this->size = $size;
     }
 
-    /**
-     * @return int
-     */
     public function size(): int
     {
         return $this->size;
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -71,17 +59,12 @@ final class InitialPercentageSize extends AbstractValueObject
         return $this->size === $valueObject->size();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) $this->size;
     }
 
     /**
-     * @param int $size
-     *
      * @throws AssertionFailedException
      */
     private function guard(int $size): void

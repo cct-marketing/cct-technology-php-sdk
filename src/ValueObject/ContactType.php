@@ -24,11 +24,6 @@ final class ContactType extends AbstractValueObject
      */
     private $type;
 
-    /**
-     * @param string $type
-     *
-     * @return self
-     */
     public static function fromString(string $type): self
     {
         return new self($type);
@@ -36,8 +31,6 @@ final class ContactType extends AbstractValueObject
 
     /**
      * ContactType constructor.
-     *
-     * @param string $type
      */
     private function __construct(string $type)
     {
@@ -45,27 +38,16 @@ final class ContactType extends AbstractValueObject
         $this->type = $type;
     }
 
-    /**
-     * @return string
-     */
     public function type(): string
     {
         return $this->type;
     }
 
-    /**
-     * @return string
-     */
     public function toString(): string
     {
         return $this->type;
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -75,25 +57,16 @@ final class ContactType extends AbstractValueObject
         return $this->type === $valueObject->type();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return $this->type;
     }
 
-    /**
-     * @param string $type
-     */
     private function guard(string $type): void
     {
         Assertion::inArray($type, $this->typeList(), null, self::errorPropertyPath());
     }
 
-    /**
-     * @return array
-     */
     private function typeList(): array
     {
         return [

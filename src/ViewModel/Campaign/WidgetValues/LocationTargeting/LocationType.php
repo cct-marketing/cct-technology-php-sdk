@@ -21,8 +21,6 @@ final class LocationType extends AbstractValueObject
 
     /**
      * State constructor.
-     *
-     * @param string $type
      */
     public function __construct(string $type)
     {
@@ -30,9 +28,6 @@ final class LocationType extends AbstractValueObject
         $this->type = $type;
     }
 
-    /**
-     * @return null|string
-     */
     public function getType(): ?string
     {
         return $this->type;
@@ -53,8 +48,6 @@ final class LocationType extends AbstractValueObject
 
     /**
      * @param ValueObjectInterface|LocationType $type
-     *
-     * @return bool
      */
     public function equals(ValueObjectInterface $type): bool
     {
@@ -89,25 +82,16 @@ final class LocationType extends AbstractValueObject
         return new static(self::TYPE_AUTOMOTIVE);
     }
 
-    /**
-     * @return bool
-     */
     public function isDefault(): bool
     {
         return $this->equals(static::defaultType());
     }
 
-    /**
-     * @return bool
-     */
     public function isRealEstate(): bool
     {
         return $this->equals(static::realEstate());
     }
 
-    /**
-     * @return bool
-     */
     public function isAutomotive(): bool
     {
         return $this->equals(static::automotive());
@@ -121,19 +105,11 @@ final class LocationType extends AbstractValueObject
         return $this->type;
     }
 
-    /**
-     * @return string
-     */
     public function toString(): string
     {
         return $this->type;
     }
 
-    /**
-     * @param string $string
-     *
-     * @return self
-     */
     public static function fromString(string $string): self
     {
         return new self($string);

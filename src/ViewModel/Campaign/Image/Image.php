@@ -28,9 +28,6 @@ final class Image extends AbstractValueObject
     /**
      * Image constructor
      *
-     * @param Uri    $imageUrl
-     * @param string $uuid
-     *
      * @throws AssertionFailedException
      */
     public function __construct(Uri $imageUrl, string $uuid)
@@ -40,27 +37,16 @@ final class Image extends AbstractValueObject
         $this->imageUrl = $imageUrl;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getImageUrl()
+    public function getImageUrl(): string
     {
         return (string) $this->imageUrl;
     }
 
-    /**
-     * @return string
-     */
     public function getUuid(): string
     {
         return $this->uuid;
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -70,23 +56,11 @@ final class Image extends AbstractValueObject
         return $valueObject->toArray() === $this->toArray();
     }
 
-    /**
-     * @param string $uuid
-     *
-     * @throws AssertionFailedException
-     */
     private function guard($uuid): void
     {
         Assertion::uuid($uuid, null, 'image');
     }
 
-    /**
-     * @param array $data
-     *
-     * @return Image
-     *
-     * @throws AssertionFailedException
-     */
     public static function fromArray(array $data): self
     {
         Assertion::keyExists($data, 'image_url', null, 'image');
@@ -98,9 +72,6 @@ final class Image extends AbstractValueObject
         );
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -109,12 +80,8 @@ final class Image extends AbstractValueObject
         ];
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
     }
 }
-

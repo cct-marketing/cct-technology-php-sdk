@@ -22,9 +22,6 @@ final class Options extends AbstractValueObject
 
     /**
      * Options constructor.
-     *
-     * @param AdvancedSlideshow|null $advancedSlideshow
-     * @param SaveAsTemplate|null    $saveAsTemplate
      */
     public function __construct(?AdvancedSlideshow $advancedSlideshow, ?SaveAsTemplate $saveAsTemplate)
     {
@@ -33,10 +30,6 @@ final class Options extends AbstractValueObject
     }
 
     /**
-     * @param array $data
-     *
-     * @return self
-     *
      * @throws AssertionFailedException
      */
     public static function fromArray(array $data): self
@@ -47,9 +40,6 @@ final class Options extends AbstractValueObject
         );
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -58,11 +48,6 @@ final class Options extends AbstractValueObject
         ];
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -72,25 +57,16 @@ final class Options extends AbstractValueObject
         return $this->toArray() === $valueObject->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
     }
 
-    /**
-     * @return AdvancedSlideshow|null
-     */
     public function advancedSlideshow(): ?AdvancedSlideshow
     {
         return $this->advancedSlideshow;
     }
 
-    /**
-     * @return SaveAsTemplate|null
-     */
     public function saveAsTemplate(): ?SaveAsTemplate
     {
         return $this->saveAsTemplate;

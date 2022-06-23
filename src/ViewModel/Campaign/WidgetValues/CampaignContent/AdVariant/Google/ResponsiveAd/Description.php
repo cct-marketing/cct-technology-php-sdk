@@ -17,10 +17,6 @@ final class Description extends AbstractValueObject
     private $text;
 
     /**
-     * @param string $text
-     *
-     * @return self
-     *
      * @throws AssertionFailedException
      */
     public static function fromString(string $text): self
@@ -31,8 +27,6 @@ final class Description extends AbstractValueObject
     /**
      * Description constructor.
      *
-     * @param string $text
-     *
      * @throws AssertionFailedException
      */
     private function __construct(string $text)
@@ -41,27 +35,16 @@ final class Description extends AbstractValueObject
         $this->text = $text;
     }
 
-    /**
-     * @return string
-     */
     public function text(): string
     {
         return $this->text;
     }
 
-    /**
-     * @return string
-     */
     public function toString(): string
     {
         return $this->text;
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -71,17 +54,12 @@ final class Description extends AbstractValueObject
         return $this->text === $valueObject->text();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return $this->text;
     }
 
     /**
-     * @param string $text
-     *
      * @throws AssertionFailedException
      */
     private function guard(string $text): void
@@ -89,9 +67,6 @@ final class Description extends AbstractValueObject
         Assertion::maxLength($text, 90, null, self::errorPropertyPath());
     }
 
-    /**
-     * @return bool
-     */
     public function notBlank(): bool
     {
         return trim($this->text) !== '';

@@ -5,15 +5,11 @@ declare(strict_types=1);
 namespace CCT\SDK\CampaignWizard\ViewModel\Customer;
 
 use Assert\Assertion;
-use Assert\AssertionFailedException;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 final class Customer
 {
-    /**
-     * @var mixed
-     */
-    private $id;
-
     /**
      * Order code prefix
      *
@@ -68,19 +64,18 @@ final class Customer
     private $business = null;
 
     /**
-     * Customer constructor.
-     *
-     * @param string                 $codePrefix
-     * @param string                 $name
-     * @param string                 $referenceIdentifier
-     * @param bool                   $facebookPageAccessEnabled
-     * @param string|null            $facebookAccountId
-     * @param string|null            $supportEmail
-     * @param ContactCollection|null $contacts
-     * @param string|null            $agencyIdentifier
-     * @param Business|null          $business
+     * @var UuidInterface
      */
+    private $uuid;
+
+    /**
+     * @var UuidInterface|null
+     */
+    private $agencyUuid;
+
     private function __construct(
+        UuidInterface $uuid,
+        ?UuidInterface $agencyUuid,
         string $codePrefix,
         string $name,
         string $referenceIdentifier,
@@ -100,25 +95,13 @@ final class Customer
         $this->contacts = $contacts;
         $this->agencyIdentifier = $agencyIdentifier;
         $this->business = $business;
+        $this->uuid = $uuid;
+        $this->agencyUuid = $agencyUuid;
     }
 
-    /**
-     * Factory method to create customer
-     *
-     * @param string                 $codePrefix
-     * @param string                 $name
-     * @param string                 $referenceIdentifier
-     * @param bool|null              $facebookPageAccessEnabled
-     * @param string|null            $facebookAccountId
-     * @param string|null            $supportEmail
-     * @param ContactCollection|null $contacts
-     * @param string|null            $agencyIdentifier
-     *
-     * @param Business|null          $business
-     *
-     * @return Customer
-     */
     public static function create(
+        UuidInterface $uuid,
+        ?UuidInterface $agencyUuid,
         string $codePrefix,
         string $name,
         string $referenceIdentifier,
@@ -130,6 +113,8 @@ final class Customer
         ?Business $business = null
     ): Customer {
         return new self(
+            $uuid,
+            $agencyUuid,
             $codePrefix,
             $name,
             $referenceIdentifier,
@@ -142,93 +127,51 @@ final class Customer
         );
     }
 
-    /**
-     * @return bool
-     */
     public function hasFacebookPageAccessEnabled(): bool
     {
         return $this->facebookPageAccessEnabled;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCodePrefix(): string
+    public function codePrefix(): string
     {
         return $this->codePrefix;
     }
 
-    /**
-     * @return string
-     */
-    public function getReferenceIdentifier(): string
+    public function referenceIdentifier(): string
     {
         return $this->referenceIdentifier;
     }
 
-    /**
-     * @return string
-     */
-    public function getName(): string
+    public function nme(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getFacebookAccountId(): ?string
+    public function facebookAccountId(): ?string
     {
         return $this->facebookAccountId;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getSupportEmail(): ?string
+    public function supportEmail(): ?string
     {
         return $this->supportEmail;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getContacts(): ?string
+    public function contacts(): ?string
     {
         return $this->contacts;
     }
 
-    /**
-     * @return string|null
-     */
     public function agencyIdentifier(): ?string
     {
         return $this->agencyIdentifier ?? null;
     }
 
-    /**
-     * @return string|null
-     */
     public function business(): ?string
     {
         return $this->business;
     }
 
-    /**
-     * @param array $data
-     *
-     * @return self
-     *
-     * @throws AssertionFailedException
-     */
     public static function fromArray(array $data): self
     {
         Assertion::keyExists($data, 'code_prefix', null, 'customer');
@@ -236,26 +179,27 @@ final class Customer
         Assertion::keyExists($data, 'reference_identifier', null, 'customer');
 
         return new self(
+            Uuid::fromString($data['uuid']),
+            isset($data['agency_uuid']) ? Uuid::fromString($data['agency_uuid']) : null,
             $data['code_prefix'],
             $data['name'],
             $data['reference_identifier'],
             $data['facebook_page_access_enabled'] ?? false,
             $data['facebook_account_id'] ?? null,
-            $data['support_email']?? null,
+            $data['support_email'] ?? null,
             isset($data['contacts'])
                 ? ContactCollection::fromArray($data['contacts']) : null,
-                $data['agency_identifier']?? null,
+            $data['agency_identifier'] ?? null,
             isset($data['business'])
                 ? Business::fromArray($data['business']) : null
         );
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
+            'uuid' => $this->uuid->toString(),
+            'agency_uuid' => $this->agencyUuid->toString(),
             'code_prefix' => $this->codePrefix,
             'name' => $this->name,
             'reference_identifier' => $this->referenceIdentifier,
@@ -268,9 +212,6 @@ final class Customer
         ];
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());

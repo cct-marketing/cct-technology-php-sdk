@@ -17,10 +17,6 @@ final class DescriptionCollection extends AbstractValueObject
     private $descriptions;
 
     /**
-     * @param array $descriptions
-     *
-     * @return self
-     *
      * @throws AssertionFailedException
      */
     public static function fromArray(array $descriptions): self
@@ -33,8 +29,6 @@ final class DescriptionCollection extends AbstractValueObject
     /**
      * @param Description ...$descriptions
      *
-     * @return self
-     *
      * @throws AssertionFailedException
      */
     public static function fromItems(Description ...$descriptions): self
@@ -42,9 +36,6 @@ final class DescriptionCollection extends AbstractValueObject
         return new self(...$descriptions);
     }
 
-    /**
-     * @return self
-     */
     public static function emptyList(): self
     {
         return new self();
@@ -64,10 +55,6 @@ final class DescriptionCollection extends AbstractValueObject
     }
 
     /**
-     * @param int $defaultShortHeadline
-     *
-     * @return self
-     *
      * @throws AssertionFailedException
      */
     public static function createEmptyValues(int $defaultShortHeadline): self
@@ -77,11 +64,6 @@ final class DescriptionCollection extends AbstractValueObject
         return self::fromArray($emptyStrings);
     }
 
-    /**
-     * @param Description $description
-     *
-     * @return self
-     */
     public function push(Description $description): self
     {
         $copy = clone $this;
@@ -90,9 +72,6 @@ final class DescriptionCollection extends AbstractValueObject
         return $copy;
     }
 
-    /**
-     * @return self
-     */
     public function pop(): self
     {
         $copy = clone $this;
@@ -101,17 +80,11 @@ final class DescriptionCollection extends AbstractValueObject
         return $copy;
     }
 
-    /**
-     * @return Description|null
-     */
     public function first(): ?Description
     {
         return $this->descriptions[0] ?? null;
     }
 
-    /**
-     * @return Description|null
-     */
     public function last(): ?Description
     {
         if (count($this->descriptions) === 0) {
@@ -121,11 +94,6 @@ final class DescriptionCollection extends AbstractValueObject
         return $this->descriptions[count($this->descriptions) - 1];
     }
 
-    /**
-     * @param Description $description
-     *
-     * @return bool
-     */
     public function contains(Description $description): bool
     {
         foreach ($this->descriptions as $existingDescription) {
@@ -145,9 +113,6 @@ final class DescriptionCollection extends AbstractValueObject
         return $this->descriptions;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return array_map(
@@ -158,11 +123,6 @@ final class DescriptionCollection extends AbstractValueObject
         );
     }
 
-    /**
-     * @param ValueObjectInterface $other
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $other): bool
     {
         if (!$other instanceof self) {
@@ -172,17 +132,11 @@ final class DescriptionCollection extends AbstractValueObject
         return $this->toArray() === $other->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
     }
 
-    /**
-     * @return int
-     */
     public function count(): int
     {
         return count($this->descriptions);
@@ -213,8 +167,6 @@ final class DescriptionCollection extends AbstractValueObject
     }
 
     /**
-     * @return self
-     *
      * @throws AssertionFailedException
      */
     public function removeBlankText(): self

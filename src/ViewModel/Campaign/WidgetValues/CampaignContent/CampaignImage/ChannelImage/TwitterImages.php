@@ -19,19 +19,12 @@ final class TwitterImages extends AbstractValueObject implements ImageChannelInt
 
     /**
      * TwitterImages constructor.
-     *
-     * @param ImageCollection $images
      */
     public function __construct(ImageCollection $images)
     {
         $this->images = $images;
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -41,11 +34,6 @@ final class TwitterImages extends AbstractValueObject implements ImageChannelInt
         return $this->toArray() === $valueObject->toArray();
     }
 
-    /**
-     * @param array $data
-     *
-     * @return self
-     */
     public static function fromArray(array $data): self
     {
         Assertion::keyExists($data, 'images', null, 'twitter_images');
@@ -55,9 +43,6 @@ final class TwitterImages extends AbstractValueObject implements ImageChannelInt
         );
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -65,9 +50,6 @@ final class TwitterImages extends AbstractValueObject implements ImageChannelInt
         ];
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
@@ -83,17 +65,12 @@ final class TwitterImages extends AbstractValueObject implements ImageChannelInt
 
     /**
      * Return the channel name.
-     *
-     * @return ChannelName
      */
     public function getChannelName(): ChannelName
     {
         return new ChannelName('twitter');
     }
 
-    /**
-     * @return ImageCollection
-     */
     public function images(): ImageCollection
     {
         return $this->images;

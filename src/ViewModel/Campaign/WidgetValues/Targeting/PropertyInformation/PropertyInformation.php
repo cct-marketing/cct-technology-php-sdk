@@ -24,11 +24,6 @@ final class PropertyInformation extends AbstractValueObject
      */
     private $numberOfBedrooms;
 
-    /**
-     * @param array $data
-     *
-     * @return self
-     */
     public static function fromArray(array $data): self
     {
         return new self(
@@ -40,10 +35,6 @@ final class PropertyInformation extends AbstractValueObject
 
     /**
      * PropertyInformation constructor.
-     *
-     * @param PropertyPrice|null    $propertyPrice
-     * @param PropertySize|null     $propertySize
-     * @param NumberOfBedrooms|null $numberOfBedrooms
      */
     private function __construct(
         ?PropertyPrice $propertyPrice,
@@ -55,9 +46,6 @@ final class PropertyInformation extends AbstractValueObject
         $this->numberOfBedrooms = $numberOfBedrooms;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -67,11 +55,6 @@ final class PropertyInformation extends AbstractValueObject
         ];
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -81,33 +64,21 @@ final class PropertyInformation extends AbstractValueObject
         return $this->toArray() === $valueObject->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
     }
 
-    /**
-     * @return PropertyPrice|null
-     */
     public function propertyPrice(): ?PropertyPrice
     {
         return $this->propertyPrice;
     }
 
-    /**
-     * @return PropertySize|null
-     */
     public function propertySize(): ?PropertySize
     {
         return $this->propertySize;
     }
 
-    /**
-     * @return NumberOfBedrooms|null
-     */
     public function numberOfBedrooms(): ?NumberOfBedrooms
     {
         return $this->numberOfBedrooms;

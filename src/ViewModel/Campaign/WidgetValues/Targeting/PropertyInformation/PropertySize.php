@@ -14,11 +14,6 @@ final class PropertySize extends AbstractValueObject
      */
     private $size;
 
-    /**
-     * @param int $size
-     *
-     * @return self
-     */
     public static function fromInt(int $size): self
     {
         return new self($size);
@@ -26,27 +21,17 @@ final class PropertySize extends AbstractValueObject
 
     /**
      * Size constructor.
-     *
-     * @param int $size
      */
     public function __construct(int $size)
     {
         $this->size = $size;
     }
 
-    /**
-     * @return int
-     */
     public function toInt(): int
     {
         return $this->size;
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -56,9 +41,6 @@ final class PropertySize extends AbstractValueObject
         return $this->toInt() === $valueObject->toInt();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) $this->size;

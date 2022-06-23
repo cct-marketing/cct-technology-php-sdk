@@ -33,11 +33,6 @@ final class LocationTargeting extends AbstractValueObject
      */
     private $locations;
 
-    /**
-     * @param array $locations
-     *
-     * @return self
-     */
     public static function fromArray(array $locations): self
     {
         return new self(...array_map(static function (array $location) {
@@ -47,17 +42,12 @@ final class LocationTargeting extends AbstractValueObject
 
     /**
      * @param Location ...$locations
-     *
-     * @return self
      */
     public static function fromItems(Location ...$locations): self
     {
         return new self(...$locations);
     }
 
-    /**
-     * @return self
-     */
     public static function emptyList(): self
     {
         return new self();
@@ -73,11 +63,6 @@ final class LocationTargeting extends AbstractValueObject
         $this->locations = $locations;
     }
 
-    /**
-     * @param Location $location
-     *
-     * @return self
-     */
     public function push(Location $location): self
     {
         $copy = clone $this;
@@ -86,9 +71,6 @@ final class LocationTargeting extends AbstractValueObject
         return $copy;
     }
 
-    /**
-     * @return self
-     */
     public function pop(): self
     {
         $copy = clone $this;
@@ -97,17 +79,11 @@ final class LocationTargeting extends AbstractValueObject
         return $copy;
     }
 
-    /**
-     * @return Location|null
-     */
     public function first(): ?Location
     {
         return $this->locations[0] ?? null;
     }
 
-    /**
-     * @return Location|null
-     */
     public function last(): ?Location
     {
         if (count($this->locations) === 0) {
@@ -117,11 +93,6 @@ final class LocationTargeting extends AbstractValueObject
         return $this->locations[count($this->locations) - 1];
     }
 
-    /**
-     * @param Location $location
-     *
-     * @return bool
-     */
     public function contains(Location $location): bool
     {
         foreach ($this->locations as $existingLocation) {
@@ -141,9 +112,6 @@ final class LocationTargeting extends AbstractValueObject
         return $this->locations;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return array_map(static function (Location $location) {
@@ -151,11 +119,6 @@ final class LocationTargeting extends AbstractValueObject
         }, $this->locations);
     }
 
-    /**
-     * @param ValueObjectInterface $other
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $other): bool
     {
         if (!$other instanceof self) {
@@ -165,17 +128,11 @@ final class LocationTargeting extends AbstractValueObject
         return $this->toArray() === $other->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
     }
 
-    /**
-     * @return int
-     */
     public function count(): int
     {
         return count($this->locations);

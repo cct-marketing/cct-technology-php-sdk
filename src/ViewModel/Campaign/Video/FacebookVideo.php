@@ -31,10 +31,6 @@ final class FacebookVideo extends AbstractValueObject implements VideoInterface
     private $thumbnail;
 
     /**
-     * @param string $videoId
-     * @param Uri    $thumbnail
-     * @param string $uuid
-     *
      * @return static
      *
      * @throws AssertionFailedException
@@ -47,10 +43,6 @@ final class FacebookVideo extends AbstractValueObject implements VideoInterface
     /**
      * FacebookVideo constructor
      *
-     * @param string $videoId
-     * @param Uri    $thumbnail
-     * @param string $uuid
-     *
      * @throws AssertionFailedException
      */
     private function __construct(string $videoId, Uri $thumbnail, string $uuid)
@@ -61,25 +53,16 @@ final class FacebookVideo extends AbstractValueObject implements VideoInterface
         $this->thumbnail = $thumbnail;
     }
 
-    /**
-     * @return string
-     */
     public function uuid(): string
     {
         return $this->uuid;
     }
 
-    /**
-     * @return string
-     */
     public function videoId(): string
     {
         return $this->videoId;
     }
 
-    /**
-     * @return Uri
-     */
     public function thumbnail(): Uri
     {
         return $this->thumbnail;
@@ -87,8 +70,6 @@ final class FacebookVideo extends AbstractValueObject implements VideoInterface
 
     /**
      * @param ValueObjectInterface|self $valueObject
-     *
-     * @return bool
      */
     public function equals(ValueObjectInterface $valueObject): bool
     {
@@ -110,10 +91,6 @@ final class FacebookVideo extends AbstractValueObject implements VideoInterface
     }
 
     /**
-     * @param mixed $data
-     *
-     * @return self
-     *
      * @throws AssertionFailedException
      */
     public static function deserialize($data): self
@@ -124,9 +101,6 @@ final class FacebookVideo extends AbstractValueObject implements VideoInterface
     }
 
     /**
-     * @param string $uuid
-     * @param string $videoId
-     *
      * @throws AssertionFailedException
      */
     private function guard(string $videoId, string $uuid)
@@ -136,8 +110,6 @@ final class FacebookVideo extends AbstractValueObject implements VideoInterface
     }
 
     /**
-     * @param array $data
-     *
      * @return FacebookVideo
      *
      * @throws AssertionFailedException
@@ -155,9 +127,6 @@ final class FacebookVideo extends AbstractValueObject implements VideoInterface
         );
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -167,9 +136,6 @@ final class FacebookVideo extends AbstractValueObject implements VideoInterface
         ];
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());

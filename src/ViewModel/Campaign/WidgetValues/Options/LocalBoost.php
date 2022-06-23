@@ -27,11 +27,6 @@ final class LocalBoost extends AbstractEnabled
 
     /**
      * Comment constructor.
-     *
-     * @param mixed       $enabled
-     * @param string|null $heading
-     * @param string|null $text
-     * @param string|null $description
      */
     public function __construct($enabled, ?string $heading = null, ?string $text = null, ?string $description = null)
     {
@@ -44,8 +39,6 @@ final class LocalBoost extends AbstractEnabled
 
     /**
      * @param ValueObjectInterface|LocalBoost $valueObject
-     *
-     * @return bool
      */
     public function equals(ValueObjectInterface $valueObject): bool
     {
@@ -56,25 +49,16 @@ final class LocalBoost extends AbstractEnabled
         return $this->toArray() === $valueObject->toArray();
     }
 
-    /**
-     * @return string|null
-     */
     public function getHeading(): ?string
     {
         return $this->heading;
     }
 
-    /**
-     * @return string|null
-     */
     public function getText(): ?string
     {
         return $this->text;
     }
 
-    /**
-     * @return string|null
-     */
     public function getDescription(): ?string
     {
         return $this->description;
@@ -108,11 +92,6 @@ final class LocalBoost extends AbstractEnabled
         );
     }
 
-    /**
-     * @param string|null $heading
-     * @param string|null $text
-     * @param string|null $description
-     */
     private function guard(?string $heading, ?string $text, ?string $description)
     {
         Assertion::nullOrMaxLength($heading, 50);

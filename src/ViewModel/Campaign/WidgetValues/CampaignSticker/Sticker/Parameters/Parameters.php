@@ -25,11 +25,6 @@ final class Parameters extends AbstractValueObject
 
     /**
      * Parameters constructor.
-     *
-     * @param Mark                     $mark
-     * @param MarkAlignCollection|null $markAlign
-     * @param Markfit|null             $markfit
-     * @param MarkWidth|null           $markWidth
      */
     private function __construct(
         Mark $mark,
@@ -44,8 +39,6 @@ final class Parameters extends AbstractValueObject
     }
 
     /**
-     * @param array $data
-     *
      * @return static
      *
      * @throws AssertionFailedException
@@ -62,43 +55,26 @@ final class Parameters extends AbstractValueObject
         );
     }
 
-    /**
-     * @return Mark
-     */
     public function mark(): Mark
     {
         return $this->mark;
     }
 
-    /**
-     * @return MarkAlignCollection|null
-     */
     public function markAlign(): ?MarkAlignCollection
     {
         return $this->markAlign;
     }
 
-    /**
-     * @return Markfit|null
-     */
     public function markfit(): ?Markfit
     {
         return $this->markfit;
     }
 
-    /**
-     * @return MarkWidth|null
-     */
     public function markWidth(): ?MarkWidth
     {
         return $this->markWidth;
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -110,8 +86,6 @@ final class Parameters extends AbstractValueObject
 
     /**
      * Serialize object into an array or string
-     *
-     * @return array
      */
     public function serialize(): array
     {
@@ -119,10 +93,6 @@ final class Parameters extends AbstractValueObject
     }
 
     /**
-     * @param mixed $data
-     *
-     * @return self
-     *
      * @throws AssertionFailedException
      */
     public static function deserialize($data): self
@@ -132,9 +102,6 @@ final class Parameters extends AbstractValueObject
         return self::fromArray($data);
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -145,9 +112,6 @@ final class Parameters extends AbstractValueObject
         ];
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());

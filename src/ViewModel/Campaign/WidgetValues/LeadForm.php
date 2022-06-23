@@ -26,9 +26,6 @@ final class LeadForm extends AbstractValueObject
     /**
      * LeadForm constructor.
      *
-     * @param UuidInterface $uuid
-     * @param string        $formId
-     *
      * @throws AssertionFailedException
      */
     public function __construct(UuidInterface $uuid, string $formId)
@@ -53,8 +50,6 @@ final class LeadForm extends AbstractValueObject
 
     /**
      * @param ValueObjectInterface|LeadForm $valueObject
-     *
-     * @return bool
      */
     public function equals(ValueObjectInterface $valueObject): bool
     {
@@ -67,8 +62,6 @@ final class LeadForm extends AbstractValueObject
 
     /**
      * @param mixed $data
-     *
-     * @return self
      *
      * @throws AssertionFailedException
      */
@@ -85,8 +78,6 @@ final class LeadForm extends AbstractValueObject
     }
 
     /**
-     * @param string $formId
-     *
      * @throws AssertionFailedException
      */
     private function guard(string $formId): void
@@ -94,17 +85,11 @@ final class LeadForm extends AbstractValueObject
         Assertion::numeric($formId, null, 'lead_form');
     }
 
-    /**
-     * @return string
-     */
     public function formId(): string
     {
         return $this->formId;
     }
 
-    /**
-     * @return UuidInterface
-     */
     public function uuid(): UuidInterface
     {
         return $this->uuid;

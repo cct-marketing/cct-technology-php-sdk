@@ -15,11 +15,6 @@ final class Targeting extends AbstractValueObject
      */
     private $propertyInformation;
 
-    /**
-     * @param array $data
-     *
-     * @return self
-     */
     public static function fromArray(array $data): self
     {
         return new self(
@@ -38,9 +33,6 @@ final class Targeting extends AbstractValueObject
         $this->propertyInformation = $propertyInformation;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -48,11 +40,6 @@ final class Targeting extends AbstractValueObject
         ];
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -62,9 +49,6 @@ final class Targeting extends AbstractValueObject
         return $this->toArray() === $valueObject->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());

@@ -35,11 +35,6 @@ final class Price extends AbstractValueObject
 
     /**
      * Price constructor.
-     *
-     * @param int    $amount
-     * @param string $currency
-     * @param float  $vat
-     * @param int    $amountExVat
      */
     public function __construct(int $amount, string $currency, float $vat, int $amountExVat)
     {
@@ -51,8 +46,6 @@ final class Price extends AbstractValueObject
 
     /**
      * @param ValueObjectInterface | Price $valueObject
-     *
-     * @return bool
      */
     public function equals(ValueObjectInterface $valueObject): bool
     {
@@ -65,8 +58,6 @@ final class Price extends AbstractValueObject
 
     /**
      * Serialize object into an array or string
-     *
-     * @return array
      */
     public function toArray(): array
     {
@@ -80,8 +71,6 @@ final class Price extends AbstractValueObject
 
     /**
      * @param mixed $data
-     *
-     * @return self
      *
      * @throws AssertionFailedException
      */
@@ -100,33 +89,21 @@ final class Price extends AbstractValueObject
         );
     }
 
-    /**
-     * @return int
-     */
     public function amount(): int
     {
         return $this->amount;
     }
 
-    /**
-     * @return string
-     */
     public function currency(): string
     {
         return $this->currency;
     }
 
-    /**
-     * @return float
-     */
     public function vat(): float
     {
         return $this->vat;
     }
 
-    /**
-     * @return int
-     */
     public function amountExVat(): int
     {
         return $this->amountExVat;

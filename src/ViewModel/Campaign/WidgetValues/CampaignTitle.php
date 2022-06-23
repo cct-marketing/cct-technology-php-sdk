@@ -19,8 +19,6 @@ final class CampaignTitle extends AbstractValueObject
     /**
      * CampaignTitle constructor.
      *
-     * @param string $title
-     *
      * @throws AssertionFailedException
      */
     public function __construct(string $title)
@@ -31,8 +29,6 @@ final class CampaignTitle extends AbstractValueObject
 
     /**
      * @param ValueObjectInterface|CampaignTitle $product
-     *
-     * @return bool
      */
     public function equals(ValueObjectInterface $product): bool
     {
@@ -43,9 +39,6 @@ final class CampaignTitle extends AbstractValueObject
         return $this->title === $product->getTitle();
     }
 
-    /**
-     * @return string
-     */
     public function getTitle(): string
     {
         return $this->title;
@@ -59,19 +52,12 @@ final class CampaignTitle extends AbstractValueObject
         return $this->title;
     }
 
-    /**
-     * @param string $data
-     *
-     * @return CampaignTitle
-     */
     public static function fromString(string $data): CampaignTitle
     {
         return new self($data);
     }
 
     /**
-     * @param string $title
-     *
      * @throws AssertionFailedException
      */
     private function guard(string $title): void

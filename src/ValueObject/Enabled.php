@@ -15,21 +15,11 @@ class Enabled extends AbstractValueObject
      */
     private $enabled;
 
-    /**
-     * @param bool $enabled
-     *
-     * @return self
-     */
     public static function fromBool(bool $enabled): self
     {
         return new self($enabled);
     }
 
-    /**
-     * @param mixed $enabled
-     *
-     * @return self
-     */
     public static function fromMixed($enabled): self
     {
         return new self($enabled);
@@ -37,8 +27,6 @@ class Enabled extends AbstractValueObject
 
     /**
      * Enabled constructor.
-     *
-     * @param mixed $enabled
      */
     public function __construct($enabled)
     {
@@ -46,19 +34,11 @@ class Enabled extends AbstractValueObject
         $this->enabled = in_array($enabled, [true, 1, 'true', '1'], true);
     }
 
-    /**
-     * @return bool
-     */
     public function toBool(): bool
     {
         return $this->enabled;
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -68,17 +48,11 @@ class Enabled extends AbstractValueObject
         return $this->enabled === $valueObject->isEnabled();
     }
 
-    /**
-     * @return bool
-     */
     public function isEnabled(): bool
     {
         return $this->enabled;
     }
 
-    /**
-     * @param mixed $enabled
-     */
     private function guard($enabled)
     {
         Assertion::inArray($enabled, [true, false, 'true', 'false', '0', '1', 0, 1]);

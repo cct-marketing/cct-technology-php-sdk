@@ -64,16 +64,6 @@ class CampaignContent extends AbstractValueObject
 
     /**
      * CampaignContent constructor.
-     *
-     * @param CampaignImages|null             $campaignImages
-     * @param CampaignVideos|null             $campaignVideos
-     * @param FacebookAdVariants|null         $facebookAdVariants
-     * @param FacebookCarouselVariants|null   $facebookCarouselVariants
-     * @param AdText|null                     $adText
-     * @param LinkedInAdVariants|null         $linkedInAdVariants
-     * @param GoogleAdVariants|null           $googleAdVariants
-     * @param TwitterAdVariants|null          $twitterAdVariants
-     * @param GoogleResponsiveAdVariants|null $googleResponsiveAdVariants
      */
     public function __construct(
         ?CampaignImages $campaignImages,
@@ -98,8 +88,6 @@ class CampaignContent extends AbstractValueObject
     }
 
     /**
-     * @param array $data
-     *
      * @return CampaignContent
      */
     public static function fromArray(array $data): self
@@ -121,9 +109,6 @@ class CampaignContent extends AbstractValueObject
         );
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -141,11 +126,6 @@ class CampaignContent extends AbstractValueObject
         ];
     }
 
-    /**
-     * @param ValueObjectInterface $other
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $other): bool
     {
         if (!$other instanceof self) {
@@ -155,81 +135,51 @@ class CampaignContent extends AbstractValueObject
         return $this->toArray() === $other->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
     }
 
-    /**
-     * @return CampaignImages|null
-     */
     public function campaignImages(): ?CampaignImages
     {
         return $this->campaignImages;
     }
 
-    /**
-     * @return CampaignVideos|null
-     */
     public function campaignVideos(): ?CampaignVideos
     {
         return $this->campaignVideos;
     }
 
-    /**
-     * @return FacebookAdVariants|null
-     */
     public function facebookAdVariants(): ?FacebookAdVariants
     {
         return $this->facebookAdVariants;
     }
 
-    /**
-     * @return FacebookCarouselVariants|null
-     */
     public function facebookCarouselVariants(): ?FacebookCarouselVariants
     {
         return $this->facebookCarouselVariants;
     }
 
-    /**
-     * @return AdText|null
-     */
     public function adText(): ?AdText
     {
         return $this->adText;
     }
 
-    /**
-     * @return LinkedInAdVariants|null
-     */
     public function linkedInAdVariants(): ?LinkedInAdVariants
     {
         return $this->linkedInAdVariants;
     }
 
-    /**
-     * @return GoogleAdVariants|null
-     */
     public function googleAdVariants(): ?GoogleAdVariants
     {
         return $this->googleAdVariants;
     }
 
-    /**
-     * @return TwitterAdVariants|null
-     */
     public function twitterAdVariants(): ?TwitterAdVariants
     {
         return $this->twitterAdVariants;
     }
 
-    /**
-     * @return GoogleResponsiveAdVariants|null
-     */
     public function googleResponsiveAdVariants(): ?GoogleResponsiveAdVariants
     {
         return $this->googleResponsiveAdVariants;

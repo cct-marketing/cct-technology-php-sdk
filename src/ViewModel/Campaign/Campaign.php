@@ -9,18 +9,18 @@ use CCT\SDK\CampaignWizard\ValueObject\Price;
 use CCT\SDK\CampaignWizard\ViewModel\Campaign\ItemPrice\ItemizedPricing;
 use CCT\SDK\CampaignWizard\ViewModel\Customer\Customer;
 use CCT\SDK\CampaignWizard\ViewModel\User;
-use DateTimeInterface;
 use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 class Campaign
 {
     /**
-     * @var string
+     * @var UuidInterface
      */
     private $uuid;
 
     /**
-     * @var string
+     * @var UuidInterface
      */
     private $campaignFlowUuid;
 
@@ -30,22 +30,22 @@ class Campaign
     private $campaignFlowVersion;
 
     /**
-     * @var DateTimeInterface
+     * @var DateTimeStamp
      */
     private $createdAt;
 
     /**
-     * @var DateTimeInterface|null
+     * @var DateTimeStamp|null
      */
     private $updatedAt;
 
     /**
-     * @var DateTimeInterface|null
+     * @var DateTimeStamp|null
      */
     private $expiresAt;
 
     /**
-     * @var string | null
+     * @var UuidInterface | null
      */
     private $dataImportId;
 
@@ -70,7 +70,7 @@ class Campaign
     private $totalPrice;
 
     /**
-     * @var array | null
+     * @var ItemizedPricing | null
      */
     private $itemizedPricing;
 
@@ -94,157 +94,103 @@ class Campaign
      */
     private $metadata;
 
-    /**
-     * @return string
-     */
-    public function getUuid(): string
+    public function uuid(): UuidInterface
     {
         return $this->uuid;
     }
 
-    /**
-     * @return string
-     */
-    public function getCampaignFlowUuid(): string
+    public function campaignFlowUuid(): UuidInterface
     {
         return $this->campaignFlowUuid;
     }
 
-    /**
-     * @return int
-     */
     public function getCampaignFlowVersion(): int
     {
         return $this->campaignFlowVersion;
     }
 
-    /**
-     * @return DateTimeInterface
-     */
-    public function getCreatedAt(): DateTimeInterface
+    public function createdAt(): DateTimeStamp
     {
         return $this->createdAt;
     }
 
-    /**
-     * @return DateTimeInterface|null
-     */
-    public function getUpdatedAt(): ?DateTimeInterface
+    public function updatedAt(): ?DateTimeStamp
     {
         return $this->updatedAt;
     }
 
-    /**
-     * @return DateTimeInterface|null
-     */
-    public function getExpiresAt(): ?DateTimeInterface
+    public function expiresAt(): ?DateTimeStamp
     {
         return $this->expiresAt;
     }
 
-    /**
-     * @return Customer|null
-     */
-    public function getCustomer(): ?Customer
+    public function customer(): ?Customer
     {
         return $this->customer;
     }
 
-    /**
-     * @return User|null
-     */
-    public function getUser(): ?User
+    public function user(): ?User
     {
         return $this->user;
     }
 
-    /**
-     * @return string
-     */
-    public function getState(): string
+    public function state(): string
     {
         return $this->state;
     }
 
-    /**
-     * @return Price|null
-     */
-    public function getTotalPrice(): ?Price
+    public function totalPrice(): ?Price
     {
         return $this->totalPrice;
     }
 
-    /**
-     * @return array|null
-     */
-    public function getItemizedPricing(): ?array
+    public function itemizedPricing(): ?ItemizedPricing
     {
         return $this->itemizedPricing;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getDataImportId(): ?string
+    public function dataImportId(): ?UuidInterface
     {
         return $this->dataImportId;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getOrderNumber(): ?string
+    public function orderNumber(): ?string
     {
         return $this->orderNumber;
     }
 
-    /**
-     * @return string
-     */
-    public function getCallbackUrl(): string
+    public function callbackUrl(): string
     {
         return $this->callbackUrl;
     }
 
-    /**
-     * @return CampaignWidgets|null
-     */
-    public function getCampaignWidgets(): ?CampaignWidgets
+    public function campaignWidgets(): ?CampaignWidgets
     {
         return $this->campaignWidgets;
     }
 
-
-    /**
-     * @return Metadata|null
-     */
     public function metadata(): ?Metadata
     {
         return $this->metadata;
     }
 
-    /**
-     * Serialize object into an array or string
-     *
-     * @return array
-     */
     public function toArray(): array
     {
         $widgets = $this->campaignWidgets ? $this->campaignWidgets->toArray() : [];
 
         return [
-            'uuid' => $this->uuid,
-            'campaign_flow_uuid' => $this->campaignFlowUuid,
+            'uuid' => $this->uuid->toString(),
+            'campaign_flow_uuid' => $this->campaignFlowUuid->toString(),
             'campaign_flow_version' => $this->campaignFlowVersion,
-            'created_at' => $this->createdAt,
-            'updated_at' => $this->updatedAt,
-            'expires_at' => $this->expiresAt,
+            'created_at' => $this->createdAt->toString(),
+            'updated_at' => null,
+            'expires_at' => $this->expiresAt->toString(),
             'order_number' => $this->orderNumber,
             'state' => $this->state,
-            'data_import_id' => $this->dataImportId,
+            'data_import_id' => $this->dataImportId->toString(),
             'customer' => $this->customer ? $this->customer->toArray() : null,
-            'total_price' => $this->totalPrice,
-            'itemized_pricing' => $this->itemizedPricing,
+            'total_price' => $this->totalPrice->toArray(),
+            'itemized_pricing' => $this->itemizedPricing->toArray(),
             'user' => $this->user ? $this->user->toArray() : null,
             'callback_url' => $this->callbackUrl,
             'campaign_widgets' => $widgets,
@@ -252,11 +198,6 @@ class Campaign
         ];
     }
 
-    /**
-     * @param array $data
-     *
-     * @return self
-     */
     public static function fromArray(array $data): self
     {
         $self = new self();
@@ -278,7 +219,7 @@ class Campaign
         $self->user = isset($data['user']) ? User::fromArray($data['user']) : null;
         $self->callbackUrl = $data['callback_url'];
 
-        $self->campaignWidgets = CampaignWidgets::fromArray($data);
+        $self->campaignWidgets = CampaignWidgets::fromArray($data['campaign_widgets']);
         $self->metadata = isset($data['metadata']) ? Metadata::fromArray($data['metadata']) : null;
 
         return $self;

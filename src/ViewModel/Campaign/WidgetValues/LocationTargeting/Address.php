@@ -7,7 +7,6 @@ namespace CCT\SDK\CampaignWizard\ViewModel\Campaign\WidgetValues\LocationTargeti
 use Assert\AssertionFailedException;
 use CCT\Component\ValueObject\ValueObjectInterface;
 use CCT\SDK\CampaignWizard\ViewModel\Campaign\AbstractValueObject;
-
 use function implode;
 
 /**
@@ -67,15 +66,6 @@ final class Address extends AbstractValueObject
 
     /**
      * Address constructor.
-     *
-     * @param string|null  $streetNumber
-     * @param string|null  $streetName
-     * @param string|null  $neighborhood
-     * @param string|null  $locality
-     * @param string|null  $region
-     * @param string|null  $postalCode
-     * @param Country|null $country
-     * @param string|null  $formattedAddress
      */
     public function __construct(
         string $streetNumber = null,
@@ -119,8 +109,6 @@ final class Address extends AbstractValueObject
 
     /**
      * @param ValueObjectInterface | Address $valueObject
-     *
-     * @return bool
      */
     public function equals(ValueObjectInterface $valueObject): bool
     {
@@ -187,9 +175,6 @@ final class Address extends AbstractValueObject
         return $this->country;
     }
 
-    /**
-     * @return string
-     */
     public function getFormattedAddress(): string
     {
         return $this->formattedAddress;
@@ -214,8 +199,6 @@ final class Address extends AbstractValueObject
 
     /**
      * @param mixed $data
-     *
-     * @return self
      *
      * @throws AssertionFailedException
      */

@@ -34,9 +34,6 @@ final class Location extends AbstractValueObject
     /**
      * Location constructor.
      *
-     * @param string       $address
-     * @param Coordinate   $coordinate
-     * @param Radius       $radius
      * @param LocationType $type
      */
     public function __construct(
@@ -51,11 +48,6 @@ final class Location extends AbstractValueObject
         $this->type = $type ?? LocationType::defaultType();
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -65,43 +57,27 @@ final class Location extends AbstractValueObject
         return $this->toArray() === $valueObject->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function getAddress(): string
     {
         return $this->address;
     }
 
-    /**
-     * @return Coordinate
-     */
     public function getCoordinate(): Coordinate
     {
         return $this->coordinate;
     }
 
-    /**
-     * @return Radius
-     */
     public function getRadius(): Radius
     {
         return $this->radius;
     }
 
-    /**
-     * @return LocationType
-     */
     public function getType(): LocationType
     {
         return $this->type;
     }
 
     /**
-     * @param array $data
-     *
-     * @return self
-     *
      * @throws AssertionFailedException
      */
     public static function fromArray(array $data): self
@@ -119,9 +95,6 @@ final class Location extends AbstractValueObject
         );
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -132,9 +105,6 @@ final class Location extends AbstractValueObject
         ];
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());

@@ -25,9 +25,6 @@ final class SaveAsTemplate extends AbstractValueObject
     /**
      * SaveAsTemplate constructor.
      *
-     * @param Enabled     $enabled
-     * @param string|null $name
-     *
      * @throws AssertionFailedException
      */
     private function __construct(Enabled $enabled, ?string $name = null)
@@ -39,10 +36,6 @@ final class SaveAsTemplate extends AbstractValueObject
     }
 
     /**
-     * @param array $data
-     *
-     * @return self
-     *
      * @throws AssertionFailedException
      */
     public static function fromArray(array $data): self
@@ -56,9 +49,6 @@ final class SaveAsTemplate extends AbstractValueObject
         );
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -67,11 +57,6 @@ final class SaveAsTemplate extends AbstractValueObject
         ];
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -81,18 +66,12 @@ final class SaveAsTemplate extends AbstractValueObject
         return $this->toArray() === $valueObject->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
     }
 
     /**
-     * @param Enabled     $enabled
-     * @param string|null $name
-     *
      * @throws AssertionFailedException
      */
     private function guard(Enabled $enabled, ?string $name): void
@@ -108,17 +87,11 @@ final class SaveAsTemplate extends AbstractValueObject
         Assertion::nullOrMaxLength($name, 255, null, self::errorPropertyPath());
     }
 
-    /**
-     * @return bool
-     */
     public function isEnabled(): bool
     {
         return $this->enabled->isEnabled();
     }
 
-    /**
-     * @return string|null
-     */
     public function name(): ?string
     {
         return $this->name;

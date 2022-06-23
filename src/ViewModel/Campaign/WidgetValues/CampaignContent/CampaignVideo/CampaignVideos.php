@@ -26,10 +26,6 @@ final class CampaignVideos extends AbstractValueObject
     private $videoCollection;
 
     /**
-     * @param array $data
-     *
-     * @return self
-     *
      * @throws AssertionFailedException
      */
     public static function fromArray(array $data): self
@@ -42,12 +38,6 @@ final class CampaignVideos extends AbstractValueObject
         );
     }
 
-    /**
-     * @param VideoCollection $videoCollection
-     * @param UserSelected    $userSelected
-     *
-     * @return self
-     */
     public static function create(
         VideoCollection $videoCollection,
         UserSelected $userSelected
@@ -57,9 +47,6 @@ final class CampaignVideos extends AbstractValueObject
 
     /**
      * CampaignVideos constructor.
-     *
-     * @param VideoCollection $videoCollection
-     * @param UserSelected    $userSelected
      */
     private function __construct(
         VideoCollection $videoCollection,
@@ -69,9 +56,6 @@ final class CampaignVideos extends AbstractValueObject
         $this->userSelected = $userSelected;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -80,20 +64,11 @@ final class CampaignVideos extends AbstractValueObject
         ];
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
     }
 
-
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -103,17 +78,11 @@ final class CampaignVideos extends AbstractValueObject
         return $this->toArray() === $valueObject->toArray();
     }
 
-    /**
-     * @return bool
-     */
     public function isUserSelected(): bool
     {
         return $this->userSelected->isSelected();
     }
 
-    /**
-     * @return VideoCollection
-     */
     public function videoCollection(): VideoCollection
     {
         return $this->videoCollection;
@@ -121,19 +90,12 @@ final class CampaignVideos extends AbstractValueObject
 
     /**
      * Count of all videos
-     *
-     * @return int
      */
     public function count(): int
     {
         return $this->videoCollection->count();
     }
 
-    /**
-     * @param VideoCollection $videos
-     *
-     * @return self
-     */
     public function withVideos(VideoCollection $videos): self
     {
         return new self(

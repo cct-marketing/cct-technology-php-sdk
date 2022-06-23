@@ -41,26 +41,18 @@ final class CampaignPeriod extends AbstractValueObject
         $this->endDate = $end;
     }
 
-    /**
-     * @return DateTimeInterface
-     */
-    public function getStartDate(): DateTimeInterface
+    public function startDate(): DateTimeInterface
     {
         return $this->startDate;
     }
 
-    /**
-     * @return DateTimeInterface
-     */
-    public function getEndDate(): DateTimeInterface
+    public function endDate(): DateTimeInterface
     {
         return $this->endDate;
     }
 
     /**
      * @param ValueObjectInterface|self $valueObject
-     *
-     * @return bool
      */
     public function equals(ValueObjectInterface $valueObject): bool
     {
@@ -73,17 +65,12 @@ final class CampaignPeriod extends AbstractValueObject
 
     /**
      * Gets the number of days between the two dates
-     *
-     * @return int
      */
     public function lengthInDays(): int
     {
         return ((int) $this->endDate->diff($this->startDate)->format('%a')) + 1;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [

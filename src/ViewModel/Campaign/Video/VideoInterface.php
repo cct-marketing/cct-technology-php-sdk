@@ -8,13 +8,7 @@ use CCT\Component\ValueObject\ValueObjectInterface;
 
 interface VideoInterface extends ValueObjectInterface
 {
-    /**
-     * @return string
-     */
     public function uuid(): string;
 
-    /**
-     * @return array
-     */
     public function toArray(): array;
 }

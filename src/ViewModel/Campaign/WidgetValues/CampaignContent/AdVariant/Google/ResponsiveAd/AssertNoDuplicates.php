@@ -14,9 +14,6 @@ final class AssertNoDuplicates
      */
     private $ignoreEmptyStrings = false;
 
-    /**
-     * @return self
-     */
     public static function create(): self
     {
         return new self();
@@ -25,8 +22,6 @@ final class AssertNoDuplicates
     /**
      * Empty strings will not be checked in assertion. This means if you have multiple empty strings it will
      * still be valid
-     *
-     * @return self
      */
     public function ignoreEmptyStrings(): self
     {
@@ -37,8 +32,6 @@ final class AssertNoDuplicates
 
     /**
      * Empty strings will be checked in assertion. This means if you have multiple empty strings it will be invalid
-     *
-     * @return self
      */
     public function checkEmptyStrings(): self
     {
@@ -48,10 +41,6 @@ final class AssertNoDuplicates
     }
 
     /**
-     * @param array       $array
-     * @param string|null $message
-     * @param string      $propertyPath
-     *
      * @throws AssertionFailedException
      */
     public function assert(array $array, ?string $message, string $propertyPath): void
@@ -68,11 +57,6 @@ final class AssertNoDuplicates
         );
     }
 
-    /**
-     * @param array $array
-     *
-     * @return array
-     */
     private function removeExtraEmpties(array $array): array
     {
         $withOneEmpty = [];

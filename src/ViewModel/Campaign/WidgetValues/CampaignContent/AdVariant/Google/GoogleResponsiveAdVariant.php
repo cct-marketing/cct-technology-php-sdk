@@ -43,12 +43,6 @@ final class GoogleResponsiveAdVariant extends AbstractValueObject
 
     /**
      * GoogleResponsiveAdVariant constructor.
-     *
-     * @param Business                $business
-     * @param ShortHeadlineCollection $shortHeadlineCollection
-     * @param LongHeadline            $longHeadline
-     * @param DescriptionCollection   $descriptionCollection
-     * @param ImageCollection         $imageCollection
      */
     private function __construct(
         Business $business,
@@ -65,10 +59,6 @@ final class GoogleResponsiveAdVariant extends AbstractValueObject
     }
 
     /**
-     * @param array $data
-     *
-     * @return self
-     *
      * @throws AssertionFailedException
      */
     public static function fromArray(array $data): self
@@ -87,9 +77,6 @@ final class GoogleResponsiveAdVariant extends AbstractValueObject
         );
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -101,11 +88,6 @@ final class GoogleResponsiveAdVariant extends AbstractValueObject
         ];
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -115,49 +97,31 @@ final class GoogleResponsiveAdVariant extends AbstractValueObject
         return $this->toArray() === $valueObject->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
     }
 
-    /**
-     * @return Business
-     */
     public function business(): Business
     {
         return $this->business;
     }
 
-    /**
-     * @return ShortHeadlineCollection
-     */
     public function shortHeadlineCollection(): ShortHeadlineCollection
     {
         return $this->shortHeadlineCollection;
     }
 
-    /**
-     * @return LongHeadline
-     */
     public function longHeadline(): LongHeadline
     {
         return $this->longHeadline;
     }
 
-    /**
-     * @return DescriptionCollection
-     */
     public function descriptionCollection(): DescriptionCollection
     {
         return $this->descriptionCollection;
     }
 
-    /**
-     * @return ImageCollection
-     */
     public function imageCollection(): ImageCollection
     {
         return $this->imageCollection;
@@ -165,8 +129,6 @@ final class GoogleResponsiveAdVariant extends AbstractValueObject
 
     /**
      * Removes empty text from short headlines and descriptions
-     *
-     * @return self
      *
      * @throws AssertionFailedException
      */

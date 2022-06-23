@@ -21,11 +21,6 @@ final class Notification extends AbstractValueObject
      */
     private $contactCollection;
 
-    /**
-     * @param array $data
-     *
-     * @return self
-     */
     public static function fromArray(array $data): self
     {
         Assertion::keyExists($data, 'enabled', null, self::errorPropertyPath());
@@ -39,9 +34,6 @@ final class Notification extends AbstractValueObject
 
     /**
      * Notification constructor.
-     *
-     * @param Enabled           $enabled
-     * @param ContactCollection $contactCollection
      */
     public function __construct(Enabled $enabled, ContactCollection $contactCollection)
     {
@@ -49,9 +41,6 @@ final class Notification extends AbstractValueObject
         $this->contactCollection = $contactCollection;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -60,11 +49,6 @@ final class Notification extends AbstractValueObject
         ];
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -74,27 +58,11 @@ final class Notification extends AbstractValueObject
         return $this->toArray() === $valueObject->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
     }
 
-    /**
-     * Get number of editable contacts
-     *
-     * @return int
-     */
-    public function numberOfEditableContacts(): int
-    {
-        return $this->contactCollection->editableContacts()->count();
-    }
-
-    /**
-     * @return bool
-     */
     public function isEnabled(): bool
     {
         return $this->enabled->isEnabled();

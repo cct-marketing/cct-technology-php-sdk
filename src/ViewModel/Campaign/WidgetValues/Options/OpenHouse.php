@@ -18,8 +18,6 @@ final class OpenHouse extends AbstractValueObject
 
     /**
      * OpenHouse constructor.
-     *
-     * @param Enabled $enabled
      */
     public function __construct(Enabled $enabled)
     {
@@ -46,19 +44,11 @@ final class OpenHouse extends AbstractValueObject
         return new self(Enabled::fromMixed($data['enabled']));
     }
 
-    /**
-     * @return bool
-     */
     public function isEnabled(): bool
     {
         return $this->enabled->isEnabled();
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {

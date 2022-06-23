@@ -8,7 +8,6 @@ use Assert\Assertion;
 use Assert\AssertionFailedException;
 use CCT\Component\ValueObject\ValueObjectInterface;
 use CCT\SDK\CampaignWizard\ViewModel\Campaign\AbstractValueObject;
-use CCT\SDK\CampaignWizard\ViewModel\WidgetValues\CampaignContent\AdVariant\Google\ResponsiveAd\InvalidArgumentException;
 
 final class ShortHeadlineCollection extends AbstractValueObject
 {
@@ -18,10 +17,6 @@ final class ShortHeadlineCollection extends AbstractValueObject
     private $shortHeadlines;
 
     /**
-     * @param array $shortHeadlines
-     *
-     * @return self
-     *
      * @throws AssertionFailedException
      */
     public static function fromArray(array $shortHeadlines): self
@@ -34,8 +29,6 @@ final class ShortHeadlineCollection extends AbstractValueObject
     /**
      * @param ShortHeadline ...$shortHeadlines
      *
-     * @return self
-     *
      * @throws AssertionFailedException
      */
     public static function fromItems(ShortHeadline ...$shortHeadlines): self
@@ -43,9 +36,6 @@ final class ShortHeadlineCollection extends AbstractValueObject
         return new self(...$shortHeadlines);
     }
 
-    /**
-     * @return self
-     */
     public static function emptyList(): self
     {
         return new self();
@@ -65,10 +55,6 @@ final class ShortHeadlineCollection extends AbstractValueObject
     }
 
     /**
-     * @param int $defaultShortHeadline
-     *
-     * @return self
-     *
      * @throws AssertionFailedException
      */
     public static function createEmptyValues(int $defaultShortHeadline): self
@@ -78,11 +64,6 @@ final class ShortHeadlineCollection extends AbstractValueObject
         return self::fromArray($emptyStrings);
     }
 
-    /**
-     * @param ShortHeadline $shortHeadline
-     *
-     * @return self
-     */
     public function push(ShortHeadline $shortHeadline): self
     {
         $copy = clone $this;
@@ -91,9 +72,6 @@ final class ShortHeadlineCollection extends AbstractValueObject
         return $copy;
     }
 
-    /**
-     * @return self
-     */
     public function pop(): self
     {
         $copy = clone $this;
@@ -102,17 +80,11 @@ final class ShortHeadlineCollection extends AbstractValueObject
         return $copy;
     }
 
-    /**
-     * @return ShortHeadline|null
-     */
     public function first(): ?ShortHeadline
     {
         return $this->shortHeadlines[0] ?? null;
     }
 
-    /**
-     * @return ShortHeadline|null
-     */
     public function last(): ?ShortHeadline
     {
         if (count($this->shortHeadlines) === 0) {
@@ -122,11 +94,6 @@ final class ShortHeadlineCollection extends AbstractValueObject
         return $this->shortHeadlines[count($this->shortHeadlines) - 1];
     }
 
-    /**
-     * @param ShortHeadline $shortHeadline
-     *
-     * @return bool
-     */
     public function contains(ShortHeadline $shortHeadline): bool
     {
         foreach ($this->shortHeadlines as $existingShortHeadline) {
@@ -146,9 +113,6 @@ final class ShortHeadlineCollection extends AbstractValueObject
         return $this->shortHeadlines;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return array_map(
@@ -159,11 +123,6 @@ final class ShortHeadlineCollection extends AbstractValueObject
         );
     }
 
-    /**
-     * @param ValueObjectInterface $other
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $other): bool
     {
         if (!$other instanceof self) {
@@ -173,28 +132,18 @@ final class ShortHeadlineCollection extends AbstractValueObject
         return $this->toArray() === $other->toArray();
     }
 
-    /**
-     * @return string
-     *
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
     }
 
-    /**
-     * @return int
-     */
     public function count(): int
     {
         return count($this->shortHeadlines);
     }
 
-
     /**
      * @param ShortHeadline[] $shortHeadlines
-     *
-     * @throws InvalidArgumentException|AssertionFailedException
      */
     private function guard(array $shortHeadlines): void
     {

@@ -41,12 +41,6 @@ final class FacebookAdVariant extends AbstractValueObject
     /**
      * FacebookAdVariant constructor.
      *
-     * @param string               $heading
-     * @param string               $text
-     * @param string               $description
-     * @param ImageCollection|null $imageCollection
-     * @param VideoCollection|null $videoCollection
-     *
      * @throws AssertionFailedException
      */
     public function __construct(
@@ -64,35 +58,22 @@ final class FacebookAdVariant extends AbstractValueObject
         $this->videoCollection = $videoCollection;
     }
 
-    /**
-     * @return string
-     */
     public function getHeading(): string
     {
         return $this->heading;
     }
 
-    /**
-     * @return string
-     */
     public function getText(): string
     {
         return $this->text;
     }
 
-    /**
-     * @return string
-     */
     public function getDescription(): string
     {
         return $this->description;
     }
 
     /**
-     * @param string $heading
-     * @param string $text
-     * @param string $description
-     *
      * @throws AssertionFailedException
      */
     private function guard(string $heading, string $text, string $description)
@@ -103,10 +84,6 @@ final class FacebookAdVariant extends AbstractValueObject
     }
 
     /**
-     * @param array $data
-     *
-     * @return self
-     *
      * @throws AssertionFailedException
      */
     public static function fromArray(array $data): self
@@ -124,9 +101,6 @@ final class FacebookAdVariant extends AbstractValueObject
         );
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -138,11 +112,6 @@ final class FacebookAdVariant extends AbstractValueObject
         ];
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -152,9 +121,6 @@ final class FacebookAdVariant extends AbstractValueObject
         return $this->toArray() === $valueObject->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
@@ -162,8 +128,6 @@ final class FacebookAdVariant extends AbstractValueObject
 
     /**
      * Variant has no text
-     *
-     * @return bool
      */
     public function isEmpty(): bool
     {
@@ -171,8 +135,6 @@ final class FacebookAdVariant extends AbstractValueObject
     }
 
     /**
-     * @param ImageCollection $images
-     *
      * @return FacebookAdVariant
      *
      * @throws AssertionFailedException
@@ -188,10 +150,6 @@ final class FacebookAdVariant extends AbstractValueObject
     }
 
     /**
-     * @param VideoCollection $videos
-     *
-     * @return self
-     *
      * @throws AssertionFailedException
      */
     public function withVideos(VideoCollection $videos): self

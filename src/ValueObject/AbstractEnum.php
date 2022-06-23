@@ -18,15 +18,10 @@ abstract class AbstractEnum extends AbstractValueObject
      */
     protected static $cache = [];
 
-    /**
-     * @var mixed
-     */
     protected $value;
 
     /**
      * AbstractEnum constructor.
-     *
-     * @param mixed $value
      */
     public function __construct($value)
     {
@@ -35,10 +30,7 @@ abstract class AbstractEnum extends AbstractValueObject
     }
 
     /**
-     * @param string $name
-     * @param mixed  $args
-     *
-     * @return AbstractEnum
+     * @psalm-suppress UnsafeInstantiation
      */
     public static function __callStatic(string $name, $args)
     {
@@ -46,18 +38,14 @@ abstract class AbstractEnum extends AbstractValueObject
     }
 
     /**
-     * @param string $value
-     *
      * @return static
+     * @psalm-suppress UnsafeInstantiation
      */
     public static function fromString(string $value)
     {
         return new static($value);
     }
 
-    /**
-     * @return array
-     */
     public static function values(): array
     {
         $class = static::class;
@@ -73,19 +61,11 @@ abstract class AbstractEnum extends AbstractValueObject
         return self::$cache[$class];
     }
 
-    /**
-     * @return mixed
-     */
     public function value()
     {
         return $this->value;
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -95,25 +75,16 @@ abstract class AbstractEnum extends AbstractValueObject
         return $this->value === $valueObject->value();
     }
 
-    /**
-     * @param mixed $value
-     */
     private function guard($value): void
     {
         Assertion::inArray($value, static::values(), null, self::errorPropertyPath());
     }
 
-    /**
-     * @return string
-     */
     public function toString(): string
     {
         return (string) $this->value();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return $this->toString();
@@ -123,8 +94,6 @@ abstract class AbstractEnum extends AbstractValueObject
      * Returns a new collection with the keys reindexed.
      *
      * @param array|Traversable $collection collection to be reindexed
-     *
-     * @return array
      */
     private static function reindex($collection): array
     {

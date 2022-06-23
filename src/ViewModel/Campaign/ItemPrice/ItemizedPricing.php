@@ -17,10 +17,6 @@ final class ItemizedPricing extends AbstractValueObject
     private $itemPriceCollection;
 
     /**
-     * @param array $data
-     *
-     * @return self
-     *
      * @throws AssertionFailedException
      */
     public static function fromArray(array $data): self
@@ -30,9 +26,6 @@ final class ItemizedPricing extends AbstractValueObject
         return new self(ItemPriceCollection::fromArray($data['priceable_items']));
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -40,11 +33,6 @@ final class ItemizedPricing extends AbstractValueObject
         ];
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -54,19 +42,11 @@ final class ItemizedPricing extends AbstractValueObject
         return $this->toArray() === $valueObject->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
     }
 
-    /**
-     * @param ItemPriceCollection $priceableItems
-     *
-     * @return self
-     */
     public static function create(ItemPriceCollection $priceableItems): self
     {
         return new self($priceableItems);
@@ -74,17 +54,12 @@ final class ItemizedPricing extends AbstractValueObject
 
     /**
      * ItemizedPricing constructor.
-     *
-     * @param ItemPriceCollection $priceableItems
      */
     private function __construct(ItemPriceCollection $priceableItems)
     {
         $this->itemPriceCollection = $priceableItems;
     }
 
-    /**
-     * @return ItemPriceCollection
-     */
     public function getItemPriceCollection(): ItemPriceCollection
     {
         return $this->itemPriceCollection;

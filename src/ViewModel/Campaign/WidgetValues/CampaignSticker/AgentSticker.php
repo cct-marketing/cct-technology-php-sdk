@@ -35,10 +35,6 @@ final class AgentSticker extends AbstractValueObject
     private $stickerVersion;
 
     /**
-     * @param array $data
-     *
-     * @return AgentSticker
-     *
      * @throws AssertionFailedException
      */
     public static function fromArray(array $data): AgentSticker
@@ -56,11 +52,6 @@ final class AgentSticker extends AbstractValueObject
     /**
      * AgentSticker constructor.
      *
-     * @param Enabled            $enabled
-     * @param UuidInterface|null $templateUuid
-     * @param UuidInterface|null $stickerUuid
-     * @param int|null           $stickerVersion
-     *
      * @throws AssertionFailedException
      */
     public function __construct(
@@ -76,33 +67,21 @@ final class AgentSticker extends AbstractValueObject
         $this->stickerVersion = $stickerVersion;
     }
 
-    /**
-     * @return bool
-     */
     public function isEnabled(): bool
     {
         return $this->enabled->isEnabled();
     }
 
-    /**
-     * @return UuidInterface|null
-     */
     public function templateUuid(): ?UuidInterface
     {
         return $this->templateUuid;
     }
 
-    /**
-     * @return UuidInterface|null
-     */
     public function stickerUuid(): ?UuidInterface
     {
         return $this->stickerUuid;
     }
 
-    /**
-     * @return int|null
-     */
     public function stickerVersion(): ?int
     {
         return $this->stickerVersion;
@@ -117,10 +96,6 @@ final class AgentSticker extends AbstractValueObject
     }
 
     /**
-     * @param mixed $data
-     *
-     * @return self
-     *
      * @throws AssertionFailedException
      */
     public static function deserialize($data): self
@@ -132,10 +107,6 @@ final class AgentSticker extends AbstractValueObject
 
     /**
      * Verifies whether the specific object equals this one.
-     *
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
      */
     public function equals(ValueObjectInterface $valueObject): bool
     {
@@ -148,17 +119,12 @@ final class AgentSticker extends AbstractValueObject
 
     /**
      * True to apply pricing to campaign total, otherwise false
-     *
-     * @return bool
      */
     public function applyPricing(): bool
     {
         return $this->enabled->isEnabled();
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -169,20 +135,12 @@ final class AgentSticker extends AbstractValueObject
         ];
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
     }
 
     /**
-     * @param Enabled            $enabled
-     * @param UuidInterface|null $templateUuid
-     * @param UuidInterface|null $stickerUuid
-     * @param int|null           $stickerVersion
-     *
      * @throws AssertionFailedException
      */
     private function guard(

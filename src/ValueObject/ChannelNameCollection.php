@@ -14,11 +14,6 @@ final class ChannelNameCollection extends AbstractValueObject
      */
     private $channelNames;
 
-    /**
-     * @param array $channelNames
-     *
-     * @return self
-     */
     public static function fromArray(array $channelNames): self
     {
         return new self(...array_map(static function (string $channelName) {
@@ -28,17 +23,12 @@ final class ChannelNameCollection extends AbstractValueObject
 
     /**
      * @param ChannelName ...$channelNames
-     *
-     * @return self
      */
     public static function fromItems(ChannelName ...$channelNames): self
     {
         return new self(...$channelNames);
     }
 
-    /**
-     * @return self
-     */
     public static function emptyList(): self
     {
         return new self();
@@ -54,11 +44,6 @@ final class ChannelNameCollection extends AbstractValueObject
         $this->channelNames = $channelNames;
     }
 
-    /**
-     * @param ChannelName $channelName
-     *
-     * @return self
-     */
     public function push(ChannelName $channelName): self
     {
         $copy = clone $this;
@@ -67,9 +52,6 @@ final class ChannelNameCollection extends AbstractValueObject
         return $copy;
     }
 
-    /**
-     * @return self
-     */
     public function pop(): self
     {
         $copy = clone $this;
@@ -78,17 +60,11 @@ final class ChannelNameCollection extends AbstractValueObject
         return $copy;
     }
 
-    /**
-     * @return ChannelName|null
-     */
     public function first(): ?ChannelName
     {
         return $this->channelNames[0] ?? null;
     }
 
-    /**
-     * @return ChannelName|null
-     */
     public function last(): ?ChannelName
     {
         if (count($this->channelNames) === 0) {
@@ -98,11 +74,6 @@ final class ChannelNameCollection extends AbstractValueObject
         return $this->channelNames[count($this->channelNames) - 1];
     }
 
-    /**
-     * @param ChannelName $channelName
-     *
-     * @return bool
-     */
     public function contains(ChannelName $channelName): bool
     {
         foreach ($this->channelNames as $existingChannelName) {
@@ -122,9 +93,6 @@ final class ChannelNameCollection extends AbstractValueObject
         return $this->channelNames;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return array_map(
@@ -135,11 +103,6 @@ final class ChannelNameCollection extends AbstractValueObject
         );
     }
 
-    /**
-     * @param ValueObjectInterface $other
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $other): bool
     {
         if (!$other instanceof self) {
@@ -149,17 +112,11 @@ final class ChannelNameCollection extends AbstractValueObject
         return $this->toArray() === $other->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
-        return (string)json_encode($this->toArray());
+        return (string) json_encode($this->toArray());
     }
 
-    /**
-     * @return int
-     */
     public function count(): int
     {
         return count($this->channelNames);

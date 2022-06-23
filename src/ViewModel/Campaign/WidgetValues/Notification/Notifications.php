@@ -19,11 +19,6 @@ final class Notifications extends AbstractValueObject
      */
     private $leadCampaign;
 
-    /**
-     * @param array $data
-     *
-     * @return self
-     */
     public static function fromArray(array $data): self
     {
         return new self(
@@ -34,9 +29,6 @@ final class Notifications extends AbstractValueObject
 
     /**
      * Notification constructor.
-     *
-     * @param Notification|null $socialMediaComments
-     * @param Notification|null $leadCampaign
      */
     private function __construct(?Notification $socialMediaComments, ?Notification $leadCampaign)
     {
@@ -44,9 +36,6 @@ final class Notifications extends AbstractValueObject
         $this->leadCampaign = $leadCampaign;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -55,11 +44,6 @@ final class Notifications extends AbstractValueObject
         ];
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -69,25 +53,16 @@ final class Notifications extends AbstractValueObject
         return $this->toArray() === $valueObject->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
     }
 
-    /**
-     * @return Notification|null
-     */
     public function socialMediaComments(): ?Notification
     {
         return $this->socialMediaComments;
     }
 
-    /**
-     * @return Notification|null
-     */
     public function leadCampaign(): ?Notification
     {
         return $this->leadCampaign;

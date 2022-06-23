@@ -25,9 +25,6 @@ final class AdvancedSlideshow extends AbstractValueObject
 
     /**
      * AdvancedSlideshow constructor.
-     *
-     * @param Enabled    $enabled
-     * @param Video|null $video
      */
     public function __construct(Enabled $enabled, ?Video $video = null)
     {
@@ -36,10 +33,6 @@ final class AdvancedSlideshow extends AbstractValueObject
     }
 
     /**
-     * @param array $data
-     *
-     * @return self
-     *
      * @throws AssertionFailedException
      */
     public static function fromArray(array $data): self
@@ -52,9 +45,6 @@ final class AdvancedSlideshow extends AbstractValueObject
         );
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -63,11 +53,6 @@ final class AdvancedSlideshow extends AbstractValueObject
         ];
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -77,9 +62,6 @@ final class AdvancedSlideshow extends AbstractValueObject
         return $this->toArray() === $valueObject->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());

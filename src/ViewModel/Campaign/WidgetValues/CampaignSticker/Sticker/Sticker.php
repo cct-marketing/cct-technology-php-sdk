@@ -37,11 +37,6 @@ final class Sticker extends AbstractValueObject
 
     /**
      * Sticker constructor
-     *
-     * @param Parameters            $parameters
-     * @param InitialPosition       $initialPosition
-     * @param InitialPercentageSize $initialPercentageSize
-     * @param StickerType|null      $stickerType
      */
     public function __construct(
         Parameters $parameters,
@@ -55,25 +50,16 @@ final class Sticker extends AbstractValueObject
         $this->stickerType = $stickerType;
     }
 
-    /**
-     * @return Parameters
-     */
     public function parameters(): Parameters
     {
         return $this->parameters;
     }
 
-    /**
-     * @return InitialPosition
-     */
     public function initialPosition(): InitialPosition
     {
         return $this->initialPosition;
     }
 
-    /**
-     * @return InitialPercentageSize
-     */
     public function initialPercentageSize(): InitialPercentageSize
     {
         return $this->initialPercentageSize;
@@ -84,23 +70,16 @@ final class Sticker extends AbstractValueObject
         return $this->stickerType;
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
             return false;
         }
 
-        return $valueObject->serialize() === $this->serialize();
+        return $valueObject->toArray() === $this->toArray();
     }
 
     /**
-     * @param array $data
-     *
      * @return Sticker
      *
      * @throws AssertionFailedException
@@ -119,9 +98,6 @@ final class Sticker extends AbstractValueObject
         );
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -132,9 +108,6 @@ final class Sticker extends AbstractValueObject
         ];
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());

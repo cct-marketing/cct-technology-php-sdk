@@ -19,19 +19,12 @@ final class FacebookImages extends AbstractValueObject implements ImageChannelIn
 
     /**
      * FacebookImages constructor.
-     *
-     * @param ImageCollection $images
      */
     public function __construct(ImageCollection $images)
     {
         $this->images = $images;
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -43,8 +36,6 @@ final class FacebookImages extends AbstractValueObject implements ImageChannelIn
 
     /**
      * Return the channel name.
-     *
-     * @return ChannelName
      */
     public function getChannelName(): ChannelName
     {
@@ -52,8 +43,6 @@ final class FacebookImages extends AbstractValueObject implements ImageChannelIn
     }
 
     /**
-     * @param array $data
-     *
      * @return FacebookImages
      */
     public static function fromArray(array $data): self
@@ -65,9 +54,6 @@ final class FacebookImages extends AbstractValueObject implements ImageChannelIn
         );
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -75,25 +61,16 @@ final class FacebookImages extends AbstractValueObject implements ImageChannelIn
         ];
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
     }
 
-    /**
-     * @return int
-     */
     public function count(): int
     {
         return $this->images->count();
     }
 
-    /**
-     * @return ImageCollection
-     */
     public function images(): ImageCollection
     {
         return $this->images;

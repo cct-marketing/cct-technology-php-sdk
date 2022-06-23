@@ -17,8 +17,6 @@ final class Mark extends AbstractValueObject
     private $value;
 
     /**
-     * @param string $value
-     *
      * @return static
      *
      * @throws AssertionFailedException
@@ -31,8 +29,6 @@ final class Mark extends AbstractValueObject
     /**
      * Mark constructor.
      *
-     * @param string $value
-     *
      * @throws AssertionFailedException
      */
     private function __construct(string $value)
@@ -42,8 +38,6 @@ final class Mark extends AbstractValueObject
     }
 
     /**
-     * @param string $value
-     *
      * @throws AssertionFailedException
      */
     private function guard(string $value): void
@@ -51,35 +45,21 @@ final class Mark extends AbstractValueObject
         Assertion::string($value);
     }
 
-    /**
-     * @return string
-     */
     public function value(): string
     {
         return $this->value;
     }
 
-    /**
-     * @return string
-     */
     public function toString(): string
     {
         return $this->value;
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return $this->toString();
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {

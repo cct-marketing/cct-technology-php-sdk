@@ -14,11 +14,6 @@ final class TwitterAdVariants extends AbstractValueObject
      */
     private $twitterAdVariants;
 
-    /**
-     * @param array $twitterAdVariants
-     *
-     * @return self
-     */
     public static function fromArray(array $twitterAdVariants): self
     {
         return new self(...array_map(static function (array $twitterAdVariant) {
@@ -28,17 +23,12 @@ final class TwitterAdVariants extends AbstractValueObject
 
     /**
      * @param TwitterAdVariant ...$twitterAdVariants
-     *
-     * @return self
      */
     public static function fromItems(TwitterAdVariant ...$twitterAdVariants): self
     {
         return new self(...$twitterAdVariants);
     }
 
-    /**
-     * @return self
-     */
     public static function emptyList(): self
     {
         return new self();
@@ -54,11 +44,6 @@ final class TwitterAdVariants extends AbstractValueObject
         $this->twitterAdVariants = $twitterAdVariants;
     }
 
-    /**
-     * @param TwitterAdVariant $twitterAdVariant
-     *
-     * @return self
-     */
     public function push(TwitterAdVariant $twitterAdVariant): self
     {
         $copy = clone $this;
@@ -67,9 +52,6 @@ final class TwitterAdVariants extends AbstractValueObject
         return $copy;
     }
 
-    /**
-     * @return self
-     */
     public function pop(): self
     {
         $copy = clone $this;
@@ -78,17 +60,11 @@ final class TwitterAdVariants extends AbstractValueObject
         return $copy;
     }
 
-    /**
-     * @return TwitterAdVariant|null
-     */
     public function first(): ?TwitterAdVariant
     {
         return $this->twitterAdVariants[0] ?? null;
     }
 
-    /**
-     * @return TwitterAdVariant|null
-     */
     public function last(): ?TwitterAdVariant
     {
         if (count($this->twitterAdVariants) === 0) {
@@ -98,11 +74,6 @@ final class TwitterAdVariants extends AbstractValueObject
         return $this->twitterAdVariants[count($this->twitterAdVariants) - 1];
     }
 
-    /**
-     * @param TwitterAdVariant $twitterAdVariant
-     *
-     * @return bool
-     */
     public function contains(TwitterAdVariant $twitterAdVariant): bool
     {
         foreach ($this->twitterAdVariants as $existingTwitterAdVariant) {
@@ -122,9 +93,6 @@ final class TwitterAdVariants extends AbstractValueObject
         return $this->twitterAdVariants;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return array_map(static function (TwitterAdVariant $twitterAdVariant) {
@@ -132,11 +100,6 @@ final class TwitterAdVariants extends AbstractValueObject
         }, $this->twitterAdVariants);
     }
 
-    /**
-     * @param ValueObjectInterface $other
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $other): bool
     {
         if (!$other instanceof self) {
@@ -146,25 +109,16 @@ final class TwitterAdVariants extends AbstractValueObject
         return $this->toArray() === $other->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
     }
 
-    /**
-     * @return int
-     */
     public function count(): int
     {
         return count($this->twitterAdVariants);
     }
 
-    /**
-     * @return self
-     */
     public function removeEmptyVariants(): self
     {
         $items = array_values(

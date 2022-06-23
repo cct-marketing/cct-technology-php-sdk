@@ -17,19 +17,12 @@ final class PostFirstVariantToFacebook extends AbstractValueObject
 
     /**
      * PostFirstVariantToFacebook constructor.
-     *
-     * @param Enabled $enabled
      */
     public function __construct(Enabled $enabled)
     {
         $this->enabled = $enabled;
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -39,9 +32,6 @@ final class PostFirstVariantToFacebook extends AbstractValueObject
         return $this->enabled->isEnabled() === $valueObject->isEnabled();
     }
 
-    /**
-     * @return bool
-     */
     public function isEnabled(): bool
     {
         return $this->enabled->isEnabled();

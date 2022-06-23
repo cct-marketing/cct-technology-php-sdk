@@ -11,7 +11,6 @@ use CCT\SDK\CampaignWizard\ViewModel\Campaign\AbstractValueObject;
 use CCT\SDK\CampaignWizard\ViewModel\Campaign\Image\Image;
 use CCT\SDK\CampaignWizard\ViewModel\Campaign\Image\ImageCollection;
 use RuntimeException;
-
 use function array_map;
 use function array_pop;
 use function json_encode;
@@ -30,11 +29,6 @@ final class ChannelCollection extends AbstractValueObject
      */
     private $items;
 
-    /**
-     * @param array $items
-     *
-     * @return ChannelCollection
-     */
     public static function fromArray(array $items): self
     {
         return new self(...array_map(static function (array $item) {
@@ -53,39 +47,21 @@ final class ChannelCollection extends AbstractValueObject
         }, $items));
     }
 
-    /**
-     * @param ImageChannelInterface ...$items
-     *
-     * @return ChannelCollection
-     */
     public static function fromItems(ImageChannelInterface ...$items): self
     {
         return new self(...$items);
     }
 
-    /**
-     * @return ChannelCollection
-     */
     public static function emptyList(): self
     {
         return new self();
     }
 
-    /**
-     * ChannelCollection constructor.
-     *
-     * @param ImageChannelInterface ...$items
-     */
     private function __construct(ImageChannelInterface ...$items)
     {
         $this->items = $items;
     }
 
-    /**
-     * @param ImageChannelInterface $item
-     *
-     * @return ChannelCollection
-     */
     public function push(ImageChannelInterface $item): self
     {
         $copy = clone $this;
@@ -94,9 +70,6 @@ final class ChannelCollection extends AbstractValueObject
         return $copy;
     }
 
-    /**
-     * @return ChannelCollection
-     */
     public function pop(): self
     {
         $copy = clone $this;
@@ -105,17 +78,11 @@ final class ChannelCollection extends AbstractValueObject
         return $copy;
     }
 
-    /**
-     * @return ImageChannelInterface|null
-     */
     public function first(): ?ImageChannelInterface
     {
         return $this->items[0] ?? null;
     }
 
-    /**
-     * @return ImageChannelInterface|null
-     */
     public function last(): ?ImageChannelInterface
     {
         if (count($this->items) === 0) {
@@ -125,11 +92,6 @@ final class ChannelCollection extends AbstractValueObject
         return $this->items[count($this->items) - 1];
     }
 
-    /**
-     * @param ImageChannelInterface $item
-     *
-     * @return bool
-     */
     public function contains(ImageChannelInterface $item): bool
     {
         if (!$item instanceof ValueObjectInterface) {
@@ -145,9 +107,6 @@ final class ChannelCollection extends AbstractValueObject
         return false;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return array_map(static function (ImageChannelInterface $item) {
@@ -158,11 +117,6 @@ final class ChannelCollection extends AbstractValueObject
         }, $this->items);
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -172,19 +126,11 @@ final class ChannelCollection extends AbstractValueObject
         return $this->toArray() === $valueObject->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
     }
 
-    /**
-     * @param ChannelName $channelName
-     *
-     * @return null|ImageChannelInterface
-     */
     public function getByChannelName(ChannelName $channelName): ?ImageChannelInterface
     {
         $channels = array_filter($this->items, static function (ImageChannelInterface $channel) use ($channelName) {
@@ -196,17 +142,11 @@ final class ChannelCollection extends AbstractValueObject
         return $result->count() > 0 ? $result->first() : null;
     }
 
-    /**
-     * @return int
-     */
     public function count(): int
     {
         return count($this->items);
     }
 
-    /**
-     * @return ArrayIterator
-     */
     public function getIterator(): ArrayIterator
     {
         return new ArrayIterator($this->items);
@@ -214,8 +154,6 @@ final class ChannelCollection extends AbstractValueObject
 
     /**
      * Gets all unique images from each channel and adds to a single image collection
-     *
-     * @return ImageCollection
      */
     public function allImages(): ImageCollection
     {

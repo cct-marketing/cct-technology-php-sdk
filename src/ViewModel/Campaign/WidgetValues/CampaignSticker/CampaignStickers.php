@@ -19,11 +19,6 @@ final class CampaignStickers extends AbstractValueObject
      */
     private $agentSticker;
 
-    /**
-     * @param array $data
-     *
-     * @return self
-     */
     public static function fromArray(array $data): self
     {
         return new self(
@@ -34,9 +29,6 @@ final class CampaignStickers extends AbstractValueObject
 
     /**
      * CampaignStickers constructor
-     *
-     * @param ImageOverlay|null $imageOverlay
-     * @param AgentSticker|null $agentSticker
      */
     private function __construct(
         ?ImageOverlay $imageOverlay,
@@ -46,9 +38,6 @@ final class CampaignStickers extends AbstractValueObject
         $this->agentSticker = $agentSticker;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -57,11 +46,6 @@ final class CampaignStickers extends AbstractValueObject
         ];
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -71,25 +55,16 @@ final class CampaignStickers extends AbstractValueObject
         return $this->toArray() === $valueObject->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
     }
 
-    /**
-     * @return ImageOverlay|null
-     */
     public function imageOverlay(): ?ImageOverlay
     {
         return $this->imageOverlay;
     }
 
-    /**
-     * @return AgentSticker|null
-     */
     public function agentSticker(): ?AgentSticker
     {
         return $this->agentSticker;

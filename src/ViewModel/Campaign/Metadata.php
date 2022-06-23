@@ -61,11 +61,11 @@ final class Metadata extends AbstractValueObject
     public function toArray(): array
     {
         return [
-            'order_number' => $this->orderNumber ,
+            'order_number' => $this->orderNumber,
             'agent' => $this->agent,
             'generic' => $this->genericMetadataCollection,
             'facebook_image_ratio' => $this->facebookImageRatio,
-            'previous_data_import_identifier' => $this->previousDataImportIdentifier
+            'previous_data_import_identifier' => $this->previousDataImportIdentifier,
         ];
     }
 
@@ -87,7 +87,6 @@ final class Metadata extends AbstractValueObject
     {
         return $this->agent;
     }
-
 
     public function facebookImageRatio(): ?string
     {

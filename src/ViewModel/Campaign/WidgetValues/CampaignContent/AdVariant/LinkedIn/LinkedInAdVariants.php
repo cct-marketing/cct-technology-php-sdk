@@ -14,11 +14,6 @@ final class LinkedInAdVariants extends AbstractValueObject
      */
     private $linkedInAdVariants;
 
-    /**
-     * @param array $linkedInAdVariants
-     *
-     * @return self
-     */
     public static function fromArray(array $linkedInAdVariants): self
     {
         return new self(...array_map(static function (array $linkedInAdVariant) {
@@ -28,17 +23,12 @@ final class LinkedInAdVariants extends AbstractValueObject
 
     /**
      * @param LinkedInAdVariant ...$linkedInAdVariants
-     *
-     * @return self
      */
     public static function fromItems(LinkedInAdVariant ...$linkedInAdVariants): self
     {
         return new self(...$linkedInAdVariants);
     }
 
-    /**
-     * @return self
-     */
     public static function emptyList(): self
     {
         return new self();
@@ -54,11 +44,6 @@ final class LinkedInAdVariants extends AbstractValueObject
         $this->linkedInAdVariants = $linkedInAdVariants;
     }
 
-    /**
-     * @param LinkedInAdVariant $linkedInAdVariant
-     *
-     * @return self
-     */
     public function push(LinkedInAdVariant $linkedInAdVariant): self
     {
         $copy = clone $this;
@@ -67,9 +52,6 @@ final class LinkedInAdVariants extends AbstractValueObject
         return $copy;
     }
 
-    /**
-     * @return self
-     */
     public function pop(): self
     {
         $copy = clone $this;
@@ -78,17 +60,11 @@ final class LinkedInAdVariants extends AbstractValueObject
         return $copy;
     }
 
-    /**
-     * @return LinkedInAdVariant|null
-     */
     public function first(): ?LinkedInAdVariant
     {
         return $this->linkedInAdVariants[0] ?? null;
     }
 
-    /**
-     * @return LinkedInAdVariant|null
-     */
     public function last(): ?LinkedInAdVariant
     {
         if (count($this->linkedInAdVariants) === 0) {
@@ -98,11 +74,6 @@ final class LinkedInAdVariants extends AbstractValueObject
         return $this->linkedInAdVariants[count($this->linkedInAdVariants) - 1];
     }
 
-    /**
-     * @param LinkedInAdVariant $linkedInAdVariant
-     *
-     * @return bool
-     */
     public function contains(LinkedInAdVariant $linkedInAdVariant): bool
     {
         foreach ($this->linkedInAdVariants as $existingLinkedInAdVariant) {
@@ -122,9 +93,6 @@ final class LinkedInAdVariants extends AbstractValueObject
         return $this->linkedInAdVariants;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return array_map(static function (LinkedInAdVariant $linkedInAdVariant) {
@@ -132,11 +100,6 @@ final class LinkedInAdVariants extends AbstractValueObject
         }, $this->linkedInAdVariants);
     }
 
-    /**
-     * @param ValueObjectInterface $other
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $other): bool
     {
         if (!$other instanceof self) {
@@ -146,25 +109,16 @@ final class LinkedInAdVariants extends AbstractValueObject
         return $this->toArray() === $other->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
     }
 
-    /**
-     * @return int
-     */
     public function count(): int
     {
         return count($this->linkedInAdVariants);
     }
 
-    /**
-     * @return self
-     */
     public function removeEmptyVariants(): self
     {
         $items = array_values(

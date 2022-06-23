@@ -27,9 +27,6 @@ final class Coordinate extends AbstractValueObject
 
     /**
      * Coordinate constructor.
-     *
-     * @param float $latitude
-     * @param float $longitude
      */
     public function __construct(float $latitude, float $longitude)
     {
@@ -40,8 +37,6 @@ final class Coordinate extends AbstractValueObject
 
     /**
      * @param ValueObjectInterface | Coordinate $valueObject
-     *
-     * @return bool
      */
     public function equals(ValueObjectInterface $valueObject): bool
     {
@@ -55,8 +50,6 @@ final class Coordinate extends AbstractValueObject
 
     /**
      * Serialize object into an array or string
-     *
-     * @return array
      */
     public function toArray(): array
     {
@@ -67,10 +60,6 @@ final class Coordinate extends AbstractValueObject
     }
 
     /**
-     * @param array $data
-     *
-     * @return self
-     *
      * @throws AssertionFailedException
      */
     public static function fromArray(array $data): self
@@ -87,26 +76,16 @@ final class Coordinate extends AbstractValueObject
         );
     }
 
-    /**
-     * @return float
-     */
     public function getLatitude(): float
     {
         return $this->latitude;
     }
 
-    /**
-     * @return float
-     */
     public function getLongitude(): float
     {
         return $this->longitude;
     }
 
-    /**
-     * @param float $latitude
-     * @param float $longitude
-     */
     private function guard(float $latitude, float $longitude)
     {
         Assertion::between($latitude, -90, 90, 'null', 'coordinate');

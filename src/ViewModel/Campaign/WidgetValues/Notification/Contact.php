@@ -37,11 +37,6 @@ final class Contact extends AbstractValueObject
      */
     private $alwaysSend;
 
-    /**
-     * @param array $data
-     *
-     * @return self
-     */
     public static function fromArray(array $data): self
     {
         Assertion::keyIsset($data, 'contact_type', null, 'contact');
@@ -61,12 +56,6 @@ final class Contact extends AbstractValueObject
 
     /**
      * Contact constructor.
-     *
-     * @param ContactType  $contactType
-     * @param EmailAddress $email
-     * @param bool         $editable
-     * @param bool         $show
-     * @param bool         $alwaysSend
      */
     private function __construct(
         ContactType $contactType,
@@ -91,9 +80,6 @@ final class Contact extends AbstractValueObject
         $this->alwaysSend = $alwaysSend;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -105,11 +91,6 @@ final class Contact extends AbstractValueObject
         ];
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -119,17 +100,11 @@ final class Contact extends AbstractValueObject
         return $this->toArray() === $valueObject->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
     }
 
-    /**
-     * @return bool
-     */
     public function isEditable(): bool
     {
         return $this->editable;

@@ -28,11 +28,6 @@ final class IndustryAddress extends AbstractValueObject
 
     /**
      * IndustryAddress constructor.
-     *
-     * @param Address         $address
-     * @param LocationType    $type
-     * @param Coordinate|null $coordinate
-     *
      */
     public function __construct(Address $address, LocationType $type, ?Coordinate $coordinate = null)
     {
@@ -41,9 +36,6 @@ final class IndustryAddress extends AbstractValueObject
         $this->type = $type;
     }
 
-    /**
-     * @return Address
-     */
     public function getAddress(): Address
     {
         return $this->address;
@@ -57,9 +49,6 @@ final class IndustryAddress extends AbstractValueObject
         return $this->coordinate;
     }
 
-    /**
-     * @return LocationType
-     */
     public function getType(): LocationType
     {
         return $this->type;
@@ -67,8 +56,6 @@ final class IndustryAddress extends AbstractValueObject
 
     /**
      * @param ValueObjectInterface|IndustryAddress $valueObject
-     *
-     * @return bool
      */
     public function equals(ValueObjectInterface $valueObject): bool
     {
@@ -81,8 +68,6 @@ final class IndustryAddress extends AbstractValueObject
 
     /**
      * Serialize object into an array or string
-     *
-     * @return array
      */
     public function toArray(): array
     {
@@ -94,10 +79,6 @@ final class IndustryAddress extends AbstractValueObject
     }
 
     /**
-     * @param array $data
-     *
-     * @return self
-     *
      * @throws AssertionFailedException
      */
     public static function fromArray(array $data): self

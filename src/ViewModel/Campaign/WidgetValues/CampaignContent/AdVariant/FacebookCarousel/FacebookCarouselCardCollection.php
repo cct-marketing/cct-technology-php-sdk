@@ -15,11 +15,6 @@ final class FacebookCarouselCardCollection extends AbstractValueObject
      */
     private $facebookCarouselCards;
 
-    /**
-     * @param array $facebookCarouselCards
-     *
-     * @return self
-     */
     public static function fromArray(array $facebookCarouselCards): self
     {
         return new self(...array_map(static function (array $facebookCarouselCard) {
@@ -29,17 +24,12 @@ final class FacebookCarouselCardCollection extends AbstractValueObject
 
     /**
      * @param FacebookCarouselCard ...$facebookCarouselCards
-     *
-     * @return self
      */
     public static function fromItems(FacebookCarouselCard ...$facebookCarouselCards): self
     {
         return new self(...$facebookCarouselCards);
     }
 
-    /**
-     * @return self
-     */
     public static function emptyList(): self
     {
         return new self();
@@ -55,11 +45,6 @@ final class FacebookCarouselCardCollection extends AbstractValueObject
         $this->facebookCarouselCards = $facebookCarouselCards;
     }
 
-    /**
-     * @param FacebookCarouselCard $facebookCarouselCard
-     *
-     * @return self
-     */
     public function push(FacebookCarouselCard $facebookCarouselCard): self
     {
         $copy = clone $this;
@@ -68,9 +53,6 @@ final class FacebookCarouselCardCollection extends AbstractValueObject
         return $copy;
     }
 
-    /**
-     * @return self
-     */
     public function pop(): self
     {
         $copy = clone $this;
@@ -79,17 +61,11 @@ final class FacebookCarouselCardCollection extends AbstractValueObject
         return $copy;
     }
 
-    /**
-     * @return FacebookCarouselCard|null
-     */
     public function first(): ?FacebookCarouselCard
     {
         return $this->facebookCarouselCards[0] ?? null;
     }
 
-    /**
-     * @return FacebookCarouselCard|null
-     */
     public function last(): ?FacebookCarouselCard
     {
         if (count($this->facebookCarouselCards) === 0) {
@@ -99,11 +75,6 @@ final class FacebookCarouselCardCollection extends AbstractValueObject
         return $this->facebookCarouselCards[count($this->facebookCarouselCards) - 1];
     }
 
-    /**
-     * @param FacebookCarouselCard $facebookCarouselCard
-     *
-     * @return bool
-     */
     public function contains(FacebookCarouselCard $facebookCarouselCard): bool
     {
         foreach ($this->facebookCarouselCards as $existingFacebookCarouselCard) {
@@ -123,9 +94,6 @@ final class FacebookCarouselCardCollection extends AbstractValueObject
         return $this->facebookCarouselCards;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return array_map(static function (FacebookCarouselCard $facebookCarouselCard) {
@@ -133,11 +101,6 @@ final class FacebookCarouselCardCollection extends AbstractValueObject
         }, $this->facebookCarouselCards);
     }
 
-    /**
-     * @param ValueObjectInterface $other
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $other): bool
     {
         if (!$other instanceof self) {
@@ -147,35 +110,21 @@ final class FacebookCarouselCardCollection extends AbstractValueObject
         return $this->toArray() === $other->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
     }
 
-    /**
-     * @return int
-     */
     public function count(): int
     {
         return count($this->facebookCarouselCards);
     }
 
-    /**
-     * @return int
-     */
     public function countItems(): int
     {
         return $this->count();
     }
 
-    /**
-     * @param ImageCollection $images
-     *
-     * @return self
-     */
     public function withImages(ImageCollection $images): self
     {
         $items = array_map(static function (int $index, FacebookCarouselCard $facebookCarouselCard) use ($images) {
@@ -185,9 +134,6 @@ final class FacebookCarouselCardCollection extends AbstractValueObject
         return self::fromItems(...$items);
     }
 
-    /**
-     * @return bool
-     */
     public function isEmpty(): bool
     {
         $nonEmptyCards = array_filter($this->facebookCarouselCards, static function (FacebookCarouselCard $facebookCarouselCard) {

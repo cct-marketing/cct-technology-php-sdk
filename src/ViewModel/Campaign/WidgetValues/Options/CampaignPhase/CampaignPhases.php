@@ -16,8 +16,6 @@ final class CampaignPhases extends AbstractValueObject
 
     /**
      * CampaignPhases constructor.
-     *
-     * @param CampaignPhaseCollection $campaignPhaseCollection
      */
     public function __construct(CampaignPhaseCollection $campaignPhaseCollection)
     {
@@ -26,8 +24,6 @@ final class CampaignPhases extends AbstractValueObject
 
     /**
      * @param ValueObjectInterface | CampaignPhases $valueObject
-     *
-     * @return bool
      */
     public function equals(ValueObjectInterface $valueObject): bool
     {
@@ -54,11 +50,6 @@ final class CampaignPhases extends AbstractValueObject
         ];
     }
 
-    /**
-     * @param mixed $data
-     *
-     * @return mixed
-     */
     public static function fromArray($data)
     {
         $collection = CampaignPhaseCollection::fromArray($data['phases']);

@@ -31,9 +31,6 @@ final class Radius extends AbstractValueObject
 
     /**
      * Radius constructor.
-     *
-     * @param int    $radius
-     * @param string $measurementUnit
      */
     public function __construct(int $radius, string $measurementUnit)
     {
@@ -42,10 +39,6 @@ final class Radius extends AbstractValueObject
         $this->measurementUnit = $measurementUnit;
     }
 
-    /**
-     * @param int    $radius
-     * @param string $measurement
-     */
     public function guard(int $radius, string $measurement)
     {
         Assertion::inArray(
@@ -66,8 +59,6 @@ final class Radius extends AbstractValueObject
 
     /**
      * @param ValueObjectInterface | Radius $valueObject
-     *
-     * @return bool
      */
     public function equals(ValueObjectInterface $valueObject): bool
     {
@@ -80,8 +71,6 @@ final class Radius extends AbstractValueObject
 
     /**
      * Serialize object into an array or string
-     *
-     * @return array
      */
     public function toArray(): array
     {
@@ -92,10 +81,6 @@ final class Radius extends AbstractValueObject
     }
 
     /**
-     * @param array $data
-     *
-     * @return self
-     *
      * @throws AssertionFailedException
      */
     public static function fromArray(array $data): self
@@ -109,17 +94,11 @@ final class Radius extends AbstractValueObject
         );
     }
 
-    /**
-     * @return int
-     */
     public function getRadius(): int
     {
         return $this->radius;
     }
 
-    /**
-     * @return string
-     */
     public function getMeasurementUnit(): string
     {
         return $this->measurementUnit;

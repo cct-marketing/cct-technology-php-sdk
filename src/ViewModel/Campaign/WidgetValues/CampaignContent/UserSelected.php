@@ -17,10 +17,6 @@ final class UserSelected extends AbstractValueObject
     private $selected;
 
     /**
-     * @param bool $selected
-     *
-     * @return self
-     *
      * @throws AssertionFailedException
      */
     public static function fromBool(bool $selected): self
@@ -29,10 +25,6 @@ final class UserSelected extends AbstractValueObject
     }
 
     /**
-     * @param mixed $selected
-     *
-     * @return self
-     *
      * @throws AssertionFailedException
      */
     public static function fromMixed($selected): self
@@ -43,8 +35,6 @@ final class UserSelected extends AbstractValueObject
     /**
      *  constructor.
      *
-     * @param mixed $selected
-     *
      * @throws AssertionFailedException
      */
     private function __construct($selected)
@@ -53,19 +43,11 @@ final class UserSelected extends AbstractValueObject
         $this->selected = in_array($selected, [true, 1, 'true', '1'], true);
     }
 
-    /**
-     * @return bool
-     */
     public function toBool(): bool
     {
         return $this->selected;
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -75,17 +57,11 @@ final class UserSelected extends AbstractValueObject
         return $this->selected === $valueObject->isSelected();
     }
 
-    /**
-     * @return bool
-     */
     public function isSelected(): bool
     {
         return $this->selected;
     }
 
-    /**
-     * @return bool
-     */
     public function serialize(): bool
     {
         return $this->selected;
@@ -100,8 +76,6 @@ final class UserSelected extends AbstractValueObject
     }
 
     /**
-     * @param mixed $selected
-     *
      * @throws AssertionFailedException
      */
     private function guard($selected)

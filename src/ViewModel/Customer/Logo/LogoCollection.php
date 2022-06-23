@@ -14,11 +14,6 @@ final class LogoCollection extends AbstractValueObject
      */
     private $logos;
 
-    /**
-     * @param array $logos
-     *
-     * @return self
-     */
     public static function fromArray(array $logos): self
     {
         return new self(...array_map(static function (array $logo) {
@@ -28,17 +23,12 @@ final class LogoCollection extends AbstractValueObject
 
     /**
      * @param Logo ...$logos
-     *
-     * @return self
      */
     public static function fromItems(Logo ...$logos): self
     {
         return new self(...$logos);
     }
 
-    /**
-     * @return self
-     */
     public static function emptyList(): self
     {
         return new self();
@@ -54,11 +44,6 @@ final class LogoCollection extends AbstractValueObject
         $this->logos = $logos;
     }
 
-    /**
-     * @param Logo $logo
-     *
-     * @return self
-     */
     public function push(Logo $logo): self
     {
         $copy = clone $this;
@@ -67,9 +52,6 @@ final class LogoCollection extends AbstractValueObject
         return $copy;
     }
 
-    /**
-     * @return self
-     */
     public function pop(): self
     {
         $copy = clone $this;
@@ -78,17 +60,11 @@ final class LogoCollection extends AbstractValueObject
         return $copy;
     }
 
-    /**
-     * @return Logo|null
-     */
     public function first(): ?Logo
     {
         return $this->logos[0] ?? null;
     }
 
-    /**
-     * @return Logo|null
-     */
     public function last(): ?Logo
     {
         if (count($this->logos) === 0) {
@@ -98,11 +74,6 @@ final class LogoCollection extends AbstractValueObject
         return $this->logos[count($this->logos) - 1];
     }
 
-    /**
-     * @param Logo $logo
-     *
-     * @return bool
-     */
     public function contains(Logo $logo): bool
     {
         foreach ($this->logos as $existingLogo) {
@@ -122,9 +93,6 @@ final class LogoCollection extends AbstractValueObject
         return $this->logos;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return array_map(
@@ -135,11 +103,6 @@ final class LogoCollection extends AbstractValueObject
         );
     }
 
-    /**
-     * @param ValueObjectInterface $other
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $other): bool
     {
         if (!$other instanceof self) {
@@ -149,17 +112,11 @@ final class LogoCollection extends AbstractValueObject
         return $this->toArray() === $other->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
     }
 
-    /**
-     * @return int
-     */
     public function count(): int
     {
         return count($this->logos);

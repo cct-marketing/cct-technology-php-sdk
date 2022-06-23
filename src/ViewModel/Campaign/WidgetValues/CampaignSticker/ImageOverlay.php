@@ -24,9 +24,6 @@ final class ImageOverlay extends AbstractValueObject
 
     /**
      * Comment constructor.
-     *
-     * @param Enabled           $enabled
-     * @param StickerCollection $stickers
      */
     public function __construct(Enabled $enabled, StickerCollection $stickers)
     {
@@ -34,11 +31,6 @@ final class ImageOverlay extends AbstractValueObject
         $this->stickers = $stickers;
     }
 
-    /**
-     * @param array $data
-     *
-     * @return self
-     */
     public static function fromArray(array $data): self
     {
         Assertion::keyExists($data, 'enabled', '', 'image_overlay');
@@ -50,11 +42,6 @@ final class ImageOverlay extends AbstractValueObject
         );
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -64,25 +51,16 @@ final class ImageOverlay extends AbstractValueObject
         return $this->toArray() === $valueObject->toArray();
     }
 
-    /**
-     * @return StickerCollection
-     */
     public function stickers(): StickerCollection
     {
         return $this->stickers;
     }
 
-    /**
-     * @return bool
-     */
     public function isEnabled(): bool
     {
         return $this->enabled->isEnabled();
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -91,9 +69,6 @@ final class ImageOverlay extends AbstractValueObject
         ];
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());

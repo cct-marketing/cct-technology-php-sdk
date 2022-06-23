@@ -25,9 +25,6 @@ final class Country extends AbstractValueObject
 
     /**
      * Country constructor.
-     *
-     * @param string $name
-     * @param string $code
      */
     public function __construct(string $name, string $code)
     {
@@ -38,8 +35,6 @@ final class Country extends AbstractValueObject
 
     /**
      * @param ValueObjectInterface | Country $valueObject
-     *
-     * @return bool
      */
     public function equals(ValueObjectInterface $valueObject): bool
     {
@@ -50,17 +45,11 @@ final class Country extends AbstractValueObject
         return $this->toArray() === $valueObject->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
     public function getCode(): string
     {
         return $this->code;
@@ -80,10 +69,6 @@ final class Country extends AbstractValueObject
     }
 
     /**
-     * @param array $data
-     *
-     * @return self
-     *
      * @throws AssertionFailedException
      */
     public static function fromArray(array $data): self
@@ -97,10 +82,6 @@ final class Country extends AbstractValueObject
         );
     }
 
-    /**
-     * @param string $name
-     * @param string $code
-     */
     public function guard(string $name, string $code)
     {
         Assertion::maxLength($code, 2);

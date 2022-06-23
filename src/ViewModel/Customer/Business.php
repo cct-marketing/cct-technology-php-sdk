@@ -27,11 +27,6 @@ final class Business extends AbstractValueObject
         $this->logos = $logos;
     }
 
-    /**
-     * @param array $data
-     *
-     * @return self
-     */
     public static function fromArray(array $data): self
     {
         Assertion::keyExists($data, 'name', null, self::errorPropertyPath());
@@ -42,28 +37,16 @@ final class Business extends AbstractValueObject
         );
     }
 
-    /**
-     * @param string         $name
-     * @param LogoCollection $logos
-     *
-     * @return self
-     */
     public static function create(string $name, LogoCollection $logos): self
     {
         return new self($name, $logos);
     }
 
-    /**
-     * @return self
-     */
     public static function createEmpty(): self
     {
         return new self('', LogoCollection::emptyList());
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -72,11 +55,6 @@ final class Business extends AbstractValueObject
         ];
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -86,25 +64,16 @@ final class Business extends AbstractValueObject
         return $this->toArray() === $valueObject->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
     }
 
-    /**
-     * @return string
-     */
     public function name(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return LogoCollection
-     */
     public function logos(): LogoCollection
     {
         return $this->logos;

@@ -19,8 +19,6 @@ final class Comment extends AbstractValueObject
     /**
      * Comment constructor.
      *
-     * @param string $comment
-     *
      * @throws AssertionFailedException
      */
     public function __construct(string $comment)
@@ -29,11 +27,6 @@ final class Comment extends AbstractValueObject
         $this->comment = $comment;
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -43,26 +36,19 @@ final class Comment extends AbstractValueObject
         return $this->toString() === $valueObject->toString();
     }
 
-    /**
-     * @return string
-     */
     public function getComment(): string
     {
         return $this->comment;
     }
 
-    /**
-     *
-     */
     public function toString(): string
     {
         return (string) $this;
     }
 
     /**
-     * @param string $data
-     *
      * @return static
+     *
      * @throws AssertionFailedException
      */
     public static function fromString(string $data): self
@@ -72,8 +58,6 @@ final class Comment extends AbstractValueObject
 
     /**
      * Guard against max length
-     *
-     * @param string $comment
      *
      * @throws AssertionFailedException
      */

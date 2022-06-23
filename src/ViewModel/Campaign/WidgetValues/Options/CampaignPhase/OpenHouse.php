@@ -45,17 +45,11 @@ final class OpenHouse extends AbstractValueObject
         $this->endDate = $end;
     }
 
-    /**
-     * @return DateTimeInterface
-     */
     public function getStartDate(): DateTimeInterface
     {
         return $this->startDate;
     }
 
-    /**
-     * @return DateTimeInterface
-     */
     public function getEndDate(): DateTimeInterface
     {
         return $this->endDate;
@@ -63,8 +57,6 @@ final class OpenHouse extends AbstractValueObject
 
     /**
      * @param ValueObjectInterface|self $valueObject
-     *
-     * @return bool
      */
     public function equals(ValueObjectInterface $valueObject): bool
     {
@@ -77,8 +69,6 @@ final class OpenHouse extends AbstractValueObject
 
     /**
      * Gets the number of days between the two dates
-     *
-     * @return int
      */
     public function lengthInDays(): int
     {
@@ -96,9 +86,6 @@ final class OpenHouse extends AbstractValueObject
         }
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [

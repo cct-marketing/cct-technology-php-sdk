@@ -28,9 +28,6 @@ final class CampaignImages extends AbstractValueObject
 
     /**
      * CampaignImages constructor.
-     *
-     * @param ChannelCollection  $channelImages
-     * @param UserSelected $userImagesSelected
      */
     public function __construct(ChannelCollection $channelImages, UserSelected $userImagesSelected)
     {
@@ -39,8 +36,6 @@ final class CampaignImages extends AbstractValueObject
     }
 
     /**
-     * @return self
-     *
      * @throws AssertionFailedException
      */
     public static function createEmpty(): self
@@ -53,8 +48,6 @@ final class CampaignImages extends AbstractValueObject
 
     /**
      * @param ValueObjectInterface|CampaignImages $valueObject
-     *
-     * @return bool
      */
     public function equals(ValueObjectInterface $valueObject): bool
     {
@@ -65,46 +58,26 @@ final class CampaignImages extends AbstractValueObject
         return $this->toArray() === $valueObject->toArray();
     }
 
-    /**
-     * @return ChannelCollection
-     */
     public function getChannelImages(): ChannelCollection
     {
         return $this->channelImages;
     }
 
-    /**
-     * @return bool
-     */
     public function hasUserSelectedImages(): bool
     {
         return $this->userImagesSelected->isSelected();
     }
 
-    /**
-     * @return UserSelected
-     */
     public function getUserImagesSelected(): UserSelected
     {
         return $this->userImagesSelected;
     }
 
-    /**
-     * @return int
-     */
     public function numberOfChannels(): int
     {
-        $channelCollection = $this->getChannels();
-        if (!$channelCollection instanceof ChannelCollection) {
-            return 0;
-        }
-
-        return $channelCollection->count();
+        return $this->getChannels()->count();
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -116,8 +89,6 @@ final class CampaignImages extends AbstractValueObject
     /**
      * @param mixed $data
      *
-     * @return self
-     *
      * @throws AssertionFailedException
      */
     public static function fromArray(array $data): self
@@ -128,27 +99,16 @@ final class CampaignImages extends AbstractValueObject
         );
     }
 
-    /**
-     * @return ChannelCollection
-     */
     public function getChannels(): ChannelCollection
     {
         return $this->channelImages;
     }
 
-    /**
-     * @return bool
-     */
     public function isUserSelected(): bool
     {
         return $this->userImagesSelected->isSelected();
     }
 
-    /**
-     * @param ChannelCollection $channelImages
-     *
-     * @return self
-     */
     public function withChannelImages(ChannelCollection $channelImages): self
     {
         return new self(
@@ -157,9 +117,6 @@ final class CampaignImages extends AbstractValueObject
         );
     }
 
-    /**
-     * @return Image|null
-     */
     public function firstImage(): ?Image
     {
         if ($this->numberOfChannels() === 0) {
@@ -167,9 +124,6 @@ final class CampaignImages extends AbstractValueObject
         }
 
         $channels = $this->getChannels();
-        if (!$channels instanceof ChannelCollection) {
-            return null;
-        }
 
         $firstChannel = $channels->first();
 
@@ -180,9 +134,6 @@ final class CampaignImages extends AbstractValueObject
         return $firstChannel->images()->first();
     }
 
-    /**
-     * @return ImageCollection
-     */
     public function allImagesForAllChannels(): ImageCollection
     {
         if ($this->numberOfChannels() === 0) {
@@ -194,8 +145,6 @@ final class CampaignImages extends AbstractValueObject
 
     /**
      * Count of all images
-     *
-     * @return int
      */
     public function countItems(): int
     {
@@ -203,7 +152,7 @@ final class CampaignImages extends AbstractValueObject
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function count(): int
     {

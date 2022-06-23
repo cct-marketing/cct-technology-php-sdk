@@ -15,11 +15,6 @@ final class FacebookCarouselVariants extends AbstractValueObject
      */
     private $facebookCarouselVariants;
 
-    /**
-     * @param array $facebookCarouselVariants
-     *
-     * @return self
-     */
     public static function fromArray(array $facebookCarouselVariants): self
     {
         return new self(...array_map(static function (array $facebookCarouselVariant) {
@@ -29,17 +24,12 @@ final class FacebookCarouselVariants extends AbstractValueObject
 
     /**
      * @param FacebookCarouselVariant ...$facebookCarouselVariants
-     *
-     * @return self
      */
     public static function fromItems(FacebookCarouselVariant ...$facebookCarouselVariants): self
     {
         return new self(...$facebookCarouselVariants);
     }
 
-    /**
-     * @return self
-     */
     public static function emptyList(): self
     {
         return new self();
@@ -55,11 +45,6 @@ final class FacebookCarouselVariants extends AbstractValueObject
         $this->facebookCarouselVariants = $facebookCarouselVariants;
     }
 
-    /**
-     * @param FacebookCarouselVariant $facebookCarouselVariant
-     *
-     * @return self
-     */
     public function push(FacebookCarouselVariant $facebookCarouselVariant): self
     {
         $copy = clone $this;
@@ -68,9 +53,6 @@ final class FacebookCarouselVariants extends AbstractValueObject
         return $copy;
     }
 
-    /**
-     * @return self
-     */
     public function pop(): self
     {
         $copy = clone $this;
@@ -79,17 +61,11 @@ final class FacebookCarouselVariants extends AbstractValueObject
         return $copy;
     }
 
-    /**
-     * @return FacebookCarouselVariant|null
-     */
     public function first(): ?FacebookCarouselVariant
     {
         return $this->facebookCarouselVariants[0] ?? null;
     }
 
-    /**
-     * @return FacebookCarouselVariant|null
-     */
     public function last(): ?FacebookCarouselVariant
     {
         if (count($this->facebookCarouselVariants) === 0) {
@@ -99,11 +75,6 @@ final class FacebookCarouselVariants extends AbstractValueObject
         return $this->facebookCarouselVariants[count($this->facebookCarouselVariants) - 1];
     }
 
-    /**
-     * @param FacebookCarouselVariant $facebookCarouselVariant
-     *
-     * @return bool
-     */
     public function contains(FacebookCarouselVariant $facebookCarouselVariant): bool
     {
         foreach ($this->facebookCarouselVariants as $existingFacebookCarouselVariant) {
@@ -123,9 +94,6 @@ final class FacebookCarouselVariants extends AbstractValueObject
         return $this->facebookCarouselVariants;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return array_map(static function (FacebookCarouselVariant $facebookCarouselVariant) {
@@ -133,11 +101,6 @@ final class FacebookCarouselVariants extends AbstractValueObject
         }, $this->facebookCarouselVariants);
     }
 
-    /**
-     * @param ValueObjectInterface $other
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $other): bool
     {
         if (!$other instanceof self) {
@@ -147,25 +110,17 @@ final class FacebookCarouselVariants extends AbstractValueObject
         return $this->toArray() === $other->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
     }
 
-    /**
-     * @return int
-     */
     public function count(): int
     {
         return count($this->facebookCarouselVariants);
     }
 
     /**
-     * @param ImageCollection $images
-     *
      * @return FacebookCarouselVariants
      */
     public function withImages(ImageCollection $images): self
@@ -177,9 +132,6 @@ final class FacebookCarouselVariants extends AbstractValueObject
         return self::fromItems(...$items);
     }
 
-    /**
-     * @return self
-     */
     public function removeEmptyVariants(): self
     {
         $items = array_values(

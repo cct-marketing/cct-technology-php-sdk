@@ -6,7 +6,9 @@ namespace CCT\SDK\CampaignWizard\Tests\Functional;
 
 use CCT\SDK\CampaignWizard\CampaignWizardClient;
 use GuzzleHttp\Client;
+use GuzzleHttp\Handler\CurlHandler;
 use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\Psr7\Request;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use PHPUnit\Framework\TestCase;
 
@@ -56,5 +58,26 @@ abstract class AbstractFunctionalTestCase extends TestCase
     protected function responseText(string $file): string
     {
         return file_get_contents($file);
+    }
+
+    /**
+     * @return CampaignWizardClient
+     */
+    protected function createClientWithConnectionTimeoutError(): CampaignWizardClient
+    {
+        $handler = new CurlHandler();
+
+        $client = new Client(
+            [
+                'base_uri' => 'http://localhost:123',
+                'handler' => $handler,
+                'timeout' => 0.001,
+                'connect_timeout' => 0.001
+            ]
+        );
+
+        $requestFactory = new Psr17Factory();
+
+        return new CampaignWizardClient($client, $requestFactory);
     }
 }

@@ -34,10 +34,6 @@ final class ItemPrice extends AbstractValueObject
     private $price;
 
     /**
-     * @param array $data
-     *
-     * @return self
-     *
      * @throws AssertionFailedException
      */
     public static function fromArray(array $data): self
@@ -56,10 +52,6 @@ final class ItemPrice extends AbstractValueObject
     /**
      * ItemPrice factory method.
      *
-     * @param string $priceType
-     * @param string $referenceName
-     * @param Price  $price
-     *
      * @return ItemPrice
      *
      * @throws AssertionFailedException
@@ -70,9 +62,6 @@ final class ItemPrice extends AbstractValueObject
     }
 
     /**
-     * @param string $referenceName
-     * @param Price  $price
-     *
      * @return static
      *
      * @throws AssertionFailedException
@@ -83,9 +72,6 @@ final class ItemPrice extends AbstractValueObject
     }
 
     /**
-     * @param string $referenceName
-     * @param Price  $price
-     *
      * @return static
      *
      * @throws AssertionFailedException
@@ -96,9 +82,6 @@ final class ItemPrice extends AbstractValueObject
     }
 
     /**
-     * @param string $referenceName
-     * @param Price  $price
-     *
      * @return static
      *
      * @throws AssertionFailedException
@@ -109,9 +92,6 @@ final class ItemPrice extends AbstractValueObject
     }
 
     /**
-     * @param string $referenceName
-     * @param Price  $price
-     *
      * @return static
      *
      * @throws AssertionFailedException
@@ -122,9 +102,6 @@ final class ItemPrice extends AbstractValueObject
     }
 
     /**
-     * @param string $referenceName
-     * @param Price  $price
-     *
      * @return static
      *
      * @throws AssertionFailedException
@@ -137,10 +114,6 @@ final class ItemPrice extends AbstractValueObject
     /**
      * ItemPrice constructor.
      *
-     * @param string $priceType
-     * @param string $referenceName
-     * @param Price  $price
-     *
      * @throws AssertionFailedException
      */
     private function __construct(string $priceType, string $referenceName, Price $price)
@@ -151,9 +124,6 @@ final class ItemPrice extends AbstractValueObject
         $this->price = $price;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -163,11 +133,6 @@ final class ItemPrice extends AbstractValueObject
         ];
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -177,41 +142,27 @@ final class ItemPrice extends AbstractValueObject
         return $this->toArray() === $valueObject->toArray();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return (string) json_encode($this->toArray());
     }
 
-    /**
-     * @return string
-     */
     public function priceType(): string
     {
         return $this->priceType;
     }
 
-    /**
-     * @return string
-     */
     public function referenceName(): string
     {
         return $this->referenceName;
     }
 
-    /**
-     * @return Price
-     */
     public function price(): Price
     {
         return $this->price;
     }
 
     /**
-     * @param string $priceType
-     *
      * @throws AssertionFailedException
      */
     public function guard(string $priceType): void

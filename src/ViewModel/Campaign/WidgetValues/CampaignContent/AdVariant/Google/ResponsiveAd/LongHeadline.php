@@ -17,10 +17,6 @@ final class LongHeadline extends AbstractValueObject
     private $headline;
 
     /**
-     * @param string $headline
-     *
-     * @return self
-     *
      * @throws AssertionFailedException
      */
     public static function fromString(string $headline): self
@@ -31,8 +27,6 @@ final class LongHeadline extends AbstractValueObject
     /**
      * LongHeadline constructor.
      *
-     * @param string $headline
-     *
      * @throws AssertionFailedException
      */
     private function __construct(string $headline)
@@ -41,27 +35,16 @@ final class LongHeadline extends AbstractValueObject
         $this->headline = $headline;
     }
 
-    /**
-     * @return string
-     */
     public function headline(): string
     {
         return $this->headline;
     }
 
-    /**
-     * @return string
-     */
     public function toString(): string
     {
         return $this->headline;
     }
 
-    /**
-     * @param ValueObjectInterface $valueObject
-     *
-     * @return bool
-     */
     public function equals(ValueObjectInterface $valueObject): bool
     {
         if (!$valueObject instanceof self) {
@@ -71,17 +54,12 @@ final class LongHeadline extends AbstractValueObject
         return $this->headline === $valueObject->headline();
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return $this->headline;
     }
 
     /**
-     * @param string $headline
-     *
      * @throws AssertionFailedException
      */
     private function guard(string $headline): void
