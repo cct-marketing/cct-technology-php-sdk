@@ -23,9 +23,6 @@ return (new PhpCsFixer\Config())
                 'spacing' => 'one',
             ],
 
-            // trailing_comma_in_multiline_array = false
-            // trim_array_spaces
-
             'class_definition' => [
                 'single_line' => false,
             ],

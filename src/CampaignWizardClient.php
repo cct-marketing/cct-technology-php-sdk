@@ -2,9 +2,9 @@
 
 namespace CCT\SDK\CampaignWizard;
 
-use Assert\Assertion;
 use CCT\SDK\CampaignWizard\Exception\InvalidStatusCodeException;
 use CCT\SDK\CampaignWizard\Exception\NetworkException;
+use CCT\SDK\CampaignWizard\Request\DataImportIds;
 use CCT\SDK\CampaignWizard\Response\CampaignSummaryResponse;
 use CCT\SDK\CampaignWizard\Response\CampaignsWithDataImportIdsResponse;
 use Psr\Http\Client\ClientInterface;
@@ -52,12 +52,13 @@ class CampaignWizardClient
         return CampaignSummaryResponse::fromArray($data);
     }
 
-    public function campaignsPlacedByDataImportIds(array $dataImportIds): CampaignsWithDataImportIdsResponse
+    public function campaignsPlacedByDataImportIds(DataImportIds $dataImportIds): CampaignsWithDataImportIdsResponse
     {
-        Assertion::allUuid($dataImportIds, 'All ');
-        $params = ltrim('&', implode('&data_import_ids[]=', $dataImportIds));
+        $request = $this->requestFactory->createRequest(
+            'GET',
+            sprintf('/campaigns/by-data-import_ids?%s', $dataImportIds->toParams())
+        );
 
-        $request = $this->requestFactory->createRequest('GET', sprintf('/campaigns/by-data-import_ids?%s', $params));
         $response = $this->sendRequest($request);
 
         $data = $this->handleResponse($response, 200);
@@ -104,5 +105,14 @@ class CampaignWizardClient
         } catch (NetworkExceptionInterface $networkException) {
             throw NetworkException::createFrom($networkException);
         }
+    }
+
+    private function convertToParams(array $dataImportIds): string
+    {
+        $params = array_map(static function (string $dataImportId) {
+            return sprintf('data_import_ids[]=%s', $dataImportId);
+        }, $dataImportIds);
+
+        return implode('&', $params);
     }
 }

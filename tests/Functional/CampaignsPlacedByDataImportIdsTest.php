@@ -6,7 +6,7 @@ namespace CCT\SDK\CampaignWizard\Tests\Functional;
 
 use CCT\SDK\CampaignWizard\Exception\InvalidStatusCodeException;
 use CCT\SDK\CampaignWizard\Exception\NetworkException;
-use GuzzleHttp\Exception\ConnectException;
+use CCT\SDK\CampaignWizard\Request\DataImportIds;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 
@@ -20,7 +20,7 @@ final class CampaignsPlacedByDataImportIdsTest extends AbstractFunctionalTestCas
 
         $client = $this->createCampaignWizardClient($mock);
 
-        $response = $client->campaignsPlacedByDataImportIds(['9e6bcd67-abbe-44eb-8bb3-23ab4e4a83c2']);
+        $response = $client->campaignsPlacedByDataImportIds($this->createDataImportIds());
 
         $this->assertEquals('df5ae270-20af-47dc-95a5-00a31b463ae7', $response->first()->uuid()->toString());
     }
@@ -33,7 +33,7 @@ final class CampaignsPlacedByDataImportIdsTest extends AbstractFunctionalTestCas
         );
 
         $client = $this->createCampaignWizardClient($mock);
-        $client->campaignsPlacedByDataImportIds(['9e6bcd67-abbe-44eb-8bb3-23ab4e4a83c2']);
+        $client->campaignsPlacedByDataImportIds($this->createDataImportIds());
     }
 
     public function test400Error(): void
@@ -44,7 +44,7 @@ final class CampaignsPlacedByDataImportIdsTest extends AbstractFunctionalTestCas
         );
 
         $client = $this->createCampaignWizardClient($mock);
-        $client->campaignsPlacedByDataImportIds(['9e6bcd67-abbe-44eb-8bb3-23ab4e4a83c2']);
+        $client->campaignsPlacedByDataImportIds($this->createDataImportIds());
     }
 
     public function testNetworkTimeout(): void
@@ -52,6 +52,11 @@ final class CampaignsPlacedByDataImportIdsTest extends AbstractFunctionalTestCas
         $this->expectException(NetworkException::class);
         $client = $this->createClientWithConnectionTimeoutError();
 
-        $client->campaignsPlacedByDataImportIds(['9e6bcd67-abbe-44eb-8bb3-23ab4e4a83c2']);
+        $client->campaignsPlacedByDataImportIds($this->createDataImportIds());
+    }
+
+    private function createDataImportIds(): DataImportIds
+    {
+        return new DataImportIds(['9e6bcd67-abbe-44eb-8bb3-23ab4e4a83c2']);
     }
 }
