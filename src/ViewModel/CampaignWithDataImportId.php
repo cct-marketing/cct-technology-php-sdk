@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace CCT\SDK\CampaignWizard\ViewModel;
 
 use Assert\Assertion;
+use CCT\SDK\CampaignWizard\ValueObject\DateTimeStamp;
 use CCT\SDK\CampaignWizard\ViewModel\Campaign\WidgetValues\CampaignPeriod;
 use CCT\SDK\CampaignWizard\ViewModel\Campaign\WidgetValues\Product;
 use Ramsey\Uuid\Uuid;
@@ -42,6 +43,11 @@ final class CampaignWithDataImportId
      */
     private $campaignPeriod;
 
+    /**
+     * @var DateTimeStamp
+     */
+    private $createdAt;
+
     public static function fromArray(array $data): self
     {
         Assertion::keyExists($data, 'uuid');
@@ -57,7 +63,8 @@ final class CampaignWithDataImportId
             $data['data_import_id'],
             $data['campaign_title'],
             Product::fromArray($data['product']),
-            CampaignPeriod::fromArray($data['campaign_period'])
+            CampaignPeriod::fromArray($data['campaign_period']),
+            DateTimeStamp::fromString($data['created_at'])
         );
     }
 
@@ -67,7 +74,8 @@ final class CampaignWithDataImportId
         string $dataImportId,
         string $campaignTitle,
         Product $product,
-        CampaignPeriod $campaignPeriod
+        CampaignPeriod $campaignPeriod,
+        DateTimeStamp $createdAt
     ) {
         $this->uuid = $uuid;
         $this->orderNumber = $orderNumber;
@@ -75,6 +83,7 @@ final class CampaignWithDataImportId
         $this->campaignTitle = $campaignTitle;
         $this->product = $product;
         $this->campaignPeriod = $campaignPeriod;
+        $this->createdAt = $createdAt;
     }
 
     public function toArray(): array
@@ -86,6 +95,7 @@ final class CampaignWithDataImportId
             'campaign_title' => $this->campaignTitle,
             'product' => $this->product->toArray(),
             'campaign_period' => $this->campaignPeriod->toArray(),
+            'created_at' => $this->createdAt->toString(),
         ];
     }
 
@@ -122,5 +132,10 @@ final class CampaignWithDataImportId
     public function campaignPeriod(): CampaignPeriod
     {
         return $this->campaignPeriod;
+    }
+
+    public function createdAt(): DateTimeStamp
+    {
+        return $this->createdAt;
     }
 }
