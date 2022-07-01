@@ -26,7 +26,10 @@ class DataImportIdsTest extends TestCase
     {
         $dataImportId = new DataImportIds(['838697f1-6946-4079-bc88-87e91a542734']);
 
-        $this->assertEquals('data_import_ids[]=838697f1-6946-4079-bc88-87e91a542734', $dataImportId->toParams());
+        $this->assertEquals(
+            'data_import_ids[0]=838697f1-6946-4079-bc88-87e91a542734',
+            urldecode($dataImportId->toParams())
+        );
     }
 
     public function testMultipleUuidReturnsValidValue(): void
@@ -36,8 +39,8 @@ class DataImportIdsTest extends TestCase
         );
 
         $this->assertEquals(
-            'data_import_ids[]=838697f1-6946-4079-bc88-87e91a542734&data_import_ids[]=1fb38cd9-9920-4e20-a5cd-3d1bcb517072',
-            $dataImportId->toParams()
+            'data_import_ids[0]=838697f1-6946-4079-bc88-87e91a542734&data_import_ids[1]=1fb38cd9-9920-4e20-a5cd-3d1bcb517072',
+            urldecode($dataImportId->toParams())
         );
     }
 }

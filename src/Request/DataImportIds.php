@@ -21,10 +21,6 @@ final class DataImportIds
 
     public function toParams(): string
     {
-        $params = array_map(static function (string $dataImportId) {
-            return sprintf('data_import_ids[]=%s', $dataImportId);
-        }, $this->dataImportIds);
-
-        return implode('&', $params);
+        return http_build_query(['data_import_ids' => $this->dataImportIds]);
     }
 }
