@@ -66,16 +66,6 @@ class CampaignWizardClient
         return CampaignsWithDataImportIdsResponse::fromArray($data);
     }
 
-    /**
-     * @return string[]
-     */
-    private function getHeaders(): array
-    {
-        return [
-            'X-Requested-With' => 'XMLHttpRequest',
-        ];
-    }
-
     private function handleResponse(ResponseInterface $response, int $expectedStatusCode)
     {
         if ($response->getStatusCode() !== $expectedStatusCode) {
