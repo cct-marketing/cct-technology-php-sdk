@@ -1,30 +1,31 @@
 {
-    "name": "cct-marketing/campaign-wizard-sdk",
-    "description": "Sdk to communicate with the campaign wizard microservice",
+    "name": "cct-marketing/cct-technology-sdk",
+    "description": "Sdk to communicate with the CCT Technology api",
     "type": "library",
     "require": {
-        "php": "~7.1",
+        "php": "~8.1",
         "beberlei/assert": "^2.6|^3.0",
         "ramsey/uuid": "^3.8|^4.0",
         "ext-json": "*",
         "psr/http-client": "^1.0",
-        "cct-marketing/value-objects": "~0.1@dev"
+        "guzzlehttp/guzzle": "^7.4",
+        "softonic/guzzle-oauth2-middleware": "^2.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "^7.0",
-        "friendsofphp/php-cs-fixer": "^2.16",
-        "vimeo/psalm": "^3.11",
+        "phpunit/phpunit": "^9.0",
+        "friendsofphp/php-cs-fixer": "^3.13",
+        "vimeo/psalm": "^5.4.0",
         "nyholm/psr7": "^1.4",
-        "guzzlehttp/guzzle": "^7.4"
+        "symfony/cache": "^6.1"
     },
     "autoload": {
         "psr-4": {
-            "CCT\\SDK\\CampaignWizard\\": "src/"
+            "CCT\\SDK\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "CCT\\SDK\\CampaignWizard\\Tests\\": "tests/"
+            "CCT\\SDK\\Tests\\": "tests/"
         }
     },
     "license": "MIT",
@@ -36,11 +37,5 @@
     ],
     "config": {
         "bin-dir": "bin"
-    },
-    "repositories": [
-        {
-            "type": "git",
-            "url": "git@bitbucket.org:cct-marketing/value-objects"
-        }
-    ]
+    }
 }

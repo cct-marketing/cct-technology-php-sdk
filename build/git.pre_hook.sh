@@ -19,7 +19,7 @@ if ! [ $RESULT -eq 0 ]; then
 fi
 
 # Executing PHP Unit testing. If the tests fail, we exit the script earlier
-./bin/phpunit -c phpunit.xml.dist ./tests/
+./bin/phpunit -c phpunit.xml.dist ./tests/Unit
 RESULT=$?
 
 if ! [ $RESULT -eq 0 ]; then

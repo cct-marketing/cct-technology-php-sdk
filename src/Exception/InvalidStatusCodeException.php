@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace CCT\SDK\CampaignWizard\Exception;
+namespace CCT\SDK\Exception;
 
-final class InvalidStatusCodeException extends \RuntimeException
+final class InvalidStatusCodeException extends RequestException
 {
     public static function create(int $expectedCode, int $actualCode, string $responseBody): self
     {

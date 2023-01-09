@@ -1,6 +1,6 @@
-# Campaign Wizard SDK
+# CCT Technology SDK
 
-PHP SDK for interaction with the Campaign Wizard API 
+PHP SDK for interaction with the CCT Technology API 
 
 ## Installation
 
@@ -15,5 +15,5 @@ chmod +x make.sh && ./make.sh
 ```
 
 ## Usage
-To use the SDK Look at the functional tests.
+To follow
 

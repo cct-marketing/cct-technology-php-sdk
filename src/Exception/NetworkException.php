@@ -2,15 +2,14 @@
 
 declare(strict_types=1);
 
-namespace CCT\SDK\CampaignWizard\Exception;
+namespace CCT\SDK\Exception;
 
 use Psr\Http\Client\NetworkExceptionInterface;
-use RuntimeException;
 
-final class NetworkException extends RuntimeException
+final class NetworkException extends RequestException
 {
     public static function createFrom(NetworkExceptionInterface $exception): self
     {
-        return new self($exception->getMessage(), (int) $exception->getCode(), $exception);
+        return new self($exception->getMessage(), $exception->getCode(), $exception);
     }
 }

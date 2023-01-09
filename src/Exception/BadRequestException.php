@@ -2,13 +2,12 @@
 
 declare(strict_types=1);
 
-namespace CCT\SDK\CampaignWizard\Exception;
+namespace CCT\SDK\Exception;
 
-use RuntimeException;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-final class BadRequestException extends RuntimeException
+final class BadRequestException extends RequestException
 {
     /**
      * @var RequestInterface

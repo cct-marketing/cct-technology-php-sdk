@@ -4,3 +4,5 @@ vendor/
 index.php
 bin/
 phpunit.xml
+.phpunit.result.cache
+composer.lock
