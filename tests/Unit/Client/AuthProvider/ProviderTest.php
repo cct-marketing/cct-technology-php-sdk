@@ -3,6 +3,7 @@
 namespace CCT\SDK\Tests\Unit\Client\AuthProvider;
 
 use CCT\SDK\Client\AuthProvider\Provider;
+use CCT\SDK\Infrastucture\Assert\Exception\AssertionFailedException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Handler\MockHandler;
@@ -15,20 +16,36 @@ use Psr\Http\Message\StreamInterface;
 
 class ProviderTest extends TestCase
 {
-    public function testGetBaseAuthorizationUrl(): void
+    public function textMissingClientIdThrowsAssertionFailedException(): void
     {
+        $this->expectException(AssertionFailedException::class);
         $options = [
             'oauth_host' => 'https://oauth.service.com',
+            'client_secret' => 'test',
         ];
+         new Provider($options);
+    }
+
+    public function textMissingClientSecretThrowsAssertionFailedException(): void
+    {
+        $this->expectException(AssertionFailedException::class);
+        $options = [
+            'oauth_host' => 'https://oauth.service.com',
+            'client_id' => 'test',
+        ];
+        new Provider($options);
+    }
+
+    public function testGetBaseAuthorizationUrl(): void
+    {
+        $options = $this->validOptions();
         $provider = new Provider($options);
         $this->assertSame('https://oauth.service.com/api-v2/auth/authorize', $provider->getBaseAuthorizationUrl());
     }
 
     public function testGetBaseAccessTokenUrl(): void
     {
-        $options = [
-            'oauth_host' => 'https://oauth.service.com',
-        ];
+        $options = $this->validOptions();
         $provider = new Provider($options);
         $params = [];
         $this->assertSame('https://oauth.service.com/api-v2/auth/token', $provider->getBaseAccessTokenUrl($params));
@@ -47,7 +64,9 @@ class ProviderTest extends TestCase
         $response->method('getBody')->willReturn($stream);
         $response->method('getStatusCode')->willReturn(400);
 
-        $provider = new Provider();
+        $options = $this->validOptions();
+
+        $provider = new Provider($options);
 
         $mock = new MockHandler(
             [
@@ -61,5 +80,14 @@ class ProviderTest extends TestCase
         $provider->setHttpClient($client);
 
         $provider->getParsedResponse($request);
+    }
+
+    private function validOptions(): array
+    {
+        return [
+            'oauth_host' => 'https://oauth.service.com',
+            'client_id' => 'test',
+            'client_secret' => 'test',
+        ];
     }
 }

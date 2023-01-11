@@ -5,7 +5,7 @@ PHP SDK for interaction with the CCT Technology API
 ## Installation
 
 ```bash
-composer require 
+composer require cct-marketing/cct-technology-php-sdk
 ```
 
 ## Development
@@ -14,6 +14,9 @@ composer require
 chmod +x make.sh && ./make.sh
 ```
 
-## Usage
-To follow
+## Requirements
+You will need a client id and client secret key to use the API. Please request this from you CCT contact. 
+PHP >= 8.1
+composer
 
+## Requirements

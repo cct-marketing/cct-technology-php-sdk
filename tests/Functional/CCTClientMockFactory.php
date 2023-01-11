@@ -10,6 +10,7 @@ use CCT\SDK\Client\CCTClientFactory;
 use CCT\SDK\Client\Options\CampaignWizardHost;
 use CCT\SDK\Client\Options\CustomerHost;
 use CCT\SDK\Client\Options\MediaHost;
+use CCT\SDK\Client\Options\Mode;
 use CCT\SDK\Client\Options\OAuthHost;
 use CCT\SDK\Client\Options\Options;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
@@ -25,7 +26,7 @@ final class CCTClientMockFactory
         $customerHost = CustomerHost::createCustom($this->configStringValue('CUSTOMER_HOST'));
         $debug = $this->configBoolValue('DEBUG_ENABLED');
 
-        $option = new Options($credentials, $oAuthHost, $campaignWizardHost, $mediaHost, $customerHost, $debug);
+        $option = new Options(Mode::SANDBOX, $credentials, $oAuthHost, $campaignWizardHost, $mediaHost, $customerHost, $debug);
 
         $cache = new ArrayAdapter();
 

@@ -1,5 +1,5 @@
 {
-    "name": "cct-marketing/cct-technology-sdk",
+    "name": "cct-marketing/cct-technology-php-sdk",
     "description": "Sdk to communicate with the CCT Technology api",
     "type": "library",
     "require": {
@@ -25,7 +25,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "CCT\\SDK\\Tests\\": "tests/"
+            "CCT\\SDK\\Tests\\": "tests/",
+            "CCT\\SDK\\Examples\\": "examples/"
         }
     },
     "license": "MIT",

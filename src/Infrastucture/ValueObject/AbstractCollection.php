@@ -5,9 +5,23 @@ declare(strict_types=1);
 namespace CCT\SDK\Infrastucture\ValueObject;
 
 use CCT\SDK\Infrastucture\Assert\Assertion;
+use IteratorAggregate;
 
-abstract class AbstractCollection extends AbstractValueObject
+/**
+ * @template-implements IteratorAggregate<int, ValueObjectInterface>
+ */
+abstract class AbstractCollection extends AbstractValueObject implements \IteratorAggregate
 {
+    public function __construct(protected array $items)
+    {
+        $this->guard($this->items);
+    }
+
+    public function getIterator(): \Traversable
+    {
+        return new \ArrayIterator($this->items);
+    }
+
     /**
      * @psalm-suppress UndefinedInterfaceMethod Static comparison will catch interface toArray does not exist error
      */
@@ -18,11 +32,6 @@ abstract class AbstractCollection extends AbstractValueObject
         }
 
         return $valueObject->toArray() === $this->toArray();
-    }
-
-    public function __construct(protected array $items)
-    {
-        $this->guard($this->items);
     }
 
     /**

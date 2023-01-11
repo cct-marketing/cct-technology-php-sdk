@@ -15,7 +15,8 @@ final class Address extends AbstractMulti
         public readonly ?string $locality = null,
         public readonly ?string $region = null,
         public readonly ?string $postalCode = null,
-        public readonly ?Country $country = null
+        public readonly ?Country $country = null,
+        public readonly ?string $formattedAddress = null,
     ) {
     }
 
@@ -50,6 +51,7 @@ final class Address extends AbstractMulti
             'region' => $this->region,
             'postal_code' => $this->postalCode,
             'country' => $this->country?->toArray(),
+            'formatted_address' => $this->formattedAddress,
         ];
     }
 
@@ -63,6 +65,7 @@ final class Address extends AbstractMulti
             $data['region'] ?? null,
             $data['postal_code'] ?? null,
             isset($data['country']) ? Country::fromArray($data['country']) : null,
+            $data['formatted_address'] ?? null
         );
     }
 }

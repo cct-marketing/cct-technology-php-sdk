@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CCT\SDK\Client\AuthProvider;
 
-use CCT\SDK\Client\Options\OAuthHost;
+use CCT\SDK\Infrastucture\Assert\Assertion;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
@@ -19,13 +19,13 @@ final class Provider extends AbstractProvider
 
     public function __construct(array $options = [], array $collaborators = [])
     {
-        $this->oAuthHost = $options['oauth_host'] ?? OAuthHost::createDefault()->toString();
-        if (isset($options['client_id'])) {
-            $options['clientId'] = $options['client_id'];
-        }
-        if (isset($options['client_secret'])) {
-            $options['clientSecret'] = $options['client_secret'];
-        }
+        Assertion::keyExists($options, 'oauth_host', 'auth_provider');
+        Assertion::keyExists($options, 'client_id', 'auth_provider');
+        Assertion::keyExists($options, 'client_secret', 'auth_provider');
+
+        $this->oAuthHost = $options['oauth_host'];
+        $options['clientId'] = $options['client_id'];
+        $options['clientSecret'] = $options['client_secret'];
 
         parent::__construct($options, $collaborators);
     }
@@ -98,6 +98,10 @@ final class Provider extends AbstractProvider
             return null;
         }
 
+        if (isset($parsedResponse['error']['message'])) {
+            return (string) $parsedResponse['error']['message'];
+        }
+
         return !empty($parsedResponse['exception'])
             ? $parsedResponse['exception']
             : $parsedResponse['error_description'];
@@ -109,6 +113,7 @@ final class Provider extends AbstractProvider
     private function responseHasError(array $parsedResponse): bool
     {
         return !empty($parsedResponse['exception'])
+                || !empty($parsedResponse['error'])
                 || !empty($parsedResponse['error_description'])
         ;
     }

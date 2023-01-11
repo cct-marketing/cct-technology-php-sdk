@@ -9,4 +9,6 @@ use CCT\SDK\Infrastucture\ValueObject\AbstractUrlOption;
 final class MediaHost extends AbstractUrlOption
 {
     protected const HOST_URL = 'https://media-management.cct.marketing';
+
+    protected const SANDBOX_HOST_URL = 'https://media-management-staging.cct.marketing';
 }

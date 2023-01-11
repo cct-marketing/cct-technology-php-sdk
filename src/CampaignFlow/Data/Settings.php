@@ -17,7 +17,7 @@ final class Settings extends AbstractMulti
     {
         return [
             'currency' => $this->currency->toString(),
-            'vat' => $this->vat->toInt(),
+            'vat' => $this->vat->toFloat(),
             'exclude_vat' => $this->priceExVat->toArray(),
         ];
     }

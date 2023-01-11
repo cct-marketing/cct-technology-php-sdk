@@ -14,7 +14,7 @@ final class ListCampaignFlowTest extends TestCase
         $CCTClientMockFactory = new CCTClientMockFactory();
         $cctClient = $CCTClientMockFactory->createCctClient();
 
-        $customerId = CustomerId::fromString('24cd6db4-fb56-4f7e-9169-3d543b9e9910');
+        $customerId = CustomerId::fromString('7533e424-de27-4e7b-9864-bc8130623391');
 
         $listResult = $cctClient->campaignFlowClient()->list($customerId);
         $this->assertGreaterThan(1, $listResult->count());

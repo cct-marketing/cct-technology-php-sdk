@@ -9,4 +9,5 @@ use CCT\SDK\Infrastucture\ValueObject\AbstractUrlOption;
 final class CampaignWizardHost extends AbstractUrlOption
 {
     protected const HOST_URL = 'https://cw-api.cct.marketing';
+    protected const SANDBOX_HOST_URL = 'https://cw-api-staging.cct.marketing';
 }
