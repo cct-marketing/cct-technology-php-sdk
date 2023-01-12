@@ -14,7 +14,7 @@ use CCT\SDK\Campaign\Data\Details\Details;
 use CCT\SDK\Campaign\Data\Targeting\Targeting;
 use CCT\SDK\Campaign\Payload\SaveCampaign;
 use CCT\SDK\Campaign\Payload\StartCampaign;
-use CCT\SDK\CampaignFlow\Data\CampaignFlowUuid;
+use CCT\SDK\CampaignFlow\Data\CampaignFlowId;
 use CCT\SDK\Client\CctClient;
 use CCT\SDK\Client\CCTClientFactory;
 use CCT\SDK\Customer\Data\CustomerId;
@@ -37,19 +37,24 @@ final class CreateFullCampaign
         // See ListAccessibleCustomers.php to get the list of customer id you have access too
         $customerId = CustomerId::fromString('{CUSTOMER_ID}'); // Specify the Customer ID for the campaign you wish to create.
 
+        // See ListProductsForCustomer.php to see how to get a product for this customer it has access to
+        $campaignFlowId = CampaignFlowId::fromString('{CUSTOMER_CAMPAIGN_FLOW_ID}'); // Specify the product the campaign will be initialised with.
+
         $cache = new ArrayAdapter();
         $cctClient = CCTClientFactory::create($option, $cache);
 
         try {
             // This will initialize a campaign for specific product and return a campaign uuid
-            $campaignId = self::startCampaign($cctClient, $customerId);
+            $campaignId = self::startCampaign($cctClient, $customerId, $campaignFlowId);
 
-            // This will add assets to the system and associate them with the campaign (this will not selected the assets)
+            // This action will incorporate assets into the system and link them to the specified campaign.
+            // Note that this does not select which assets will be utilized.
             $images = self::addMediaAssets($cctClient, $customerId, $campaignId);
 
-            // Create the campaign details, ad content and ad targeting
-            self::setAdContent($cctClient, $customerId, $campaignId, $images);
+            // Establish the campaign details, define the ad content, and ad targeting criteria.
+            self::setCampaignData($cctClient, $customerId, $campaignId, $images);
 
+            // Places the campaign and upon review will deploys it into the appropriate advertising channels
             self::placeCampaign($cctClient, $customerId, $campaignId);
         } catch (IdentityProviderException $e) {
             printf('Auth error: %s', $e->getMessage());
@@ -57,13 +62,10 @@ final class CreateFullCampaign
         }
     }
 
-    private static function startCampaign(CctClient $cctClient, CustomerId $customerId): CampaignUuid
+    private static function startCampaign(CctClient $cctClient, CustomerId $customerId, CampaignFlowId $campaignFlowId): CampaignUuid
     {
-        // See ListProductsForCustomer.php to see how to get a product for this customer it has access to
-        $campaignFlowUuid = CampaignFlowUuid::fromString('27ff5c00-e651-479e-81c2-a92e6957123d');
-
         // Start Campaign creation
-        $startCampaign = StartCampaign::fromArray(['campaign_flow_uuid' => $campaignFlowUuid->toString()]);
+        $startCampaign = new StartCampaign($campaignFlowId);
         $campaignCreationResponse = $cctClient->campaignClient()->startCampaign($startCampaign, $customerId);
 
         printf('Campaign with id "%s" initialized.%s', $campaignCreationResponse->uuid->toString(), PHP_EOL);
@@ -92,7 +94,7 @@ final class CreateFullCampaign
         return $images;
     }
 
-    private static function setAdContent(CctClient $cctClient, CustomerId $customerId, CampaignUuid $campaignId, MediaCollection $images): void
+    private static function setCampaignData(CctClient $cctClient, CustomerId $customerId, CampaignUuid $campaignId, MediaCollection $images): void
     {
         $details = self::createCampaignDetails();
         $adContent = self::createCampaignAdContent($images);

@@ -14,7 +14,7 @@ use CCT\SDK\Campaign\Data\Details\Details;
 use CCT\SDK\Campaign\Data\Targeting\Targeting;
 use CCT\SDK\Campaign\Payload\SaveCampaign;
 use CCT\SDK\Campaign\Payload\StartCampaign;
-use CCT\SDK\CampaignFlow\Data\CampaignFlowUuid;
+use CCT\SDK\CampaignFlow\Data\CampaignFlowId;
 use CCT\SDK\Client\CctClient;
 use CCT\SDK\Client\CCTClientFactory;
 use CCT\SDK\Customer\Data\CustomerId;
@@ -60,7 +60,7 @@ final class CreateFullCampaignWithMultipleSaves
     private static function startCampaign(CctClient $cctClient, CustomerId $customerId): CampaignUuid
     {
         // See ListProductsForCustomer.php to see how to get a product for this customer it has access to
-        $campaignFlowUuid = CampaignFlowUuid::fromString('27ff5c00-e651-479e-81c2-a92e6957123d');
+        $campaignFlowUuid = CampaignFlowId::fromString('27ff5c00-e651-479e-81c2-a92e6957123d');
 
         // Start Campaign creation
         $startCampaign = StartCampaign::fromArray(['campaign_flow_uuid' => $campaignFlowUuid->toString()]);

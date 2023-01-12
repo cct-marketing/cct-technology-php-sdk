@@ -9,7 +9,7 @@ use CCT\SDK\Campaign\Data\AdContent\Image\ImageCollection;
 use CCT\SDK\Campaign\Data\CampaignUuid;
 use CCT\SDK\Campaign\Payload\SaveCampaign;
 use CCT\SDK\Campaign\Payload\StartCampaign;
-use CCT\SDK\CampaignFlow\Data\CampaignFlowUuid;
+use CCT\SDK\CampaignFlow\Data\CampaignFlowId;
 use CCT\SDK\Client\CctClient;
 use CCT\SDK\Customer\Data\CustomerId;
 use CCT\SDK\MediaManagement\Request\Media\CreateMediaCollection;
@@ -25,7 +25,7 @@ final class CreateCampaignRequestTest extends TestCase
         $CCTClientMockFactory = new CCTClientMockFactory();
         $cctClient = $CCTClientMockFactory->createCctClient();
 
-        $campaignFlowUuid = CampaignFlowUuid::fromString('27ff5c00-e651-479e-81c2-a92e6957123d');
+        $campaignFlowUuid = CampaignFlowId::fromString('27ff5c00-e651-479e-81c2-a92e6957123d');
         $customerId = CustomerId::fromString('7533e424-de27-4e7b-9864-bc8130623391');
 
         // Start Campaign

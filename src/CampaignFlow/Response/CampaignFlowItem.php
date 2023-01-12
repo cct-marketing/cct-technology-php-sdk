@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CCT\SDK\CampaignFlow\Response;
 
-use CCT\SDK\CampaignFlow\Data\CampaignFlowUuid;
+use CCT\SDK\CampaignFlow\Data\CampaignFlowId;
 use CCT\SDK\CampaignFlow\Data\Category;
 use CCT\SDK\CampaignFlow\Data\Pricing;
 use CCT\SDK\CampaignFlow\Data\Settings;
@@ -14,7 +14,7 @@ use CCT\SDK\Infrastucture\ValueObject\AbstractMulti;
 final class CampaignFlowItem extends AbstractMulti
 {
     public function __construct(
-        public readonly CampaignFlowUuid $id,
+        public readonly CampaignFlowId $id,
         public readonly string $name,
         public readonly string $label,
         public readonly Pricing $pricing,
@@ -45,7 +45,7 @@ final class CampaignFlowItem extends AbstractMulti
         Assertion::keyExists($data, 'settings', self::errorPropertyPath());
 
         return new self(
-            CampaignFlowUuid::fromString($data['id']),
+            CampaignFlowId::fromString($data['id']),
             $data['name'],
             $data['label'],
             Pricing::fromArray($data['pricing']),

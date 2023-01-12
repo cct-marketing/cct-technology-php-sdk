@@ -7,14 +7,14 @@ namespace CCT\SDK\Campaign\Payload;
 use CCT\SDK\Campaign\Data\AdContent\AdContent;
 use CCT\SDK\Campaign\Data\Details\Details;
 use CCT\SDK\Campaign\Data\Targeting\Targeting;
-use CCT\SDK\CampaignFlow\Data\CampaignFlowUuid;
+use CCT\SDK\CampaignFlow\Data\CampaignFlowId;
 use CCT\SDK\Infrastucture\Assert\Assertion;
 use CCT\SDK\Infrastucture\ValueObject\AbstractMulti;
 
 final class CreateCampaign extends AbstractMulti
 {
     public function __construct(
-        public readonly CampaignFlowUuid $campaignFlowUuid,
+        public readonly CampaignFlowId $campaignFlowUuid,
         public readonly Details $details,
         public readonly AdContent $adContent,
         public readonly Targeting $targeting
@@ -39,7 +39,7 @@ final class CreateCampaign extends AbstractMulti
         Assertion::keyExists($data, 'targeting', self::errorPropertyPath());
 
         return new self(
-            CampaignFlowUuid::fromString($data['campaign_flow_uuid']),
+            CampaignFlowId::fromString($data['campaign_flow_uuid']),
             Details::fromArray($data['details']),
             AdContent::fromArray($data['ad_content']),
             Targeting::fromArray($data['targeting'])

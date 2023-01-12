@@ -6,7 +6,7 @@ use CCT\SDK\Campaign\Data\AdContent\AdContent;
 use CCT\SDK\Campaign\Data\Details\Details;
 use CCT\SDK\Campaign\Data\Targeting\Targeting;
 use CCT\SDK\Campaign\Payload\CreateCampaign;
-use CCT\SDK\CampaignFlow\Data\CampaignFlowUuid;
+use CCT\SDK\CampaignFlow\Data\CampaignFlowId;
 use CCT\SDK\Tests\Unit\Campaign\Data\AdContent\AdContentAdData;
 use CCT\SDK\Tests\Unit\Campaign\Data\Details\DetailsData;
 use CCT\SDK\Tests\Unit\Campaign\Data\Targeting\TargetingData;
@@ -26,7 +26,7 @@ class CreateCampaignTest extends TestCase
         $createCampaign = CreateCampaign::fromArray($data);
 
         $this->assertInstanceOf(CreateCampaign::class, $createCampaign);
-        $this->assertInstanceOf(CampaignFlowUuid::class, $createCampaign->campaignFlowUuid);
+        $this->assertInstanceOf(CampaignFlowId::class, $createCampaign->campaignFlowUuid);
         $this->assertEquals('60fb0952-2ca4-4e21-9be2-14664f1dfa72', $createCampaign->campaignFlowUuid->toString());
         $this->assertInstanceOf(Details::class, $createCampaign->details);
         $this->assertInstanceOf(AdContent::class, $createCampaign->adContent);

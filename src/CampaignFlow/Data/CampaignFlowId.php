@@ -6,6 +6,6 @@ namespace CCT\SDK\CampaignFlow\Data;
 
 use CCT\SDK\Infrastucture\ValueObject\AbstractUuid;
 
-final class CampaignFlowUuid extends AbstractUuid
+final class CampaignFlowId extends AbstractUuid
 {
 }

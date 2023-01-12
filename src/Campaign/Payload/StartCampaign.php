@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace CCT\SDK\Campaign\Payload;
 
-use CCT\SDK\CampaignFlow\Data\CampaignFlowUuid;
+use CCT\SDK\CampaignFlow\Data\CampaignFlowId;
 use CCT\SDK\Infrastucture\Assert\Assertion;
 use CCT\SDK\Infrastucture\ValueObject\AbstractMulti;
 
 final class StartCampaign extends AbstractMulti
 {
     public function __construct(
-        public readonly CampaignFlowUuid $campaignFlowUuid
+        public readonly CampaignFlowId $campaignFlowUuid
     ) {
     }
 
@@ -27,7 +27,7 @@ final class StartCampaign extends AbstractMulti
         Assertion::keyExists($data, 'campaign_flow_uuid', self::errorPropertyPath());
 
         return new self(
-            CampaignFlowUuid::fromString($data['campaign_flow_uuid']),
+            CampaignFlowId::fromString($data['campaign_flow_uuid']),
         );
     }
 }
