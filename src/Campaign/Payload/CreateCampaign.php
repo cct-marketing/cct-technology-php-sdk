@@ -14,7 +14,7 @@ use CCT\SDK\Infrastucture\ValueObject\AbstractMulti;
 final class CreateCampaign extends AbstractMulti
 {
     public function __construct(
-        public readonly CampaignFlowId $campaignFlowUuid,
+        public readonly CampaignFlowId $campaignFlowId,
         public readonly Details $details,
         public readonly AdContent $adContent,
         public readonly Targeting $targeting
@@ -24,7 +24,7 @@ final class CreateCampaign extends AbstractMulti
     public function toArray(): array
     {
         return [
-            'campaign_flow_uuid' => $this->campaignFlowUuid->toString(),
+            'campaign_flow_uuid' => $this->campaignFlowId->toString(),
             'details' => $this->details->toArray(),
             'ad_content' => $this->adContent->toArray(),
             'targeting' => $this->targeting->toArray(),

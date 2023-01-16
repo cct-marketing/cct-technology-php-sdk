@@ -2,21 +2,17 @@
 
 namespace CCT\SDK\MediaManagement;
 
-use CCT\SDK\Campaign\Data\CampaignUuid;
-use CCT\SDK\Client\Options\Options;
+use CCT\SDK\Campaign\Data\CampaignId;
+use CCT\SDK\Client\AbstractServiceClient;
 use CCT\SDK\Customer\Data\CustomerId;
-use CCT\SDK\MediaManagement\Exception\BadRequestException;
+use CCT\SDK\Infrastucture\ValueObject\AbstractUrlOption;
 use CCT\SDK\MediaManagement\Request\Media\CreateMediaCollection;
 use CCT\SDK\MediaManagement\ViewModel\MediaCollection;
-use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\RequestOptions;
 
-class MediaClient
+class MediaClient extends AbstractServiceClient
 {
-    public function __construct(private readonly Options $options, private readonly Client $client)
-    {
-    }
-
     private function getHeaders(): array
     {
         return [
@@ -24,39 +20,31 @@ class MediaClient
         ];
     }
 
-    public function createBulkMedia(CustomerId $customerId, CampaignUuid $campaignUuid, CreateMediaCollection $createMediaCollection): MediaCollection
+    public function createBulkMedia(CustomerId $customerId, CampaignId $campaignId, CreateMediaCollection $createMediaCollection): MediaCollection
     {
-        $request = new Request('POST', $this->hostWithPath(
-            sprintf('/customers/%s/campaigns/%s/media', $customerId->toString(), $campaignUuid->toString())
-        ));
+        $request = new Request(
+            'POST',
+            sprintf('/customers/%s/campaigns/%s/media', $customerId->toString(), $campaignId->toString()),
+            $this->getHeaders()
+        );
 
-        $response = $this->client->send(
+        $responseData = $this->sendJsonRequest(
             $request,
+            201,
             [
-                'form_params' => [
+                RequestOptions::FORM_PARAMS => [
                     'bulk_create' => [
                         'media' => $createMediaCollection->toFormParam(),
                     ],
                 ],
-                'headers' => $this->getHeaders(),
-                'http_errors' => false,
-                'debug' => $this->options->debug,
             ]
         );
 
-        $statusCode = $response->getStatusCode();
-
-        if ($statusCode !== 201 && $statusCode !== 409) {
-            throw BadRequestException::create($request, $response);
-        }
-
-        $data = json_decode((string) $response->getBody(), true, 512, JSON_THROW_ON_ERROR);
-
-        return MediaCollection::fromArray($data);
+        return MediaCollection::fromArray($responseData);
     }
 
-    private function hostWithPath(string $path): string
+    public function host(): AbstractUrlOption
     {
-        return $this->options->mediaHost->withPath($path)->toString();
+        return $this->options->mediaHost;
     }
 }

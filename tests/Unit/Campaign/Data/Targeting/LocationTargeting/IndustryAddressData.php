@@ -23,7 +23,7 @@ final class IndustryAddressData
                         'name' => 'United States',
                         'code' => 'US',
                     ],
-                    'formatted_address' => '123 Main Street, San Francisco, CA, 94105, United States'
+                    'formatted_address' => '123 Main Street, San Francisco, CA, 94105, United States',
                 ],
                 'type' => 'real_estate',
                 'coordinate' => [

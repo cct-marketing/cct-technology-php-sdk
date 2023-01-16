@@ -11,14 +11,14 @@ use CCT\SDK\Infrastucture\ValueObject\AbstractMulti;
 final class StartCampaign extends AbstractMulti
 {
     public function __construct(
-        public readonly CampaignFlowId $campaignFlowUuid
+        public readonly CampaignFlowId $campaignFlowId
     ) {
     }
 
     public function toArray(): array
     {
         return [
-            'campaign_flow_uuid' => $this->campaignFlowUuid->toString(),
+            'campaign_flow_uuid' => $this->campaignFlowId->toString(),
         ];
     }
 

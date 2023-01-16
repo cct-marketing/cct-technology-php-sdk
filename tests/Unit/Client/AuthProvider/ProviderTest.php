@@ -23,7 +23,7 @@ class ProviderTest extends TestCase
             'oauth_host' => 'https://oauth.service.com',
             'client_secret' => 'test',
         ];
-         new Provider($options);
+        new Provider($options);
     }
 
     public function textMissingClientSecretThrowsAssertionFailedException(): void

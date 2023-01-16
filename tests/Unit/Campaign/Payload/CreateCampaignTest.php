@@ -26,8 +26,8 @@ class CreateCampaignTest extends TestCase
         $createCampaign = CreateCampaign::fromArray($data);
 
         $this->assertInstanceOf(CreateCampaign::class, $createCampaign);
-        $this->assertInstanceOf(CampaignFlowId::class, $createCampaign->campaignFlowUuid);
-        $this->assertEquals('60fb0952-2ca4-4e21-9be2-14664f1dfa72', $createCampaign->campaignFlowUuid->toString());
+        $this->assertInstanceOf(CampaignFlowId::class, $createCampaign->campaignFlowId);
+        $this->assertEquals('60fb0952-2ca4-4e21-9be2-14664f1dfa72', $createCampaign->campaignFlowId->toString());
         $this->assertInstanceOf(Details::class, $createCampaign->details);
         $this->assertInstanceOf(AdContent::class, $createCampaign->adContent);
         $this->assertInstanceOf(Targeting::class, $createCampaign->targeting);

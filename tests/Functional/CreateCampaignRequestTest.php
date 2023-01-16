@@ -6,7 +6,7 @@ namespace CCT\SDK\Tests\Functional;
 
 use CCT\SDK\Campaign\Data\AdContent\CampaignImage\CampaignImages;
 use CCT\SDK\Campaign\Data\AdContent\Image\ImageCollection;
-use CCT\SDK\Campaign\Data\CampaignUuid;
+use CCT\SDK\Campaign\Data\CampaignId;
 use CCT\SDK\Campaign\Payload\SaveCampaign;
 use CCT\SDK\Campaign\Payload\StartCampaign;
 use CCT\SDK\CampaignFlow\Data\CampaignFlowId;
@@ -33,7 +33,7 @@ final class CreateCampaignRequestTest extends TestCase
         $campaignCreationResponse = $cctClient->campaignClient()->startCampaign($startCampaign, $customerId);
 
         // Add images to service with campaign id context
-        $mediaCollection = $this->addImagesToCampaignMediaLibrary($customerId, $campaignCreationResponse->uuid, $cctClient);
+        $mediaCollection = $this->addImagesToCampaignMediaLibrary($customerId, $campaignCreationResponse->campaignId, $cctClient);
 
         $images = ImageCollection::fromMediaCollection($mediaCollection);
         $campaignImages = CampaignImages::fromImages($images);
@@ -45,15 +45,15 @@ final class CreateCampaignRequestTest extends TestCase
 
         // Save campaign content
         $saveCampaign = SaveCampaign::fromArray($campaignValues);
-        $campaignCreationResponse = $cctClient->campaignClient()->saveCampaign($saveCampaign, $customerId, $campaignCreationResponse->uuid);
+        $campaignCreationResponse = $cctClient->campaignClient()->saveCampaign($saveCampaign, $customerId, $campaignCreationResponse->campaignId);
 
         // Place campaign
-        $campaignCreationResponse = $cctClient->campaignClient()->placeCampaign($customerId, $campaignCreationResponse->uuid);
+        $campaignCreationResponse = $cctClient->campaignClient()->placeCampaign($customerId, $campaignCreationResponse->campaignId);
 
-        $this->assertIsString($campaignCreationResponse->uuid->toString());
+        $this->assertIsString($campaignCreationResponse->campaignId->toString());
     }
 
-    private function addImagesToCampaignMediaLibrary(CustomerId $customerId, CampaignUuid $campaignUuid, CctClient $cctClient): MediaCollection
+    private function addImagesToCampaignMediaLibrary(CustomerId $customerId, CampaignId $campaignUuid, CctClient $cctClient): MediaCollection
     {
         $remoteMedia = RemoteMedia::fromArray(
             [

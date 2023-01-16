@@ -14,7 +14,7 @@ final class CampaignFlowClient extends AbstractServiceClient
     public function list(CustomerId $customerId): ListResponse
     {
         $response = $this->listResources(
-            $this->hostWithPath(sprintf('/customers/%s/campaign-flows/products', $customerId->toString()))
+            sprintf('/customers/%s/campaign-flows/products', $customerId->toString())
         );
 
         return ListResponse::fromArray($response);

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CCT\SDK\MediaManagement\ViewModel\Factory;
 
-use CCT\SDK\MediaManagement\Exception\InvalidRequestTypeException;
+use CCT\SDK\Infrastucture\Assert\Assertion;
 use CCT\SDK\MediaManagement\ViewModel\MediaAudio;
 use CCT\SDK\MediaManagement\ViewModel\MediaDocument;
 use CCT\SDK\MediaManagement\ViewModel\MediaFacebookVideo;
@@ -18,9 +18,8 @@ final class MediaFactory
     public static function fromArray(array $medium): MediaInterface
     {
         $types = self::typesToClass();
-        if (!isset($medium['type'], $types[$medium['type']])) {
-            throw InvalidRequestTypeException::create($medium['type'] ?? '', array_keys($types));
-        }
+        Assertion::keyExists($medium, 'type', 'media_factory');
+        Assertion::inArray($medium['type'], array_keys($types), 'media_factory');
 
         $className = $types[$medium['type']];
 

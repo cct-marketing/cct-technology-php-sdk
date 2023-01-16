@@ -13,4 +13,19 @@ abstract class AbstractUrl extends AbstractString
         Assertion::url($value, static::errorPropertyPath());
         Assertion::maxLength($value, 2048, static::errorPropertyPath());
     }
+
+    public function host(): string
+    {
+        return parse_url($this->value, PHP_URL_HOST);
+    }
+
+    public function scheme(): string
+    {
+        return parse_url($this->value, PHP_URL_SCHEME);
+    }
+
+    public function port(): ?int
+    {
+        return parse_url($this->value, PHP_URL_PORT);
+    }
 }

@@ -2,13 +2,12 @@
 
 declare(strict_types=1);
 
-namespace CCT\SDK\MediaManagement\Exception;
+namespace CCT\SDK\Exception;
 
-use CCT\SDK\Exception\RequestException;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-final class BadRequestException extends RequestException
+final class BadApiRequestException extends ApiRequestException
 {
     /**
      * @var RequestInterface
