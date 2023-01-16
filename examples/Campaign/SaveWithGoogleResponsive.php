@@ -6,12 +6,12 @@ namespace CCT\SDK\Examples\Campaign;
 
 require __DIR__ . '/../../vendor/autoload.php';
 
-use CCT\SDK\Campaign\Data\CampaignUuid;
+use CCT\SDK\Campaign\Data\CampaignId;
 use CCT\SDK\Campaign\Payload\SaveCampaign;
 use CCT\SDK\Client\CCTClientFactory;
 use CCT\SDK\Customer\Data\CustomerId;
 use CCT\SDK\Examples\OptionsForExamples;
-use CCT\SDK\Exception\RequestException;
+use CCT\SDK\Exception\ApiRequestException;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
 $option = OptionsForExamples::create();
@@ -19,7 +19,7 @@ $option = OptionsForExamples::create();
 // See ListAccessibleCustomers.php to get the list of customer id you have access too
 $customerId = CustomerId::fromString('{CUSTOMER_ID}'); // Specify the Customer ID for the campaign you wish to create.
 
-$campaignId = CampaignUuid::fromString('{CAMPAIGN_ID}'); // Specify the Campaign ID you wish to update. The campaign must still be in draft.
+$campaignId = CampaignId::fromString('{CAMPAIGN_ID}'); // Specify the Campaign ID you wish to update. The campaign must still be in draft.
 
 $cache = new ArrayAdapter();
 $cctClient = CCTClientFactory::create($option, $cache);
@@ -40,7 +40,7 @@ $saveCampaign = SaveCampaign::fromArray(
 
 try {
     $cctClient->campaignClient()->saveCampaign($saveCampaign, $customerId, $campaignId);
-} catch (RequestException $requestException) {
+} catch (ApiRequestException $requestException) {
     printf('Campaign with uuid "%s" failed to save with error %s', $requestException->getMessage(), PHP_EOL);
     exit(1);
 }

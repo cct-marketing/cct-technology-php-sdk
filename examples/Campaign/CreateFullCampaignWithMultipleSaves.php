@@ -9,7 +9,7 @@ require __DIR__ . '/../../vendor/autoload.php';
 use CCT\SDK\Campaign\Data\AdContent\AdContent;
 use CCT\SDK\Campaign\Data\AdContent\CampaignImage\CampaignImages;
 use CCT\SDK\Campaign\Data\AdContent\Image\ImageCollection;
-use CCT\SDK\Campaign\Data\CampaignUuid;
+use CCT\SDK\Campaign\Data\CampaignId;
 use CCT\SDK\Campaign\Data\Details\Details;
 use CCT\SDK\Campaign\Data\Targeting\Targeting;
 use CCT\SDK\Campaign\Payload\SaveCampaign;
@@ -19,7 +19,7 @@ use CCT\SDK\Client\CctClient;
 use CCT\SDK\Client\CCTClientFactory;
 use CCT\SDK\Customer\Data\CustomerId;
 use CCT\SDK\Examples\OptionsForExamples;
-use CCT\SDK\Exception\RequestException;
+use CCT\SDK\Exception\ApiRequestException;
 use CCT\SDK\MediaManagement\Request\Media\CreateMediaCollection;
 use CCT\SDK\MediaManagement\Request\Media\RemoteMedia;
 use CCT\SDK\MediaManagement\ViewModel\MediaCollection;
@@ -57,7 +57,7 @@ final class CreateFullCampaignWithMultipleSaves
         }
     }
 
-    private static function startCampaign(CctClient $cctClient, CustomerId $customerId): CampaignUuid
+    private static function startCampaign(CctClient $cctClient, CustomerId $customerId): CampaignId
     {
         // See ListProductsForCustomer.php to see how to get a product for this customer it has access to
         $campaignFlowUuid = CampaignFlowId::fromString('27ff5c00-e651-479e-81c2-a92e6957123d');
@@ -66,12 +66,12 @@ final class CreateFullCampaignWithMultipleSaves
         $startCampaign = StartCampaign::fromArray(['campaign_flow_uuid' => $campaignFlowUuid->toString()]);
         $campaignCreationResponse = $cctClient->campaignClient()->startCampaign($startCampaign, $customerId);
 
-        printf('Campaign with id "%s" initialized.%s', $campaignCreationResponse->uuid->toString(), PHP_EOL);
+        printf('Campaign with id "%s" initialized.%s', $campaignCreationResponse->campaignId->toString(), PHP_EOL);
 
-        return $campaignCreationResponse->uuid;
+        return $campaignCreationResponse->campaignId;
     }
 
-    private static function addMediaAssets(CctClient $cctClient, CustomerId $customerId, CampaignUuid $campaignId): MediaCollection
+    private static function addMediaAssets(CctClient $cctClient, CustomerId $customerId, CampaignId $campaignId): MediaCollection
     {
         $remoteMedia = RemoteMedia::fromArray(
             [
@@ -82,7 +82,7 @@ final class CreateFullCampaignWithMultipleSaves
 
         try {
             $images = $cctClient->mediaClient()->createBulkMedia($customerId, $campaignId, CreateMediaCollection::fromItems($remoteMedia));
-        } catch (RequestException $requestException) {
+        } catch (ApiRequestException $requestException) {
             printf('Campaign with uuid "%s" failed to save with error %s', $requestException->getMessage(), PHP_EOL);
             exit(1);
         }
@@ -92,7 +92,7 @@ final class CreateFullCampaignWithMultipleSaves
         return $images;
     }
 
-    private static function setAdContent(CctClient $cctClient, CustomerId $customerId, CampaignUuid $campaignId, MediaCollection $images): void
+    private static function setAdContent(CctClient $cctClient, CustomerId $customerId, CampaignId $campaignId, MediaCollection $images): void
     {
         $details = self::createCampaignDetails();
         $adContent = self::createCampaignAdContent($images);
@@ -193,18 +193,22 @@ final class CreateFullCampaignWithMultipleSaves
         );
     }
 
-    private static function placeCampaign(CctClient $cctClient, CustomerId $customerId, CampaignUuid $campaignId): void
+    private static function placeCampaign(CctClient $cctClient, CustomerId $customerId, CampaignId $campaignId): void
     {
-        $cctClient->campaignClient()->placeCampaign($customerId, $campaignId);
-
+        try {
+            $cctClient->campaignClient()->placeCampaign($customerId, $campaignId);
+        } catch (ApiRequestException $requestException) {
+            printf('Campaign with uuid "%s" failed to save with error %s', $requestException->getMessage(), PHP_EOL);
+            exit(1);
+        }
         printf('Campaign with uuid "%s" has been placed.%s', $campaignId->toString(), PHP_EOL);
     }
 
-    private static function saveCampaign(CctClient $cctClient, SaveCampaign $saveCampaign, CustomerId $customerId, CampaignUuid $campaignId): void
+    private static function saveCampaign(CctClient $cctClient, SaveCampaign $saveCampaign, CustomerId $customerId, CampaignId $campaignId): void
     {
         try {
             $cctClient->campaignClient()->saveCampaign($saveCampaign, $customerId, $campaignId);
-        } catch (RequestException $requestException) {
+        } catch (ApiRequestException $requestException) {
             printf('Campaign with uuid "%s" failed to save with error %s', $requestException->getMessage(), PHP_EOL);
             exit(1);
         }

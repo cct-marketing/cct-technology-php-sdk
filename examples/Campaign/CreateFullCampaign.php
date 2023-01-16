@@ -9,7 +9,7 @@ require __DIR__ . '/../../vendor/autoload.php';
 use CCT\SDK\Campaign\Data\AdContent\AdContent;
 use CCT\SDK\Campaign\Data\AdContent\CampaignImage\CampaignImages;
 use CCT\SDK\Campaign\Data\AdContent\Image\ImageCollection;
-use CCT\SDK\Campaign\Data\CampaignUuid;
+use CCT\SDK\Campaign\Data\CampaignId;
 use CCT\SDK\Campaign\Data\Details\Details;
 use CCT\SDK\Campaign\Data\Targeting\Targeting;
 use CCT\SDK\Campaign\Payload\SaveCampaign;
@@ -19,7 +19,7 @@ use CCT\SDK\Client\CctClient;
 use CCT\SDK\Client\CCTClientFactory;
 use CCT\SDK\Customer\Data\CustomerId;
 use CCT\SDK\Examples\OptionsForExamples;
-use CCT\SDK\Exception\RequestException;
+use CCT\SDK\Exception\ApiRequestException;
 use CCT\SDK\MediaManagement\Request\Media\CreateMediaCollection;
 use CCT\SDK\MediaManagement\Request\Media\RemoteMedia;
 use CCT\SDK\MediaManagement\ViewModel\MediaCollection;
@@ -62,18 +62,18 @@ final class CreateFullCampaign
         }
     }
 
-    private static function startCampaign(CctClient $cctClient, CustomerId $customerId, CampaignFlowId $campaignFlowId): CampaignUuid
+    private static function startCampaign(CctClient $cctClient, CustomerId $customerId, CampaignFlowId $campaignFlowId): CampaignId
     {
         // Start Campaign creation
         $startCampaign = new StartCampaign($campaignFlowId);
         $campaignCreationResponse = $cctClient->campaignClient()->startCampaign($startCampaign, $customerId);
 
-        printf('Campaign with id "%s" initialized.%s', $campaignCreationResponse->uuid->toString(), PHP_EOL);
+        printf('Campaign with id "%s" initialized.%s', $campaignCreationResponse->campaignId->toString(), PHP_EOL);
 
-        return $campaignCreationResponse->uuid;
+        return $campaignCreationResponse->campaignId;
     }
 
-    private static function addMediaAssets(CctClient $cctClient, CustomerId $customerId, CampaignUuid $campaignId): MediaCollection
+    private static function addMediaAssets(CctClient $cctClient, CustomerId $customerId, CampaignId $campaignId): MediaCollection
     {
         $remoteMedia = RemoteMedia::fromArray(
             [
@@ -84,7 +84,7 @@ final class CreateFullCampaign
 
         try {
             $images = $cctClient->mediaClient()->createBulkMedia($customerId, $campaignId, CreateMediaCollection::fromItems($remoteMedia));
-        } catch (RequestException $requestException) {
+        } catch (ApiRequestException $requestException) {
             printf('Campaign with uuid "%s" failed to save with error %s', $requestException->getMessage(), PHP_EOL);
             exit(1);
         }
@@ -94,7 +94,7 @@ final class CreateFullCampaign
         return $images;
     }
 
-    private static function setCampaignData(CctClient $cctClient, CustomerId $customerId, CampaignUuid $campaignId, MediaCollection $images): void
+    private static function setCampaignData(CctClient $cctClient, CustomerId $customerId, CampaignId $campaignId, MediaCollection $images): void
     {
         $details = self::createCampaignDetails();
         $adContent = self::createCampaignAdContent($images);
@@ -105,7 +105,7 @@ final class CreateFullCampaign
         $saveCampaign = new SaveCampaign($details, $adContent, $targeting, $options);
         try {
             $cctClient->campaignClient()->saveCampaign($saveCampaign, $customerId, $campaignId);
-        } catch (RequestException $requestException) {
+        } catch (ApiRequestException $requestException) {
             printf('Campaign with uuid "%s" failed to save with error %s', $requestException->getMessage(), PHP_EOL);
             exit(1);
         }
@@ -193,7 +193,7 @@ final class CreateFullCampaign
         );
     }
 
-    private static function placeCampaign(CctClient $cctClient, CustomerId $customerId, CampaignUuid $campaignId): void
+    private static function placeCampaign(CctClient $cctClient, CustomerId $customerId, CampaignId $campaignId): void
     {
         $cctClient->campaignClient()->placeCampaign($customerId, $campaignId);
 
