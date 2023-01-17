@@ -16,7 +16,7 @@ use CCT\SDK\Campaign\Payload\SaveCampaign;
 use CCT\SDK\Campaign\Payload\StartCampaign;
 use CCT\SDK\CampaignFlow\Data\CampaignFlowId;
 use CCT\SDK\Client\CctClient;
-use CCT\SDK\Client\CCTClientFactory;
+use CCT\SDK\Client\CctClientFactory;
 use CCT\SDK\Customer\Data\CustomerId;
 use CCT\SDK\Examples\OptionsForExamples;
 use CCT\SDK\Exception\ApiRequestException;
@@ -38,7 +38,7 @@ final class CreateFullCampaignWithMultipleSaves
         $customerId = CustomerId::fromString('{CUSTOMER_ID}'); // Specify the Customer ID for the campaign you wish to create.
 
         $cache = new ArrayAdapter();
-        $cctClient = CCTClientFactory::create($option, $cache);
+        $cctClient = CctClientFactory::create($option, $cache);
 
         try {
             // This will initialize a campaign for specific product and return a campaign uuid

@@ -8,7 +8,7 @@ require __DIR__ . '/../../vendor/autoload.php';
 
 use CCT\SDK\CampaignFlow\Data\PricingItem;
 use CCT\SDK\CampaignFlow\Response\CampaignFlowItem;
-use CCT\SDK\Client\CCTClientFactory;
+use CCT\SDK\Client\CctClientFactory;
 use CCT\SDK\Customer\Data\CustomerId;
 use CCT\SDK\Examples\OptionsForExamples;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
@@ -18,7 +18,7 @@ $option = OptionsForExamples::create();
 
 $cache = new ArrayAdapter();
 
-$cctClient = CCTClientFactory::create($option, $cache);
+$cctClient = CctClientFactory::create($option, $cache);
 
 // See ListAccessibleCustomers.php to get the list of customer id you have access too
 $customerId = CustomerId::fromString('{CUSTOMER_ID}'); // Specify the Customer ID for the campaign you wish to create.

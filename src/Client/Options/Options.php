@@ -16,6 +16,7 @@ final class Options extends AbstractMulti
         public readonly CampaignWizardHost $campaignWizardHost,
         public readonly MediaHost $mediaHost,
         public readonly CustomerHost $customerHost,
+        public readonly AnalyticsHost $analyticsHost,
         public readonly bool $debug
     ) {
     }
@@ -30,6 +31,7 @@ final class Options extends AbstractMulti
                 'campaign_wizard_host' => $this->campaignWizardHost->toString(),
                 'media_host' => $this->mediaHost->toString(),
                 'customer_host' => $this->customerHost->toString(),
+                'analytics_host' => $this->analyticsHost->toString(),
                 'debug' => $this->debug,
             ]
         );
@@ -46,6 +48,7 @@ final class Options extends AbstractMulti
             isset($data['campaign_wizard_host']) ? CampaignWizardHost::fromString($data['campaign_wizard_host']) : CampaignWizardHost::createDefault($mode),
             isset($data['media_host']) ? MediaHost::fromString($data['media_host']) : MediaHost::createDefault($mode),
             isset($data['customer_host']) ? CustomerHost::fromString($data['customer_host']) : CustomerHost::createDefault($mode),
+            isset($data['analytics_host']) ? AnalyticsHost::fromString($data['analytics_host']) : AnalyticsHost::createDefault($mode),
             $data['debug'] ?? false
         );
     }

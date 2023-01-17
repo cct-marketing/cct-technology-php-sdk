@@ -9,7 +9,7 @@ use CCT\SDK\Client\Middleware\ClientBuilder;
 use CCT\SDK\Client\Options\Options;
 use Psr\Cache\CacheItemPoolInterface;
 
-final class CCTClientFactory
+final class CctClientFactory
 {
     public static function create(Options $options, CacheItemPoolInterface $cache): CctClient
     {

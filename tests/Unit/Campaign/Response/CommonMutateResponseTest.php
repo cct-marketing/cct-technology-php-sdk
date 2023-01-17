@@ -6,8 +6,6 @@ use CCT\SDK\Campaign\Data\CampaignId;
 use CCT\SDK\Campaign\Response\CommonMutateResponse;
 use CCT\SDK\Infrastucture\Assert\Exception\AssertionFailedException;
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\StreamInterface;
 
 class CommonMutateResponseTest extends TestCase
 {

@@ -6,7 +6,8 @@ namespace CCT\SDK\Tests\Functional;
 
 use CCT\SDK\Client\AuthProvider\Credentials;
 use CCT\SDK\Client\CctClient;
-use CCT\SDK\Client\CCTClientFactory;
+use CCT\SDK\Client\CctClientFactory;
+use CCT\SDK\Client\Options\AnalyticsHost;
 use CCT\SDK\Client\Options\CampaignWizardHost;
 use CCT\SDK\Client\Options\CustomerHost;
 use CCT\SDK\Client\Options\MediaHost;
@@ -24,13 +25,14 @@ final class CCTClientMockFactory
         $campaignWizardHost = CampaignWizardHost::createCustom($this->configStringValue('CAMPAIGN_WIZARD_HOST'));
         $mediaHost = MediaHost::createCustom($this->configStringValue('MEDIA_MANAGEMENT_HOST'));
         $customerHost = CustomerHost::createCustom($this->configStringValue('CUSTOMER_HOST'));
+        $analyticsHost = AnalyticsHost::createCustom($this->configStringValue('ANALYTICS_HOST'));
         $debug = $this->configBoolValue('DEBUG_ENABLED');
 
-        $option = new Options(Mode::SANDBOX, $credentials, $oAuthHost, $campaignWizardHost, $mediaHost, $customerHost, $debug);
+        $option = new Options(Mode::SANDBOX, $credentials, $oAuthHost, $campaignWizardHost, $mediaHost, $customerHost, $analyticsHost, $debug);
 
         $cache = new ArrayAdapter();
 
-        return CCTClientFactory::create($option, $cache);
+        return CctClientFactory::create($option, $cache);
     }
 
     public function configBoolValue(string $name): bool

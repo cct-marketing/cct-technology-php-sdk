@@ -55,7 +55,7 @@ final class CampaignClientTest extends TestCase
         $this->assertEquals('12345678-1234-1234-1234-123456789012', $response->campaignId->toString());
     }
 
-    private function createMockClient(ResponseInterface $mockResponse): Client|MockObject
+    private function createMockClient(ResponseInterface|MockObject $mockResponse): Client
     {
         // Create a mock client that will return a predefined response
         $client = $this->createMock(Client::class);

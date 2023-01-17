@@ -6,7 +6,7 @@ namespace CCT\SDK\Examples\Customers;
 
 require __DIR__ . '/../../vendor/autoload.php';
 
-use CCT\SDK\Client\CCTClientFactory;
+use CCT\SDK\Client\CctClientFactory;
 use CCT\SDK\Customer\Response\List\Agency;
 use CCT\SDK\Customer\Response\List\Customer;
 use CCT\SDK\Examples\OptionsForExamples;
@@ -17,7 +17,7 @@ $option = OptionsForExamples::create();
 
 $cache = new ArrayAdapter();
 
-$cctClient = CCTClientFactory::create($option, $cache);
+$cctClient = CctClientFactory::create($option, $cache);
 
 try {
     $listResult = $cctClient->customerClient()->list();

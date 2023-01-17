@@ -14,6 +14,7 @@
 		<env name="CAMPAIGN_WIZARD_HOST" value="http://localhost" />
 		<env name="MEDIA_MANAGEMENT_HOST" value="http://localhost" />
 		<env name="CUSTOMER_HOST" value="http://localhost" />
+		<env name="ANALYTICS_HOST" value="http://localhost" />
 		<env name="ENABLE_DEBUG" value="false" />
 		<env name="USE_MOCK_RESPONSES" value="true" />
 
