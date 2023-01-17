@@ -34,4 +34,4 @@ try {
     exit(1);
 }
 $analyticData = $campaignAnalytics ? $campaignAnalytics->toString() : 'No data found';
-printf('Analytic data from campaign "%s": %s %s', $campaignId->toString(), $analyticData, $campaignId->toString(), PHP_EOL);
+printf('Analytic data from campaign "%s": %s %s', $campaignId->toString(), $analyticData, PHP_EOL);
