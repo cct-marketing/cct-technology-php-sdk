@@ -147,4 +147,9 @@ final class Assertion
 
         return $withOutEmpty;
     }
+
+    public static function isResource(mixed $fileResource): void
+    {
+        AssertionLib::isResource($fileResource);
+    }
 }

@@ -6,7 +6,9 @@ namespace CCT\SDK\Campaign\Data\Targeting\PropertyInformation;
 
 use CCT\SDK\Infrastucture\Assert\Assertion;
 use CCT\SDK\Infrastucture\ValueObject\AbstractInteger;
+use EventSauce\ObjectHydrator\MapperSettings;
 
+#[MapperSettings(serializePublicMethods: false)]
 final class NumberOfBedrooms extends AbstractInteger
 {
     protected function guard(int $value): void

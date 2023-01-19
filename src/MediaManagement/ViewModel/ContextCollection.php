@@ -5,9 +5,19 @@ declare(strict_types=1);
 namespace CCT\SDK\MediaManagement\ViewModel;
 
 use CCT\SDK\Infrastucture\ValueObject\AbstractCollection;
+use EventSauce\ObjectHydrator\DoNotSerialize;
 
 final class ContextCollection extends AbstractCollection
 {
+    /**
+     * @param Context[] $items
+     */
+    public function __construct(array $items)
+    {
+        parent::__construct($items);
+    }
+
+    #[DoNotSerialize]
     public function toFormParams(): array
     {
         return array_map(static function (Context $context) {
@@ -26,7 +36,7 @@ final class ContextCollection extends AbstractCollection
         return false;
     }
 
-    protected static function itemClassName(): string
+    public static function itemClassName(): string
     {
         return Context::class;
     }

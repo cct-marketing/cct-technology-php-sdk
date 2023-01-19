@@ -4,29 +4,35 @@ declare(strict_types=1);
 
 namespace CCT\SDK\MediaManagement\Request\Media;
 
+use CCT\SDK\Infrastucture\Serialization\Caster\CastListUnionToType;
 use CCT\SDK\Infrastucture\ValueObject\AbstractCollection;
 use CCT\SDK\MediaManagement\Exception\InvalidCreateRequestException;
-use CCT\SDK\MediaManagement\Request\Factory\CreateMediaFactory;
+use EventSauce\ObjectHydrator\DoNotSerialize;
 
 final class CreateMediaCollection extends AbstractCollection
 {
-    public static function fromArray(array $data): static
-    {
-        return new self(array_map(static function (array $media) {
-            return CreateMediaFactory::fromArray($media);
-        }, $data));
+    public function __construct(
+        #[CastListUnionToType([
+            'remote_file' => RemoteMedia::class,
+            'external_url' => ExternalMedia::class,
+            'file_resource' => UploadMedia::class,
+        ])]
+        array $items
+    ) {
+        parent::__construct($items);
     }
 
-    public function toArray(): array
+    #[CastListUnionToType([
+        'remote_file' => RemoteMedia::class,
+        'external_url' => ExternalMedia::class,
+        'file_resource' => UploadMedia::class,
+    ])]
+    public function items(): array
     {
-        return array_map(
-            static function (CreateMediaInterface $media) {
-                return $media->toArray();
-            },
-            $this->items
-        );
+        return $this->items;
     }
 
+    #[DoNotSerialize]
     public function toFormParam(): array
     {
         return array_map(
@@ -43,7 +49,7 @@ final class CreateMediaCollection extends AbstractCollection
         );
     }
 
-    protected static function itemClassName(): string
+    public static function itemClassName(): string
     {
         return CreateMediaInterface::class;
     }

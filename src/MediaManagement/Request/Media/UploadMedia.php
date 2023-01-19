@@ -4,42 +4,19 @@ declare(strict_types=1);
 
 namespace CCT\SDK\MediaManagement\Request\Media;
 
-use Assert\Assertion;
+use CCT\SDK\Infrastucture\Assert\Assertion;
 use CCT\SDK\Infrastucture\ValueObject\AbstractMulti;
+use EventSauce\ObjectHydrator\MapFrom;
 
 final class UploadMedia extends AbstractMulti implements CreateMediaInterface
 {
-    public static function fromArray(array $data): static
-    {
-        Assertion::keyExists($data, 'name');
-        Assertion::keyExists($data, 'file_resource');
-        Assertion::keyExists($data, 'file_name');
-        Assertion::keyExists($data, 'type');
-
-        return new self(
-            BaseMediaCreate::fromArray($data),
-            $data['file_resource'],
-            $data['file_name']
-        );
-    }
-
-    private function __construct(
+    public function __construct(
+        #[MapFrom(['id', 'name', 'description', 'private', 'type', 'predefined_name'])]
         public readonly BaseMediaCreate $baseMediaCreate,
         public readonly mixed $fileResource,
         public readonly string $fileName
     ) {
         Assertion::isResource($fileResource);
-    }
-
-    public function toArray(): array
-    {
-        return array_merge(
-            $this->baseMediaCreate->toArray(),
-            [
-                'file_resource' => $this->fileResource,
-                'file_name' => $this->fileName,
-            ]
-        );
     }
 
     public function toMultipart(): array

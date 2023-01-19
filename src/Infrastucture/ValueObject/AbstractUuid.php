@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace CCT\SDK\Infrastucture\ValueObject;
 
+use EventSauce\ObjectHydrator\PropertyCasters\CastToUuid;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-abstract class AbstractUuid extends AbstractValueObject
+abstract class AbstractUuid extends AbstractValueObject implements SingleValueInterface
 {
-    public function __construct(public readonly UuidInterface $value)
-    {
+    public function __construct(
+        #[CastToUuid]
+        public readonly UuidInterface $value
+    ) {
     }
 
     public function equals(ValueObjectInterface $valueObject): bool
@@ -23,6 +26,11 @@ abstract class AbstractUuid extends AbstractValueObject
     }
 
     public function toString(): string
+    {
+        return $this->value->toString();
+    }
+
+    public function toNative(): string
     {
         return $this->value->toString();
     }

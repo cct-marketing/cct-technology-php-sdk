@@ -4,15 +4,12 @@ declare(strict_types=1);
 
 namespace CCT\SDK\MediaManagement\ViewModel\Traits;
 
-use CCT\SDK\MediaManagement\ViewModel\BaseMedia;
 use CCT\SDK\MediaManagement\ViewModel\ContextCollection;
 use CCT\SDK\MediaManagement\ViewModel\MediaType;
 use CCT\SDK\MediaManagement\ViewModel\Status;
 
 trait BaseMediaGettersTrait
 {
-    private BaseMedia $baseMedia;
-
     public function id(): string
     {
         return $this->baseMedia->id;

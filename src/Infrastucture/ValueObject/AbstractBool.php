@@ -6,7 +6,7 @@ namespace CCT\SDK\Infrastucture\ValueObject;
 
 use CCT\SDK\Infrastucture\Assert\Assertion;
 
-class AbstractBool extends AbstractValueObject
+class AbstractBool extends AbstractValueObject implements SingleValueInterface
 {
     public static function fromBool(bool $value): static
     {
@@ -44,5 +44,10 @@ class AbstractBool extends AbstractValueObject
     public function toString(): string
     {
         return $this->value ? 'true' : 'false';
+    }
+
+    public function toNative(): bool
+    {
+        return $this->value;
     }
 }

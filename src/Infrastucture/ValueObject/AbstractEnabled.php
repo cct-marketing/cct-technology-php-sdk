@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace CCT\SDK\Infrastucture\ValueObject;
 
 use Assert\Assertion;
+use CCT\SDK\Infrastucture\Serialization\Caster\CastToSingleValueObject;
 
 abstract class AbstractEnabled extends AbstractMulti
 {
-    public function __construct(public readonly Enabled $enabled)
-    {
+    public function __construct(
+        #[CastToSingleValueObject(Enabled::class)]
+        public readonly Enabled $enabled
+    ) {
     }
 
     public function toArray(): array

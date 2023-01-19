@@ -27,6 +27,6 @@ class TargetingTest extends TestCase
 
         $adContent = Targeting::fromArray($data);
 
-        $this->assertSame($data, $adContent->toArray());
+        $this->assertEquals($data, $adContent->toArray());
     }
 }

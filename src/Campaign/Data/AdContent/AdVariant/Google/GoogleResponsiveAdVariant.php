@@ -8,40 +8,23 @@ use CCT\SDK\Campaign\Data\AdContent\AdVariant\Google\ResponsiveAd\DescriptionCol
 use CCT\SDK\Campaign\Data\AdContent\AdVariant\Google\ResponsiveAd\LongHeadline;
 use CCT\SDK\Campaign\Data\AdContent\AdVariant\Google\ResponsiveAd\ShortHeadlineCollection;
 use CCT\SDK\Campaign\Data\AdContent\Image\ImageCollection;
-use CCT\SDK\Infrastucture\Assert\Assertion;
+use CCT\SDK\Infrastucture\Serialization\Caster\CastToCollectionObject;
+use CCT\SDK\Infrastucture\Serialization\Caster\CastToSingleValueObject;
 use CCT\SDK\Infrastucture\ValueObject\AbstractMulti;
+use EventSauce\ObjectHydrator\MapperSettings;
 
+#[MapperSettings(serializePublicMethods: false)]
 final class GoogleResponsiveAdVariant extends AbstractMulti
 {
-    private function __construct(
-        public readonly ShortHeadlineCollection $shortHeadlineCollection,
+    public function __construct(
+        #[CastToCollectionObject(ShortHeadlineCollection::class)]
+        public readonly ShortHeadlineCollection $shortHeadlines,
+        #[CastToSingleValueObject(LongHeadline::class)]
         public readonly LongHeadline $longHeadline,
-        public readonly DescriptionCollection $descriptionCollection,
-        public readonly ImageCollection $imageCollection
+        #[CastToCollectionObject(DescriptionCollection::class)]
+        public readonly DescriptionCollection $descriptions,
+        #[CastToCollectionObject(ImageCollection::class)]
+        public readonly ImageCollection $images
     ) {
-    }
-
-    public static function fromArray(array $data): static
-    {
-        Assertion::keyExists($data, 'short_headlines', self::errorPropertyPath());
-        Assertion::keyExists($data, 'long_headline', self::errorPropertyPath());
-        Assertion::keyExists($data, 'descriptions', self::errorPropertyPath());
-
-        return new self(
-            ShortHeadlineCollection::fromArray($data['short_headlines']),
-            LongHeadline::fromString($data['long_headline']),
-            DescriptionCollection::fromArray($data['descriptions']),
-            isset($data['images']) ? ImageCollection::fromArray($data['images']) : ImageCollection::emptyList()
-        );
-    }
-
-    public function toArray(): array
-    {
-        return [
-            'short_headlines' => $this->shortHeadlineCollection->toArray(),
-            'long_headline' => $this->longHeadline->toString(),
-            'descriptions' => $this->descriptionCollection->toArray(),
-            'images' => $this->imageCollection->toArray(),
-        ];
     }
 }

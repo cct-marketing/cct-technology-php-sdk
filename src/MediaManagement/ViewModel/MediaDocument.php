@@ -6,32 +6,16 @@ namespace CCT\SDK\MediaManagement\ViewModel;
 
 use CCT\SDK\Infrastucture\ValueObject\AbstractMulti;
 use CCT\SDK\MediaManagement\ViewModel\Traits\BaseMediaGettersTrait;
+use EventSauce\ObjectHydrator\MapFrom;
 
 final class MediaDocument extends AbstractMulti implements MediaInterface
 {
     use BaseMediaGettersTrait;
 
     public function __construct(
-        BaseMedia $baseMedia,
+        #[MapFrom(['id', 'name', 'description', 'private', 'extension', 'status', 'external', 'contexts', 'type', 'endpoint', 'file_format', 'original_uri'])]
+        public readonly BaseMedia $baseMedia,
         public readonly ?int $contentSize
     ) {
-    }
-
-    public static function fromArray(array $data): static
-    {
-        return new self(
-            BaseMedia::fromArray($data),
-            $data['content_size'] ?? null
-        );
-    }
-
-    public function toArray(): array
-    {
-        return array_merge(
-            $this->baseMedia->toArray(),
-            [
-                'content_size' => $this->contentSize,
-            ]
-        );
     }
 }

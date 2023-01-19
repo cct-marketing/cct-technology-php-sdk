@@ -8,7 +8,15 @@ use CCT\SDK\Infrastucture\ValueObject\AbstractCollection;
 
 final class TwitterAdVariants extends AbstractCollection
 {
-    protected static function itemClassName(): string
+    /**
+     * @param TwitterAdVariant[] $items
+     */
+    public function __construct(array $items)
+    {
+        parent::__construct($items);
+    }
+
+    public static function itemClassName(): string
     {
         return TwitterAdVariant::class;
     }

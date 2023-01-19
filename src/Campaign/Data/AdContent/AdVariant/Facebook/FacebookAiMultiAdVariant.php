@@ -9,43 +9,24 @@ use CCT\SDK\Campaign\Data\AdContent\AdVariant\Facebook\AiMultiVariantPart\Headin
 use CCT\SDK\Campaign\Data\AdContent\AdVariant\Facebook\AiMultiVariantPart\TextCollection;
 use CCT\SDK\Campaign\Data\AdContent\Image\ImageCollection;
 use CCT\SDK\Campaign\Data\AdContent\Video\VideoCollection;
-use CCT\SDK\Infrastucture\Assert\Assertion;
+use CCT\SDK\Infrastucture\Serialization\Caster\CastToCollectionObject;
 use CCT\SDK\Infrastucture\ValueObject\AbstractMulti;
+use EventSauce\ObjectHydrator\MapperSettings;
 
+#[MapperSettings(serializePublicMethods: false)]
 final class FacebookAiMultiAdVariant extends AbstractMulti
 {
     public function __construct(
+        #[CastToCollectionObject(TextCollection::class)]
         public readonly TextCollection $texts,
+        #[CastToCollectionObject(HeadingCollection::class)]
         public readonly HeadingCollection $headings,
+        #[CastToCollectionObject(DescriptionCollection::class)]
         public readonly DescriptionCollection $descriptions,
+        #[CastToCollectionObject(ImageCollection::class)]
         public readonly ImageCollection $images,
+        #[CastToCollectionObject(VideoCollection::class)]
         public readonly VideoCollection $videos
     ) {
-    }
-
-    public static function fromArray(array $data): static
-    {
-        Assertion::keyExists($data, 'headings', self::errorPropertyPath());
-        Assertion::keyExists($data, 'texts', self::errorPropertyPath());
-        Assertion::keyExists($data, 'descriptions', self::errorPropertyPath());
-
-        return new self(
-            TextCollection::fromArray($data['texts']),
-            HeadingCollection::fromArray($data['headings']),
-            DescriptionCollection::fromArray($data['descriptions']),
-            isset($data['images']) ? ImageCollection::fromArray($data['images']) : ImageCollection::emptyList(),
-            isset($data['videos']) ? VideoCollection::fromArray($data['videos']) : VideoCollection::emptyList(),
-        );
-    }
-
-    public function toArray(): array
-    {
-        return [
-            'texts' => $this->texts->toArray(),
-            'headings' => $this->headings->toArray(),
-            'descriptions' => $this->descriptions->toArray(),
-            'images' => $this->images->toArray(),
-            'videos' => $this->videos->toArray(),
-        ];
     }
 }

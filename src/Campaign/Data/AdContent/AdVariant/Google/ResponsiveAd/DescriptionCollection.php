@@ -6,25 +6,11 @@ namespace CCT\SDK\Campaign\Data\AdContent\AdVariant\Google\ResponsiveAd;
 
 use CCT\SDK\Infrastucture\Assert\Assertion;
 use CCT\SDK\Infrastucture\ValueObject\AbstractCollection;
+use CCT\SDK\Infrastucture\ValueObject\CollectionWithSingleVOTrait;
 
 final class DescriptionCollection extends AbstractCollection
 {
-    public static function fromArray(array $data): static
-    {
-        return new self(array_map(static function (string $description) {
-            return Description::fromString($description);
-        }, $data));
-    }
-
-    public function toArray(): array
-    {
-        return array_map(
-            static function (Description $description) {
-                return $description->toString();
-            },
-            $this->items
-        );
-    }
+    use CollectionWithSingleVOTrait;
 
     protected function guard(array $items): void
     {
@@ -35,7 +21,7 @@ final class DescriptionCollection extends AbstractCollection
         Assertion::noDuplicates($items, self::errorPropertyPath());
     }
 
-    protected static function itemClassName(): string
+    public static function itemClassName(): string
     {
         return Description::class;
     }

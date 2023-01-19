@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace CCT\SDK\Infrastucture\ValueObject;
 
 use CCT\SDK\Infrastucture\Assert\Assertion;
+use CCT\SDK\Infrastucture\Serialization\Serializer;
+use EventSauce\ObjectHydrator\DoNotSerialize;
 use IteratorAggregate;
 
 /**
@@ -12,11 +14,13 @@ use IteratorAggregate;
  */
 abstract class AbstractCollection extends AbstractValueObject implements \IteratorAggregate
 {
-    public function __construct(protected array $items)
-    {
+    public function __construct(
+        protected array $items
+    ) {
         $this->guard($this->items);
     }
 
+    #[DoNotSerialize]
     public function getIterator(): \Traversable
     {
         return new \ArrayIterator($this->items);
@@ -37,22 +41,27 @@ abstract class AbstractCollection extends AbstractValueObject implements \Iterat
     /**
      * @return class-string
      */
-    abstract protected static function itemClassName(): string;
+    abstract public static function itemClassName(): string;
 
-    public static function fromArray(array $data): static
-    {
-        $itemClassName = static::itemClassName();
-
-        return new static(array_map(static function (array $itemData) use ($itemClassName) {
-            return $itemClassName::fromArray($itemData);
-        }, $data));
-    }
-
+    #[DoNotSerialize]
     public function toArray(): array
     {
-        return array_map(static function (AbstractMulti $image) {
-            return $image->toArray();
-        }, $this->items);
+        $data = Serializer::serialize($this);
+
+        return $data['items'] ?? [];
+    }
+
+    /**
+     * @psalm-suppress MoreSpecificReturnType
+     * @psalm-suppress LessSpecificReturnStatement
+     */
+    public static function fromArray(array $data): static
+    {
+        if (0 === count($data)) {
+            return static::emptyList();
+        }
+
+        return Serializer::deserialize(static::class, ['items' => $data]);
     }
 
     protected function isInstanceOf(ValueObjectInterface $item): void
@@ -79,6 +88,7 @@ abstract class AbstractCollection extends AbstractValueObject implements \Iterat
         return $copy;
     }
 
+    #[DoNotSerialize]
     public function pop(): static
     {
         $copy = clone $this;
@@ -87,11 +97,13 @@ abstract class AbstractCollection extends AbstractValueObject implements \Iterat
         return $copy;
     }
 
+    #[DoNotSerialize]
     public function first(): ?ValueObjectInterface
     {
         return $this->items[0] ?? null;
     }
 
+    #[DoNotSerialize]
     public function last(): ?ValueObjectInterface
     {
         if (count($this->items) === 0) {
@@ -112,11 +124,13 @@ abstract class AbstractCollection extends AbstractValueObject implements \Iterat
         return false;
     }
 
+    #[DoNotSerialize]
     public function count(): int
     {
         return count($this->items);
     }
 
+    #[DoNotSerialize]
     public function __toString(): string
     {
         return $this->toString();
@@ -127,6 +141,7 @@ abstract class AbstractCollection extends AbstractValueObject implements \Iterat
         return $this->items;
     }
 
+    #[DoNotSerialize]
     public function toString(): string
     {
         return (string) json_encode($this->toArray(), JSON_THROW_ON_ERROR);

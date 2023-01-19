@@ -15,7 +15,7 @@ class LinkedInAdVariantTest extends TestCase
 
         $variant = LinkedInAdVariant::fromArray($data);
 
-        $this->assertInstanceOf(ImageCollection::class, $variant->imageCollection);
+        $this->assertInstanceOf(ImageCollection::class, $variant->images);
         $this->assertSame($data['text'], $variant->text);
     }
 
@@ -32,6 +32,6 @@ class LinkedInAdVariantTest extends TestCase
     {
         $this->expectException(AssertionFailedException::class);
 
-        new LinkedInAdVariant(str_repeat('a', 201));
+        new LinkedInAdVariant(str_repeat('a', 201), null);
     }
 }

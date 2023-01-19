@@ -8,7 +8,15 @@ use CCT\SDK\Infrastucture\ValueObject\AbstractCollection;
 
 final class Pricing extends AbstractCollection
 {
-    protected static function itemClassName(): string
+    /**
+     * @param PricingItem[] $items
+     */
+    public function __construct(array $items)
+    {
+        parent::__construct($items);
+    }
+
+    public static function itemClassName(): string
     {
         return PricingItem::class;
     }

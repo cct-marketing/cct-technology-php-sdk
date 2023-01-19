@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CCT\SDK\Infrastucture\ValueObject;
 
-abstract class AbstractInteger extends AbstractValueObject
+abstract class AbstractInteger extends AbstractValueObject implements SingleValueInterface
 {
     public function __construct(public readonly int $value)
     {
@@ -43,5 +43,10 @@ abstract class AbstractInteger extends AbstractValueObject
     public function toString(): string
     {
         return (string) $this->value;
+    }
+
+    public function toNative(): int
+    {
+        return $this->value;
     }
 }

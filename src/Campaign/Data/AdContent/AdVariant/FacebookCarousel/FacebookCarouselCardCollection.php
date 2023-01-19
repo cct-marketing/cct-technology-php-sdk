@@ -18,7 +18,7 @@ final class FacebookCarouselCardCollection extends AbstractCollection
         return self::fromItems(...$items);
     }
 
-    protected static function itemClassName(): string
+    public static function itemClassName(): string
     {
         return FacebookCarouselCard::class;
     }

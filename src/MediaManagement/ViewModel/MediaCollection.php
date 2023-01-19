@@ -4,29 +4,25 @@ declare(strict_types=1);
 
 namespace CCT\SDK\MediaManagement\ViewModel;
 
+use CCT\SDK\Infrastucture\Serialization\Caster\CastListUnionToType;
 use CCT\SDK\Infrastucture\ValueObject\AbstractCollection;
-use CCT\SDK\MediaManagement\ViewModel\Factory\MediaFactory;
 
 final class MediaCollection extends AbstractCollection
 {
-    public static function fromArray(array $data): static
-    {
-        return new self(array_map(static function (array $medium) {
-            return MediaFactory::fromArray($medium);
-        }, $data));
+    public function __construct(
+        #[CastListUnionToType(['image' => MediaImage::class, 'video' => MediaVideo::class, 'document' => MediaDocument::class, 'audio' => MediaAudio::class])]
+        array $items
+    ) {
+        parent::__construct($items);
     }
 
-    public function toArray(): array
+    #[CastListUnionToType(['image' => MediaImage::class, 'video' => MediaVideo::class, 'document' => MediaDocument::class, 'audio' => MediaAudio::class])]
+    public function items(): array
     {
-        return array_map(
-            static function (MediaInterface $medium) {
-                return MediaFactory::toArray($medium);
-            },
-            $this->items
-        );
+        return $this->items;
     }
 
-    protected static function itemClassName(): string
+    public static function itemClassName(): string
     {
         return MediaInterface::class;
     }

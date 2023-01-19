@@ -4,7 +4,7 @@ namespace CCT\SDK\Tests\Unit\Campaign\Response;
 
 use CCT\SDK\Campaign\Data\CampaignId;
 use CCT\SDK\Campaign\Response\CommonMutateResponse;
-use CCT\SDK\Infrastucture\Assert\Exception\AssertionFailedException;
+use CCT\SDK\Exception\SerializationErrorException;
 use PHPUnit\Framework\TestCase;
 
 class CommonMutateResponseTest extends TestCase
@@ -20,7 +20,7 @@ class CommonMutateResponseTest extends TestCase
 
     public function testCreateFromResponseWithInvalidData(): void
     {
-        $this->expectException(AssertionFailedException::class);
+        $this->expectException(SerializationErrorException::class);
 
         $data = ['invalid_key' => '12345678-1234-1234-1234-123456789012'];
 

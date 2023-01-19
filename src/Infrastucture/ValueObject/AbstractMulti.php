@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace CCT\SDK\Infrastucture\ValueObject;
 
+use CCT\SDK\Infrastucture\Serialization\Serializer;
+use EventSauce\ObjectHydrator\MapperSettings;
+
+#[MapperSettings(serializePublicMethods: false)]
 abstract class AbstractMulti extends AbstractValueObject
 {
     /**
@@ -18,9 +22,19 @@ abstract class AbstractMulti extends AbstractValueObject
         return $valueObject->toArray() === $this->toArray();
     }
 
-    abstract public function toArray(): array;
+    public function toArray(): array
+    {
+        return Serializer::serialize($this);
+    }
 
-    abstract public static function fromArray(array $data): static;
+    /**
+     * @psalm-suppress MoreSpecificReturnType
+     * @psalm-suppress LessSpecificReturnStatement
+     */
+    public static function fromArray(array $data): static
+    {
+        return Serializer::deserialize(static::class, $data);
+    }
 
     public function __toString(): string
     {

@@ -9,7 +9,15 @@ use CCT\SDK\Infrastucture\ValueObject\AbstractCollection;
 
 final class ListResult extends AbstractCollection
 {
-    protected static function itemClassName(): string
+    /**
+     * @param Agency[] $items
+     */
+    public function __construct(array $items)
+    {
+        parent::__construct($items);
+    }
+
+    public static function itemClassName(): string
     {
         return Agency::class;
     }

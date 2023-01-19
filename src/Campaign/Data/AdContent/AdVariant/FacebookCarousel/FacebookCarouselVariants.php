@@ -18,7 +18,7 @@ final class FacebookCarouselVariants extends AbstractCollection
         return self::fromItems(...$items);
     }
 
-    protected static function itemClassName(): string
+    public static function itemClassName(): string
     {
         return FacebookCarouselVariant::class;
     }

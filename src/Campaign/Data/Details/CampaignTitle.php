@@ -6,7 +6,9 @@ namespace CCT\SDK\Campaign\Data\Details;
 
 use Assert\Assertion;
 use CCT\SDK\Infrastucture\ValueObject\AbstractString;
+use EventSauce\ObjectHydrator\MapperSettings;
 
+#[MapperSettings(serializePublicMethods: false)]
 final class CampaignTitle extends AbstractString
 {
     protected function guard(string $value): void

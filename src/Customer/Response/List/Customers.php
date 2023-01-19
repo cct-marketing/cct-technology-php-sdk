@@ -8,7 +8,15 @@ use CCT\SDK\Infrastucture\ValueObject\AbstractCollection;
 
 final class Customers extends AbstractCollection
 {
-    protected static function itemClassName(): string
+    /**
+     * @param Customer[] $items
+     */
+    public function __construct(array $items)
+    {
+        parent::__construct($items);
+    }
+
+    public static function itemClassName(): string
     {
         return Customer::class;
     }

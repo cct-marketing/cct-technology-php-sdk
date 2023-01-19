@@ -10,6 +10,14 @@ use CCT\SDK\MediaManagement\ViewModel\MediaImage;
 
 final class ImageCollection extends AbstractCollection
 {
+    /**
+     * @param Image[] $items
+     */
+    public function __construct(array $items)
+    {
+        parent::__construct($items);
+    }
+
     public static function fromMediaCollection(MediaCollection $mediaCollection): self
     {
         $images = [];
@@ -23,7 +31,7 @@ final class ImageCollection extends AbstractCollection
         return new self($images);
     }
 
-    protected static function itemClassName(): string
+    public static function itemClassName(): string
     {
         return Image::class;
     }

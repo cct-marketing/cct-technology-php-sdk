@@ -6,25 +6,11 @@ namespace CCT\SDK\Campaign\Data\AdContent\AdVariant\Google\ResponsiveAd;
 
 use CCT\SDK\Infrastucture\Assert\Assertion;
 use CCT\SDK\Infrastucture\ValueObject\AbstractCollection;
+use CCT\SDK\Infrastucture\ValueObject\CollectionWithSingleVOTrait;
 
 final class ShortHeadlineCollection extends AbstractCollection
 {
-    public static function fromArray(array $data): static
-    {
-        return new self(array_map(static function (string $shortHeadline) {
-            return ShortHeadline::fromString($shortHeadline);
-        }, $data));
-    }
-
-    public function toArray(): array
-    {
-        return array_map(
-            static function (ShortHeadline $shortHeadline) {
-                return $shortHeadline->toString();
-            },
-            $this->items
-        );
-    }
+    use CollectionWithSingleVOTrait;
 
     protected function guard(array $items): void
     {
@@ -34,7 +20,7 @@ final class ShortHeadlineCollection extends AbstractCollection
         Assertion::noDuplicates($items, self::errorPropertyPath());
     }
 
-    protected static function itemClassName(): string
+    public static function itemClassName(): string
     {
         return ShortHeadline::class;
     }

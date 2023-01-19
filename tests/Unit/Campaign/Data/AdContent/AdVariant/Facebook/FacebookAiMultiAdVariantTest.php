@@ -8,7 +8,7 @@ use CCT\SDK\Campaign\Data\AdContent\AdVariant\Facebook\AiMultiVariantPart\TextCo
 use CCT\SDK\Campaign\Data\AdContent\AdVariant\Facebook\FacebookAiMultiAdVariant;
 use CCT\SDK\Campaign\Data\AdContent\Image\ImageCollection;
 use CCT\SDK\Campaign\Data\AdContent\Video\VideoCollection;
-use CCT\SDK\Infrastucture\Assert\Exception\AssertionFailedException;
+use CCT\SDK\Exception\SerializationErrorException;
 use PHPUnit\Framework\TestCase;
 
 class FacebookAiMultiAdVariantTest extends TestCase
@@ -28,7 +28,7 @@ class FacebookAiMultiAdVariantTest extends TestCase
 
     public function testFromArrayWithMissingProperties(): void
     {
-        $this->expectException(AssertionFailedException::class);
+        $this->expectException(SerializationErrorException::class);
 
         $data = [
             'texts' => [

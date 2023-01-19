@@ -6,28 +6,11 @@ namespace CCT\SDK\Campaign\Data\AdContent\AdVariant\Facebook\AiMultiVariantPart;
 
 use CCT\SDK\Infrastucture\Assert\Assertion;
 use CCT\SDK\Infrastucture\ValueObject\AbstractCollection;
+use CCT\SDK\Infrastucture\ValueObject\CollectionWithSingleVOTrait;
 
 final class HeadingCollection extends AbstractCollection
 {
-    public static function fromArray(array $data): static
-    {
-        return new self(array_map(
-            static function (string $heading) {
-                return Heading::fromString($heading);
-            },
-            $data
-        ));
-    }
-
-    public function toArray(): array
-    {
-        return array_map(
-            static function (Heading $heading) {
-                return $heading->toString();
-            },
-            $this->items
-        );
-    }
+    use CollectionWithSingleVOTrait;
 
     protected function guard(array $items): void
     {
@@ -37,7 +20,7 @@ final class HeadingCollection extends AbstractCollection
         Assertion::noDuplicates($items, self::errorPropertyPath());
     }
 
-    protected static function itemClassName(): string
+    public static function itemClassName(): string
     {
         return Heading::class;
     }

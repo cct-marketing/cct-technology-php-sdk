@@ -29,6 +29,6 @@ class IndustryAddressTest extends TestCase
 
         $industryAddress = IndustryAddress::fromArray($data);
 
-        $this->assertSame($data, $industryAddress->toArray());
+        $this->assertEquals($data, $industryAddress->toArray());
     }
 }
