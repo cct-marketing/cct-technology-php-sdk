@@ -20,7 +20,7 @@ abstract class AbstractServiceClient
     {
     }
 
-    public function listResources(string $uri): array
+    protected function listResources(string $uri): array
     {
         $request = new Request('GET', $uri);
 
