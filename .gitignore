@@ -6,3 +6,4 @@ bin/
 phpunit.xml
 .phpunit.result.cache
 composer.lock-old
+composer.lock
