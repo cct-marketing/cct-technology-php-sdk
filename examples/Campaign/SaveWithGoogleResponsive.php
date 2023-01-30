@@ -8,7 +8,7 @@ require __DIR__ . '/../../vendor/autoload.php';
 
 use CCT\SDK\Campaign\Data\CampaignId;
 use CCT\SDK\Campaign\Payload\SaveCampaign;
-use CCT\SDK\Client\CctClientFactory;
+use CCT\SDK\Client\ClientFactory;
 use CCT\SDK\Customer\Data\CustomerId;
 use CCT\SDK\Examples\OptionsForExamples;
 use CCT\SDK\Exception\ApiRequestException;
@@ -22,7 +22,7 @@ $customerId = CustomerId::fromString('{CUSTOMER_ID}'); // Specify the Customer I
 $campaignId = CampaignId::fromString('{CAMPAIGN_ID}'); // Specify the Campaign ID you wish to update. The campaign must still be in draft.
 
 $cache = new ArrayAdapter();
-$cctClient = CctClientFactory::create($option, $cache);
+$client = ClientFactory::create($option, $cache);
 
 $saveCampaign = SaveCampaign::fromArray(
     [
@@ -39,7 +39,7 @@ $saveCampaign = SaveCampaign::fromArray(
 );
 
 try {
-    $cctClient->campaignClient()->saveCampaign($saveCampaign, $customerId, $campaignId);
+    $client->campaignClient()->saveCampaign($saveCampaign, $customerId, $campaignId);
 } catch (ApiRequestException $requestException) {
     printf('Campaign with uuid "%s" failed to save with error %s', $requestException->getMessage(), PHP_EOL);
     exit(1);

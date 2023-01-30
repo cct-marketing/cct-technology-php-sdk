@@ -9,9 +9,9 @@ use CCT\SDK\Client\Middleware\ClientBuilder;
 use CCT\SDK\Client\Options\Options;
 use Psr\Cache\CacheItemPoolInterface;
 
-final class CctClientFactory
+final class ClientFactory
 {
-    public static function create(Options $options, CacheItemPoolInterface $cache): CctClient
+    public static function create(Options $options, CacheItemPoolInterface $cache): Client
     {
         $provider = new Provider($options->toArray());
 
@@ -19,6 +19,6 @@ final class CctClientFactory
 
         $client = ClientBuilder::build($provider, $config, $cache, ['']);
 
-        return new CctClient($options, $client);
+        return new Client($options, $client);
     }
 }

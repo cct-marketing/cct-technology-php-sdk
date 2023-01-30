@@ -22,6 +22,10 @@ final class AnalyticsClient extends AbstractServiceClient
 
         $data = $this->sendJsonRequest($request, 200);
 
+        if (count($data) === 0) {
+            return null;
+        }
+
         return CampaignAnalytics::fromArray($data[0]);
     }
 
