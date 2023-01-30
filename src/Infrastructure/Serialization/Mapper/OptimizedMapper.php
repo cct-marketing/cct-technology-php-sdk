@@ -2269,7 +2269,7 @@ class OptimizedMapper implements ObjectMapper
                 $value = $payload['images'] ?? null;
     
                 if ($value === null) {
-                    $missingFields[] = 'images';
+                    $properties['images'] = null;
                     goto after_images;
                 }
 
@@ -2299,7 +2299,7 @@ class OptimizedMapper implements ObjectMapper
                 $value = $payload['videos'] ?? null;
     
                 if ($value === null) {
-                    $missingFields[] = 'videos';
+                    $properties['videos'] = null;
                     goto after_videos;
                 }
 
@@ -2588,7 +2588,7 @@ class OptimizedMapper implements ObjectMapper
                 $value = $payload['images'] ?? null;
     
                 if ($value === null) {
-                    $missingFields[] = 'images';
+                    $properties['images'] = null;
                     goto after_images;
                 }
 
@@ -9065,6 +9065,10 @@ class OptimizedMapper implements ObjectMapper
 
         
         $images = $object->images;
+
+        if ($images === null) {
+            goto after_images;
+        }
         static $imagesSerializer0;
 
         if ($imagesSerializer0 === null) {
@@ -9078,6 +9082,10 @@ class OptimizedMapper implements ObjectMapper
 
         
         $videos = $object->videos;
+
+        if ($videos === null) {
+            goto after_videos;
+        }
         static $videosSerializer0;
 
         if ($videosSerializer0 === null) {
@@ -9207,6 +9215,10 @@ class OptimizedMapper implements ObjectMapper
 
         
         $images = $object->images;
+
+        if ($images === null) {
+            goto after_images;
+        }
         static $imagesSerializer0;
 
         if ($imagesSerializer0 === null) {

@@ -24,9 +24,9 @@ final class FacebookAiMultiAdVariant extends AbstractMulti
         #[CastToCollectionObject(DescriptionCollection::class)]
         public readonly DescriptionCollection $descriptions,
         #[CastToCollectionObject(ImageCollection::class)]
-        public readonly ImageCollection $images,
+        public readonly ?ImageCollection $images,
         #[CastToCollectionObject(VideoCollection::class)]
-        public readonly VideoCollection $videos
+        public readonly ?VideoCollection $videos
     ) {
     }
 }

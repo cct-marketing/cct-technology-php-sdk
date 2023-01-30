@@ -40,6 +40,21 @@ class FacebookAiMultiAdVariantTest extends TestCase
         FacebookAiMultiAdVariant::fromArray($data);
     }
 
+    public function testFromArrayWithMissingImagesAndVideo(): void
+    {
+        $data = [
+            'texts' => ['text1'],
+            'headings' => ['text1'],
+            'descriptions' => ['text1'],
+        ];
+
+        $adVariant = FacebookAiMultiAdVariant::fromArray($data);
+
+        $expected = array_merge($data, ['images' => null, 'videos' => null]);
+
+        $this->assertEquals($expected, $adVariant->toArray());
+    }
+
     public function testToArray(): void
     {
         $data = FacebookAiMultiAdVariantData::dataWithOverride();

@@ -24,7 +24,7 @@ final class GoogleResponsiveAdVariant extends AbstractMulti
         #[CastToCollectionObject(DescriptionCollection::class)]
         public readonly DescriptionCollection $descriptions,
         #[CastToCollectionObject(ImageCollection::class)]
-        public readonly ImageCollection $images
+        public readonly ?ImageCollection $images
     ) {
     }
 }
