@@ -6,12 +6,18 @@ namespace CCT\SDK\Campaign\Data\AdContent\CampaignImage;
 
 use CCT\SDK\Campaign\Data\AdContent\CampaignImage\ChannelImage\ChannelCollection;
 use CCT\SDK\Campaign\Data\AdContent\Image\ImageCollection;
-use CCT\SDK\Infrastucture\ValueObject\AbstractMulti;
+use CCT\SDK\Infrastructure\Serialization\Caster\CastToCollectionObject;
+use CCT\SDK\Infrastructure\ValueObject\AbstractMulti;
+use EventSauce\ObjectHydrator\MapperSettings;
 
+#[MapperSettings(serializePublicMethods: false)]
 final class CampaignImages extends AbstractMulti
 {
-    public function __construct(public readonly ChannelCollection $channelImages)
-    {
+    public function __construct(
+        #[CastToCollectionObject(ChannelCollection::class)]
+        public readonly ?ChannelCollection $channelImages,
+        public readonly bool $userImagesSelected = true
+    ) {
     }
 
     public static function createEmpty(): self
@@ -19,23 +25,8 @@ final class CampaignImages extends AbstractMulti
         return new self(ChannelCollection::emptyList());
     }
 
-    public static function fromImages(ImageCollection $images)
+    public static function fromImages(ImageCollection $images): self
     {
         return new self(ChannelCollection::allChannelsFromImages($images));
-    }
-
-    public function toArray(): array
-    {
-        return [
-            'user_images_selected' => true,
-            'channel_images' => $this->channelImages->toArray(),
-        ];
-    }
-
-    public static function fromArray(array $data): static
-    {
-        return new self(
-            ChannelCollection::fromArray($data['channel_images'] ?? []),
-        );
     }
 }

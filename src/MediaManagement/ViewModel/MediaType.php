@@ -10,5 +10,4 @@ enum MediaType: string
     case VIDEO = 'video';
     case DOCUMENT = 'document';
     case AUDIO = 'audio';
-    case FACEBOOK_VIDEO = 'facebook_video';
 }

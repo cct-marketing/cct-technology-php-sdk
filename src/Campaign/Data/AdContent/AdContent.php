@@ -11,51 +11,27 @@ use CCT\SDK\Campaign\Data\AdContent\AdVariant\LinkedIn\LinkedInAdVariants;
 use CCT\SDK\Campaign\Data\AdContent\AdVariant\Twitter\TwitterAdVariants;
 use CCT\SDK\Campaign\Data\AdContent\CampaignImage\CampaignImages;
 use CCT\SDK\Campaign\Data\AdContent\CampaignVideo\CampaignVideos;
-use CCT\SDK\Infrastucture\ValueObject\AbstractMulti;
+use CCT\SDK\Infrastructure\Serialization\Caster\CastToCollectionObject;
+use CCT\SDK\Infrastructure\ValueObject\AbstractMulti;
+use EventSauce\ObjectHydrator\MapperSettings;
 
+#[MapperSettings(serializePublicMethods: false)]
 final class AdContent extends AbstractMulti
 {
     public function __construct(
         public readonly ?CampaignImages $campaignImages,
         public readonly ?CampaignVideos $campaignVideos,
+        #[CastToCollectionObject(FacebookAiMultiAdVariants::class)]
         public readonly ?FacebookAiMultiAdVariants $facebookAiMultiAdVariants,
+        #[CastToCollectionObject(FacebookCarouselVariants::class)]
         public readonly ?FacebookCarouselVariants $facebookCarouselVariants,
         public readonly ?AdText $adText,
+        #[CastToCollectionObject(LinkedInAdVariants::class)]
         public readonly ?LinkedInAdVariants $linkedInAdVariants,
+        #[CastToCollectionObject(TwitterAdVariants::class)]
         public readonly ?TwitterAdVariants $twitterAdVariants,
+        #[CastToCollectionObject(GoogleResponsiveAdVariants::class)]
         public readonly ?GoogleResponsiveAdVariants $googleResponsiveAdVariants
     ) {
-    }
-
-    public static function fromArray(array $data): static
-    {
-        return new self(
-            isset($data['campaign_images']) ? CampaignImages::fromArray($data['campaign_images']) : null,
-            isset($data['campaign_videos']) ? CampaignVideos::fromArray($data['campaign_videos']) : null,
-            isset($data['facebook_ai_multi_ad_variants'])
-                ? FacebookAiMultiAdVariants::fromArray($data['facebook_ai_multi_ad_variants']) : null,
-            isset($data['facebook_carousel_variants'])
-                ? FacebookCarouselVariants::fromArray($data['facebook_carousel_variants']) : null,
-            isset($data['ad_text']) ? AdText::fromArray($data['ad_text']) : null,
-            isset($data['linked_in_ad_variants'])
-                ? LinkedInAdVariants::fromArray($data['linked_in_ad_variants']) : null,
-            isset($data['twitter_ad_variants']) ? TwitterAdVariants::fromArray($data['twitter_ad_variants']) : null,
-            isset($data['google_responsive_ad_variants'])
-                ? GoogleResponsiveAdVariants::fromArray($data['google_responsive_ad_variants']) : null
-        );
-    }
-
-    public function toArray(): array
-    {
-        return [
-            'campaign_images' => $this->campaignImages ? $this->campaignImages->toArray() : null,
-            'campaign_videos' => $this->campaignVideos ? $this->campaignVideos->toArray() : null,
-            'facebook_ai_multi_ad_variants' => $this->facebookAiMultiAdVariants ? $this->facebookAiMultiAdVariants->toArray() : null,
-            'facebook_carousel_variants' => $this->facebookCarouselVariants ? $this->facebookCarouselVariants->toArray() : null,
-            'ad_text' => $this->adText ? $this->adText->toArray() : null,
-            'linked_in_ad_variants' => $this->linkedInAdVariants ? $this->linkedInAdVariants->toArray() : null,
-            'twitter_ad_variants' => $this->twitterAdVariants ? $this->twitterAdVariants->toArray() : null,
-            'google_responsive_ad_variants' => $this->googleResponsiveAdVariants ? $this->googleResponsiveAdVariants->toArray() : null,
-        ];
     }
 }

@@ -5,29 +5,16 @@ declare(strict_types=1);
 namespace CCT\SDK\Campaign\Payload;
 
 use CCT\SDK\CampaignFlow\Data\CampaignFlowId;
-use CCT\SDK\Infrastucture\Assert\Assertion;
-use CCT\SDK\Infrastucture\ValueObject\AbstractMulti;
+use CCT\SDK\Infrastructure\Serialization\Caster\CastToSingleValueObject;
+use CCT\SDK\Infrastructure\ValueObject\AbstractMulti;
+use EventSauce\ObjectHydrator\MapperSettings;
 
+#[MapperSettings(serializePublicMethods: false)]
 final class StartCampaign extends AbstractMulti
 {
     public function __construct(
-        public readonly CampaignFlowId $campaignFlowId
+        #[CastToSingleValueObject(CampaignFlowId::class)]
+        public readonly CampaignFlowId $campaignFlowUuid
     ) {
-    }
-
-    public function toArray(): array
-    {
-        return [
-            'campaign_flow_uuid' => $this->campaignFlowId->toString(),
-        ];
-    }
-
-    public static function fromArray(array $data): static
-    {
-        Assertion::keyExists($data, 'campaign_flow_uuid', self::errorPropertyPath());
-
-        return new self(
-            CampaignFlowId::fromString($data['campaign_flow_uuid']),
-        );
     }
 }

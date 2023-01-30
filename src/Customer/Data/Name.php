@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CCT\SDK\Customer\Data;
 
-use CCT\SDK\Infrastucture\ValueObject\AbstractString;
+use CCT\SDK\Infrastructure\ValueObject\AbstractString;
 
 final class Name extends AbstractString
 {

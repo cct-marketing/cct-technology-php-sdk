@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace CCT\SDK\Campaign\Data\AdContent\AdVariant\FacebookCarousel;
 
 use CCT\SDK\Campaign\Data\AdContent\Image\ImageCollection;
-use CCT\SDK\Infrastucture\ValueObject\AbstractCollection;
+use CCT\SDK\Infrastructure\ValueObject\AbstractCollection;
 
 final class FacebookCarouselVariants extends AbstractCollection
 {
@@ -18,7 +18,7 @@ final class FacebookCarouselVariants extends AbstractCollection
         return self::fromItems(...$items);
     }
 
-    protected static function itemClassName(): string
+    public static function itemClassName(): string
     {
         return FacebookCarouselVariant::class;
     }

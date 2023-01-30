@@ -6,7 +6,7 @@ namespace CCT\SDK\Customer;
 
 use CCT\SDK\Client\AbstractServiceClient;
 use CCT\SDK\Customer\Response\ListResult;
-use CCT\SDK\Infrastucture\ValueObject\AbstractUrlOption;
+use CCT\SDK\Infrastructure\ValueObject\AbstractUrlOption;
 
 final class CustomerClient extends AbstractServiceClient
 {

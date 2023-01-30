@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CCT\SDK\MediaManagement\Request\Media;
 
-use CCT\SDK\Infrastucture\ValueObject\ValueObjectInterface;
+use CCT\SDK\Infrastructure\ValueObject\ValueObjectInterface;
 
 interface CreateMediaInterface extends ValueObjectInterface
 {

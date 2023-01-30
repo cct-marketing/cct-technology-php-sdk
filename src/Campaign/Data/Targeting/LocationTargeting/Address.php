@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace CCT\SDK\Campaign\Data\Targeting\LocationTargeting;
 
-use CCT\SDK\Infrastucture\ValueObject\AbstractMulti;
+use CCT\SDK\Infrastructure\ValueObject\AbstractMulti;
+use EventSauce\ObjectHydrator\MapperSettings;
 
+#[MapperSettings(serializePublicMethods: false)]
 final class Address extends AbstractMulti
 {
     public function __construct(
@@ -36,36 +38,5 @@ final class Address extends AbstractMulti
         $this->country === null ?: $address[] = $this->country->name;
 
         return \implode(', ', $address);
-    }
-
-    /**
-     * @return array|
-     */
-    public function toArray(): array
-    {
-        return [
-            'street_number' => $this->streetNumber,
-            'street_name' => $this->streetName,
-            'neighborhood' => $this->neighborhood,
-            'locality' => $this->locality,
-            'region' => $this->region,
-            'postal_code' => $this->postalCode,
-            'country' => $this->country?->toArray(),
-            'formatted_address' => $this->formattedAddress,
-        ];
-    }
-
-    public static function fromArray(array $data): static
-    {
-        return new self(
-            $data['street_number'] ?? null,
-            $data['street_name'] ?? null,
-            $data['neighborhood'] ?? null,
-            $data['locality'] ?? null,
-            $data['region'] ?? null,
-            $data['postal_code'] ?? null,
-            isset($data['country']) ? Country::fromArray($data['country']) : null,
-            $data['formatted_address'] ?? null
-        );
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CCT\SDK\MediaManagement\Request;
 
-use CCT\SDK\Infrastucture\Assert\Assertion;
+use CCT\SDK\Infrastructure\Assert\Assertion;
 use CCT\SDK\MediaManagement\Request\Context\Context;
 use CCT\SDK\MediaManagement\Request\Media\MediaTypeCollection;
 use CCT\SDK\MediaManagement\Request\Media\StatusCollection;

@@ -4,7 +4,7 @@ namespace CCT\SDK\Tests\Unit\Campaign\Data\AdContent\Image;
 
 use CCT\SDK\Campaign\Data\AdContent\Image\Image;
 use CCT\SDK\Campaign\Data\AdContent\Image\ImageId;
-use CCT\SDK\Infrastucture\ValueObject\Uri;
+use CCT\SDK\Infrastructure\ValueObject\Uri;
 use CCT\SDK\Tests\Unit\MediaManagement\ViewModel\MediaImageDataFactory;
 use PHPUnit\Framework\TestCase;
 

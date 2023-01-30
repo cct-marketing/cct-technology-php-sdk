@@ -4,7 +4,7 @@ namespace CCT\SDK\Tests\Unit\Campaign\Data\AdContent\AdVariant\Facebook\AiMultiV
 
 use CCT\SDK\Campaign\Data\AdContent\AdVariant\Facebook\AiMultiVariantPart\Text;
 use CCT\SDK\Campaign\Data\AdContent\AdVariant\Facebook\AiMultiVariantPart\TextCollection;
-use CCT\SDK\Infrastucture\Assert\Exception\AssertionFailedException;
+use CCT\SDK\Infrastructure\Assert\Exception\AssertionFailedException;
 use PHPUnit\Framework\TestCase;
 
 class TextCollectionTest extends TestCase

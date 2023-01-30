@@ -7,7 +7,7 @@ namespace CCT\SDK\CampaignFlow;
 use CCT\SDK\CampaignFlow\Response\ListResponse;
 use CCT\SDK\Client\AbstractServiceClient;
 use CCT\SDK\Customer\Data\CustomerId;
-use CCT\SDK\Infrastucture\ValueObject\AbstractUrlOption;
+use CCT\SDK\Infrastructure\ValueObject\AbstractUrlOption;
 
 final class CampaignFlowClient extends AbstractServiceClient
 {

@@ -42,5 +42,5 @@ foreach ($listResult as $campaignFlowItem) {
         printf('    - type: %s - price: %d%s', $item->type->value, $item->price, PHP_EOL);
     }
     printf('  - vat: %d%%%s', $campaignFlowItem->settings->vat->toFloat(), PHP_EOL);
-    printf('  - price excludes vat: %s%s', $campaignFlowItem->settings->priceExVat->enabled->toString(), PHP_EOL);
+    printf('  - price excludes vat: %s%s', $campaignFlowItem->settings->excludeVat->enabled->toString(), PHP_EOL);
 }

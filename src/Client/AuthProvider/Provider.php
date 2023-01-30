@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CCT\SDK\Client\AuthProvider;
 
-use CCT\SDK\Infrastucture\Assert\Assertion;
+use CCT\SDK\Infrastructure\Assert\Assertion;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;

@@ -8,41 +8,21 @@ use CCT\SDK\Campaign\Data\AdContent\AdContent;
 use CCT\SDK\Campaign\Data\Details\Details;
 use CCT\SDK\Campaign\Data\Targeting\Targeting;
 use CCT\SDK\CampaignFlow\Data\CampaignFlowId;
-use CCT\SDK\Infrastucture\Assert\Assertion;
-use CCT\SDK\Infrastucture\ValueObject\AbstractMulti;
+use CCT\SDK\Infrastructure\Serialization\Caster\CastToSingleValueObject;
+use CCT\SDK\Infrastructure\ValueObject\AbstractMulti;
+use EventSauce\ObjectHydrator\MapFrom;
+use EventSauce\ObjectHydrator\MapperSettings;
 
+#[MapperSettings(serializePublicMethods: false)]
 final class CreateCampaign extends AbstractMulti
 {
     public function __construct(
+        #[MapFrom('campaign_flow_uuid')]
+        #[CastToSingleValueObject(CampaignFlowId::class)]
         public readonly CampaignFlowId $campaignFlowId,
         public readonly Details $details,
         public readonly AdContent $adContent,
         public readonly Targeting $targeting
     ) {
-    }
-
-    public function toArray(): array
-    {
-        return [
-            'campaign_flow_uuid' => $this->campaignFlowId->toString(),
-            'details' => $this->details->toArray(),
-            'ad_content' => $this->adContent->toArray(),
-            'targeting' => $this->targeting->toArray(),
-        ];
-    }
-
-    public static function fromArray(array $data): static
-    {
-        Assertion::keyExists($data, 'campaign_flow_uuid', self::errorPropertyPath());
-        Assertion::keyExists($data, 'details', self::errorPropertyPath());
-        Assertion::keyExists($data, 'ad_content', self::errorPropertyPath());
-        Assertion::keyExists($data, 'targeting', self::errorPropertyPath());
-
-        return new self(
-            CampaignFlowId::fromString($data['campaign_flow_uuid']),
-            Details::fromArray($data['details']),
-            AdContent::fromArray($data['ad_content']),
-            Targeting::fromArray($data['targeting'])
-        );
     }
 }

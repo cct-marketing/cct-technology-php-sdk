@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CCT\SDK\Client\Middleware;
 
-use CCT\SDK\Infrastucture\Assert\Assertion;
+use CCT\SDK\Infrastructure\Assert\Assertion;
 use League\OAuth2\Client\Provider\AbstractProvider as OAuth2Provider;
 use League\OAuth2\Client\Token\AccessToken;
 use Psr\Http\Message\RequestInterface;

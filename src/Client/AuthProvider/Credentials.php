@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace CCT\SDK\Client\AuthProvider;
 
-use CCT\SDK\Infrastucture\Assert\Assertion;
-use CCT\SDK\Infrastucture\ValueObject\AbstractMulti;
+use CCT\SDK\Infrastructure\Assert\Assertion;
+use CCT\SDK\Infrastructure\ValueObject\AbstractMulti;
 
 final class Credentials extends AbstractMulti
 {

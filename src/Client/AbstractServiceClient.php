@@ -7,7 +7,7 @@ namespace CCT\SDK\Client;
 use CCT\SDK\Client\Options\Options;
 use CCT\SDK\Exception\ApiRequestException;
 use CCT\SDK\Exception\InvalidStatusCodeException;
-use CCT\SDK\Infrastucture\ValueObject\AbstractUrlOption;
+use CCT\SDK\Infrastructure\ValueObject\AbstractUrlOption;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\RequestOptions;
@@ -20,7 +20,7 @@ abstract class AbstractServiceClient
     {
     }
 
-    public function listResources(string $uri): array
+    protected function listResources(string $uri): array
     {
         $request = new Request('GET', $uri);
 

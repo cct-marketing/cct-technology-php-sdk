@@ -4,26 +4,22 @@ declare(strict_types=1);
 
 namespace CCT\SDK\Campaign\Data\AdContent\Image;
 
-use CCT\SDK\Infrastucture\Assert\Assertion;
-use CCT\SDK\Infrastucture\ValueObject\AbstractMulti;
-use CCT\SDK\Infrastucture\ValueObject\Uri;
+use CCT\SDK\Infrastructure\Assert\Assertion;
+use CCT\SDK\Infrastructure\Serialization\Caster\CastToSingleValueObject;
+use CCT\SDK\Infrastructure\ValueObject\AbstractMulti;
+use CCT\SDK\Infrastructure\ValueObject\Uri;
 use CCT\SDK\MediaManagement\ViewModel\MediaImage;
+use EventSauce\ObjectHydrator\MapperSettings;
 
+#[MapperSettings(serializePublicMethods: false)]
 final class Image extends AbstractMulti
 {
-    public function __construct(public readonly Uri $imageUrl, public readonly ImageId $uuid)
-    {
-    }
-
-    public static function fromArray(array $data): static
-    {
-        Assertion::keyExists($data, 'image_url', 'image');
-        Assertion::keyExists($data, 'uuid', 'image');
-
-        return new self(
-            Uri::fromString($data['image_url']),
-            ImageId::fromString($data['uuid'])
-        );
+    public function __construct(
+        #[CastToSingleValueObject(Uri::class)]
+        public readonly Uri $imageUrl,
+        #[CastToSingleValueObject(ImageId::class)]
+        public readonly ImageId $uuid
+    ) {
     }
 
     public static function fromMediaImage(MediaImage $mediaImage): self
@@ -35,13 +31,5 @@ final class Image extends AbstractMulti
             Uri::fromString($endpoint),
             ImageId::fromString($mediaImage->id())
         );
-    }
-
-    public function toArray(): array
-    {
-        return [
-            'image_url' => $this->imageUrl->toString(),
-            'uuid' => $this->uuid->toString(),
-        ];
     }
 }
