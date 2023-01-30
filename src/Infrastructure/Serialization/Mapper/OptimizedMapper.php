@@ -75,7 +75,6 @@ class OptimizedMapper implements ObjectMapper
                 'CCT\SDK\Campaign\Data\AdContent\CampaignImage\ChannelImage\AbstractChannelImages' => $this->hydrateCCTSDKCampaignDataAdContentCampaignImageChannelImageAbstractChannelImages($payload),
                 'CCT\SDK\Campaign\Data\AdContent\CampaignImage\ChannelImage\ChannelCollection' => $this->hydrateCCTSDKCampaignDataAdContentCampaignImageChannelImageChannelCollection($payload),
                 'CCT\SDK\Campaign\Data\AdContent\CampaignImage\ChannelImage\FacebookImages' => $this->hydrateCCTSDKCampaignDataAdContentCampaignImageChannelImageFacebookImages($payload),
-                'CCT\SDK\Campaign\Data\AdContent\CampaignImage\ChannelImage\GeneralImages' => $this->hydrateCCTSDKCampaignDataAdContentCampaignImageChannelImageGeneralImages($payload),
                 'CCT\SDK\Campaign\Data\AdContent\CampaignImage\ChannelImage\GoogleImages' => $this->hydrateCCTSDKCampaignDataAdContentCampaignImageChannelImageGoogleImages($payload),
                 'CCT\SDK\Campaign\Data\AdContent\CampaignVideo\CampaignVideos' => $this->hydrateCCTSDKCampaignDataAdContentCampaignVideoCampaignVideos($payload),
                 'CCT\SDK\Campaign\Data\AdContent\Image\Image' => $this->hydrateCCTSDKCampaignDataAdContentImageImage($payload),
@@ -3193,7 +3192,6 @@ class OptimizedMapper implements ObjectMapper
   array (
     'facebook_images' => 'CCT\\SDK\\Campaign\\Data\\AdContent\\CampaignImage\\ChannelImage\\FacebookImages',
     'google_images' => 'CCT\\SDK\\Campaign\\Data\\AdContent\\CampaignImage\\ChannelImage\\GoogleImages',
-    'general_images' => 'CCT\\SDK\\Campaign\\Data\\AdContent\\CampaignImage\\ChannelImage\\GeneralImages',
   ),
 ));
                 }
@@ -3268,58 +3266,6 @@ class OptimizedMapper implements ObjectMapper
                 return new \CCT\SDK\Campaign\Data\AdContent\CampaignImage\ChannelImage\FacebookImages(...$properties);
             } catch (\Throwable $exception) {
                 throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\AdContent\CampaignImage\ChannelImage\FacebookImages', $exception, stack: $this->hydrationStack);
-            }
-        }
-
-        
-        private function hydrateCCTSDKCampaignDataAdContentCampaignImageChannelImageGeneralImages(array $payload): \CCT\SDK\Campaign\Data\AdContent\CampaignImage\ChannelImage\GeneralImages
-        {
-            $properties = []; 
-            $missingFields = [];
-            try {
-                
-                $value = $payload['images'] ?? null;
-    
-                if ($value === null) {
-                    $missingFields[] = 'images';
-                    goto after_images;
-                }
-
-                static $imagesCaster1;
-    
-                if ($imagesCaster1 === null) {
-                    $imagesCaster1 = new \CCT\SDK\Infrastructure\Serialization\Caster\CastToCollectionObject(...array (
-  0 => 'CCT\\SDK\\Campaign\\Data\\AdContent\\Image\\ImageCollection',
-));
-                }
-    
-                $value = $imagesCaster1->cast($value, $this);
-
-                if (is_array($value)) {
-                    try {
-                        $this->hydrationStack[] = 'images';
-                        $value = $this->hydrateCCTSDKCampaignDataAdContentImageImageCollection($value);
-                    } finally {
-                        array_pop($this->hydrationStack);
-                    }
-                }
-
-                $properties['images'] = $value;
-    
-                after_images:
-
-            } catch (\Throwable $exception) {
-                throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\AdContent\CampaignImage\ChannelImage\GeneralImages', $exception, stack: $this->hydrationStack);
-            }
-            
-            if (count($missingFields) > 0) {
-                throw UnableToHydrateObject::dueToMissingFields(\CCT\SDK\Campaign\Data\AdContent\CampaignImage\ChannelImage\GeneralImages::class, $missingFields, stack: $this->hydrationStack);
-            }
-            
-            try {
-                return new \CCT\SDK\Campaign\Data\AdContent\CampaignImage\ChannelImage\GeneralImages(...$properties);
-            } catch (\Throwable $exception) {
-                throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\AdContent\CampaignImage\ChannelImage\GeneralImages', $exception, stack: $this->hydrationStack);
             }
         }
 
@@ -5158,7 +5104,7 @@ class OptimizedMapper implements ObjectMapper
                 $value = $payload['locations'] ?? null;
     
                 if ($value === null) {
-                    $missingFields[] = 'locations';
+                    $properties['locations'] = null;
                     goto after_locations;
                 }
 
@@ -5188,7 +5134,7 @@ class OptimizedMapper implements ObjectMapper
                 $value = $payload['industry_address'] ?? null;
     
                 if ($value === null) {
-                    $missingFields[] = 'industry_address';
+                    $properties['industryAddress'] = null;
                     goto after_industryAddress;
                 }
 
@@ -5208,7 +5154,7 @@ class OptimizedMapper implements ObjectMapper
                 $value = $payload['property_information'] ?? null;
     
                 if ($value === null) {
-                    $missingFields[] = 'property_information';
+                    $properties['propertyInformation'] = null;
                     goto after_propertyInformation;
                 }
 
@@ -7921,7 +7867,6 @@ class OptimizedMapper implements ObjectMapper
                 'CCT\SDK\Campaign\Data\AdContent\CampaignImage\ChannelImage\AbstractChannelImages' => $this->serializeObjectCCTSDKCampaignDataAdContentCampaignImageChannelImageAbstractChannelImages($object),
                 'CCT\SDK\Campaign\Data\AdContent\CampaignImage\ChannelImage\ChannelCollection' => $this->serializeObjectCCTSDKCampaignDataAdContentCampaignImageChannelImageChannelCollection($object),
                 'CCT\SDK\Campaign\Data\AdContent\CampaignImage\ChannelImage\FacebookImages' => $this->serializeObjectCCTSDKCampaignDataAdContentCampaignImageChannelImageFacebookImages($object),
-                'CCT\SDK\Campaign\Data\AdContent\CampaignImage\ChannelImage\GeneralImages' => $this->serializeObjectCCTSDKCampaignDataAdContentCampaignImageChannelImageGeneralImages($object),
                 'CCT\SDK\Campaign\Data\AdContent\CampaignImage\ChannelImage\GoogleImages' => $this->serializeObjectCCTSDKCampaignDataAdContentCampaignImageChannelImageGoogleImages($object),
                 'CCT\SDK\Campaign\Data\AdContent\CampaignVideo\CampaignVideos' => $this->serializeObjectCCTSDKCampaignDataAdContentCampaignVideoCampaignVideos($object),
                 'CCT\SDK\Campaign\Data\AdContent\Image\Image' => $this->serializeObjectCCTSDKCampaignDataAdContentImageImage($object),
@@ -9554,7 +9499,6 @@ class OptimizedMapper implements ObjectMapper
   array (
     'facebook_images' => 'CCT\\SDK\\Campaign\\Data\\AdContent\\CampaignImage\\ChannelImage\\FacebookImages',
     'google_images' => 'CCT\\SDK\\Campaign\\Data\\AdContent\\CampaignImage\\ChannelImage\\GoogleImages',
-    'general_images' => 'CCT\\SDK\\Campaign\\Data\\AdContent\\CampaignImage\\ChannelImage\\GeneralImages',
   ),
 ));
         }
@@ -9570,28 +9514,6 @@ class OptimizedMapper implements ObjectMapper
     private function serializeObjectCCTSDKCampaignDataAdContentCampaignImageChannelImageFacebookImages(mixed $object): mixed
     {
         \assert($object instanceof \CCT\SDK\Campaign\Data\AdContent\CampaignImage\ChannelImage\FacebookImages);
-        $result = [];
-        
-        $images = $object->images;
-        static $imagesSerializer0;
-
-        if ($imagesSerializer0 === null) {
-            $imagesSerializer0 = new \CCT\SDK\Infrastructure\Serialization\Caster\CastToCollectionObject(...array (
-  0 => 'CCT\\SDK\\Campaign\\Data\\AdContent\\Image\\ImageCollection',
-));
-        }
-        
-        $images = $imagesSerializer0->serialize($images, $this);
-        after_images:        $result['images'] = $images;
-
-
-        return $result;
-    }
-
-    
-    private function serializeObjectCCTSDKCampaignDataAdContentCampaignImageChannelImageGeneralImages(mixed $object): mixed
-    {
-        \assert($object instanceof \CCT\SDK\Campaign\Data\AdContent\CampaignImage\ChannelImage\GeneralImages);
         $result = [];
         
         $images = $object->images;
@@ -10411,6 +10333,10 @@ class OptimizedMapper implements ObjectMapper
         $result = [];
         
         $locations = $object->locations;
+
+        if ($locations === null) {
+            goto after_locations;
+        }
         static $locationsSerializer0;
 
         if ($locationsSerializer0 === null) {
@@ -10424,11 +10350,19 @@ class OptimizedMapper implements ObjectMapper
 
         
         $industryAddress = $object->industryAddress;
+
+        if ($industryAddress === null) {
+            goto after_industryAddress;
+        }
         $industryAddress = $this->serializeObjectCCTSDKCampaignDataTargetingLocationTargetingIndustryAddress($industryAddress);
         after_industryAddress:        $result['industry_address'] = $industryAddress;
 
         
         $propertyInformation = $object->propertyInformation;
+
+        if ($propertyInformation === null) {
+            goto after_propertyInformation;
+        }
         $propertyInformation = $this->serializeObjectCCTSDKCampaignDataTargetingPropertyInformationPropertyInformation($propertyInformation);
         after_propertyInformation:        $result['property_information'] = $propertyInformation;
 

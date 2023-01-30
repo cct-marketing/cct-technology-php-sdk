@@ -13,17 +13,16 @@ final class ChannelCollection extends AbstractCollection
     private static array $types = [
         'facebook_images' => FacebookImages::class,
         'google_images' => GoogleImages::class,
-        'general_images' => GeneralImages::class,
     ];
 
     public function __construct(
-        #[CastListUnionToType(['facebook_images' => FacebookImages::class, 'google_images' => GoogleImages::class, 'general_images' => GeneralImages::class])]
+        #[CastListUnionToType(['facebook_images' => FacebookImages::class, 'google_images' => GoogleImages::class])]
         array $items
     ) {
         parent::__construct($items);
     }
 
-    #[CastListUnionToType(['facebook_images' => FacebookImages::class, 'google_images' => GoogleImages::class, 'general_images' => GeneralImages::class])]
+    #[CastListUnionToType(['facebook_images' => FacebookImages::class, 'google_images' => GoogleImages::class])]
     public function items(): array
     {
         return $this->items;

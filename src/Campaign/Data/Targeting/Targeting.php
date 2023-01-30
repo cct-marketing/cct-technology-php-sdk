@@ -16,9 +16,9 @@ final class Targeting extends AbstractMulti
 {
     public function __construct(
         #[CastToCollectionObject(Locations::class)]
-        public readonly Locations $locations,
-        public readonly IndustryAddress $industryAddress,
-        public readonly PropertyInformation $propertyInformation
+        public readonly ?Locations $locations,
+        public readonly ?IndustryAddress $industryAddress,
+        public readonly ?PropertyInformation $propertyInformation
     ) {
     }
 }
