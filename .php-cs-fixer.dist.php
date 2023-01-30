@@ -11,7 +11,7 @@ return (new PhpCsFixer\Config())
     ->setLineEnding("\n")
     ->setRules(
         [
-            '@PSR2' => true,
+            '@PSR12' => true,
             '@Symfony' => true,
 
             // General config

@@ -6,7 +6,7 @@ namespace CCT\SDK\Examples\Customers;
 
 require __DIR__ . '/../../vendor/autoload.php';
 
-use CCT\SDK\Client\CctClientFactory;
+use CCT\SDK\Client\ClientFactory;
 use CCT\SDK\Customer\Response\List\Agency;
 use CCT\SDK\Customer\Response\List\Customer;
 use CCT\SDK\Examples\OptionsForExamples;
@@ -17,10 +17,10 @@ $option = OptionsForExamples::create();
 
 $cache = new ArrayAdapter();
 
-$cctClient = CctClientFactory::create($option, $cache);
+$client = ClientFactory::create($option, $cache);
 
 try {
-    $listResult = $cctClient->customerClient()->list();
+    $listResult = $client->customerClient()->list();
 } catch (IdentityProviderException $e) {
     printf('Auth error: %s', $e->getMessage());
     exit(1);

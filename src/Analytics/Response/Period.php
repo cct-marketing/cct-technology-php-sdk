@@ -16,6 +16,9 @@ final class Period extends AbstractMulti
     ) {
     }
 
+    /**
+     * @psalm-suppress PossiblyFalseArgument
+     */
     public static function fromArray(array $data): static
     {
         Assertion::keyExists($data, 'start_date', self::errorPropertyPath());
@@ -23,9 +26,9 @@ final class Period extends AbstractMulti
         Assertion::keyExists($data, 'created_at', self::errorPropertyPath());
 
         return new self(
-            (new \DateTimeImmutable())->setTimestamp($data['start_date']),
-            (new \DateTimeImmutable())->setTimestamp($data['end_date']),
-            (new \DateTimeImmutable())->setTimestamp($data['created_at'])
+            \DateTimeImmutable::createFromFormat(\DateTimeInterface::ATOM, $data['start_date']),
+            \DateTimeImmutable::createFromFormat(\DateTimeInterface::ATOM, $data['end_date']),
+            \DateTimeImmutable::createFromFormat(\DateTimeInterface::ATOM, $data['created_at'])
         );
     }
 

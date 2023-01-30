@@ -15,8 +15,8 @@ use CCT\SDK\Campaign\Data\Targeting\Targeting;
 use CCT\SDK\Campaign\Payload\SaveCampaign;
 use CCT\SDK\Campaign\Payload\StartCampaign;
 use CCT\SDK\CampaignFlow\Data\CampaignFlowId;
-use CCT\SDK\Client\CctClient;
-use CCT\SDK\Client\CctClientFactory;
+use CCT\SDK\Client\Client;
+use CCT\SDK\Client\ClientFactory;
 use CCT\SDK\Customer\Data\CustomerId;
 use CCT\SDK\Examples\OptionsForExamples;
 use CCT\SDK\Exception\ApiRequestException;
@@ -41,39 +41,39 @@ final class CreateFullCampaign
         $campaignFlowId = CampaignFlowId::fromString('{CUSTOMER_CAMPAIGN_FLOW_ID}'); // Specify the product the campaign will be initialised with.
 
         $cache = new ArrayAdapter();
-        $cctClient = CctClientFactory::create($option, $cache);
+        $client = ClientFactory::create($option, $cache);
 
         try {
             // This will initialize a campaign for specific product and return a campaign uuid
-            $campaignId = self::startCampaign($cctClient, $customerId, $campaignFlowId);
+            $campaignId = self::startCampaign($client, $customerId, $campaignFlowId);
 
             // This action will incorporate assets into the system and link them to the specified campaign.
             // Note that this does not select which assets will be utilized.
-            $images = self::addMediaAssets($cctClient, $customerId, $campaignId);
+            $images = self::addMediaAssets($client, $customerId, $campaignId);
 
             // Establish the campaign details, define the ad content, and ad targeting criteria.
-            self::setCampaignData($cctClient, $customerId, $campaignId, $images);
+            self::setCampaignData($client, $customerId, $campaignId, $images);
 
             // Places the campaign and upon review will deploys it into the appropriate advertising channels
-            self::placeCampaign($cctClient, $customerId, $campaignId);
+            self::placeCampaign($client, $customerId, $campaignId);
         } catch (IdentityProviderException $e) {
             printf('Auth error: %s', $e->getMessage());
             exit(1);
         }
     }
 
-    private static function startCampaign(CctClient $cctClient, CustomerId $customerId, CampaignFlowId $campaignFlowId): CampaignId
+    private static function startCampaign(Client $client, CustomerId $customerId, CampaignFlowId $campaignFlowId): CampaignId
     {
         // Start Campaign creation
         $startCampaign = new StartCampaign($campaignFlowId);
-        $campaignCreationResponse = $cctClient->campaignClient()->startCampaign($startCampaign, $customerId);
+        $campaignCreationResponse = $client->campaignClient()->startCampaign($startCampaign, $customerId);
 
         printf('Campaign with id "%s" initialized.%s', $campaignCreationResponse->campaignId->toString(), PHP_EOL);
 
         return $campaignCreationResponse->campaignId;
     }
 
-    private static function addMediaAssets(CctClient $cctClient, CustomerId $customerId, CampaignId $campaignId): MediaCollection
+    private static function addMediaAssets(Client $client, CustomerId $customerId, CampaignId $campaignId): MediaCollection
     {
         $remoteMedia = RemoteMedia::fromArray(
             [
@@ -83,7 +83,7 @@ final class CreateFullCampaign
         );
 
         try {
-            $images = $cctClient->mediaClient()->createBulkMedia($customerId, $campaignId, CreateMediaCollection::fromItems($remoteMedia));
+            $images = $client->mediaClient()->createBulkMedia($customerId, $campaignId, CreateMediaCollection::fromItems($remoteMedia));
         } catch (ApiRequestException $requestException) {
             printf('Campaign with uuid "%s" failed to save with error %s', $requestException->getMessage(), PHP_EOL);
             exit(1);
@@ -94,7 +94,7 @@ final class CreateFullCampaign
         return $images;
     }
 
-    private static function setCampaignData(CctClient $cctClient, CustomerId $customerId, CampaignId $campaignId, MediaCollection $images): void
+    private static function setCampaignData(Client $client, CustomerId $customerId, CampaignId $campaignId, MediaCollection $images): void
     {
         $details = self::createCampaignDetails();
         $adContent = self::createCampaignAdContent($images);
@@ -104,7 +104,7 @@ final class CreateFullCampaign
         // Save campaign content
         $saveCampaign = new SaveCampaign($details, $adContent, $targeting, $options);
         try {
-            $cctClient->campaignClient()->saveCampaign($saveCampaign, $customerId, $campaignId);
+            $client->campaignClient()->saveCampaign($saveCampaign, $customerId, $campaignId);
         } catch (ApiRequestException $requestException) {
             printf('Campaign with uuid "%s" failed to save with error %s', $requestException->getMessage(), PHP_EOL);
             exit(1);
@@ -193,9 +193,9 @@ final class CreateFullCampaign
         );
     }
 
-    private static function placeCampaign(CctClient $cctClient, CustomerId $customerId, CampaignId $campaignId): void
+    private static function placeCampaign(Client $client, CustomerId $customerId, CampaignId $campaignId): void
     {
-        $cctClient->campaignClient()->placeCampaign($customerId, $campaignId);
+        $client->campaignClient()->placeCampaign($customerId, $campaignId);
 
         printf('Campaign with uuid "%s" has been placed.%s', $campaignId->toString(), PHP_EOL);
     }

@@ -10,11 +10,11 @@ use CCT\SDK\CampaignFlow\CampaignFlowClient;
 use CCT\SDK\Client\Options\Options;
 use CCT\SDK\Customer\CustomerClient;
 use CCT\SDK\MediaManagement\MediaClient;
-use GuzzleHttp\Client;
+use GuzzleHttp\Client as GuzzleClient;
 
-final class CctClient
+final class Client
 {
-    public function __construct(private readonly Options $options, private readonly Client $client)
+    public function __construct(private readonly Options $options, private readonly GuzzleClient $client)
     {
     }
 

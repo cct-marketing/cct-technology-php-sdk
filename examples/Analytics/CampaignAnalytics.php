@@ -7,7 +7,7 @@ namespace CCT\SDK\Examples\Analytics;
 require __DIR__ . '/../../vendor/autoload.php';
 
 use CCT\SDK\Campaign\Data\CampaignId;
-use CCT\SDK\Client\CctClientFactory;
+use CCT\SDK\Client\ClientFactory;
 use CCT\SDK\Customer\Data\CustomerId;
 use CCT\SDK\Examples\OptionsForExamples;
 use CCT\SDK\Exception\ApiRequestException;
@@ -22,10 +22,10 @@ $campaignId = CampaignId::fromString('{CAMPAIGN_ID}'); // Specify the Campaign I
 
 $cache = new ArrayAdapter();
 
-$cctClient = CctClientFactory::create($option, $cache);
+$client = ClientFactory::create($option, $cache);
 
 try {
-    $campaignAnalytics = $cctClient->analyticsClient()->campaignAnalytics($customerId, $campaignId);
+    $campaignAnalytics = $client->analyticsClient()->campaignAnalytics($customerId, $campaignId);
 } catch (IdentityProviderException $e) {
     printf('Auth error: %s', $e->getMessage());
     exit(1);

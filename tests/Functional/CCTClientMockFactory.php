@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace CCT\SDK\Tests\Functional;
 
 use CCT\SDK\Client\AuthProvider\Credentials;
-use CCT\SDK\Client\CctClient;
-use CCT\SDK\Client\CctClientFactory;
+use CCT\SDK\Client\Client;
+use CCT\SDK\Client\ClientFactory;
 use CCT\SDK\Client\Options\AnalyticsHost;
 use CCT\SDK\Client\Options\CampaignWizardHost;
 use CCT\SDK\Client\Options\CustomerHost;
@@ -18,7 +18,7 @@ use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
 final class CCTClientMockFactory
 {
-    public function createCctClient(): CctClient
+    public function createCctClient(): Client
     {
         $credentials = new Credentials($this->configStringValue('CLIENT_ID'), $this->configStringValue('CLIENT_SECRET'));
         $oAuthHost = OAuthHost::createCustom($this->configStringValue('OAUTH_HOST'));
@@ -32,7 +32,7 @@ final class CCTClientMockFactory
 
         $cache = new ArrayAdapter();
 
-        return CctClientFactory::create($option, $cache);
+        return ClientFactory::create($option, $cache);
     }
 
     public function configBoolValue(string $name): bool

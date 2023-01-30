@@ -10,10 +10,10 @@ final class ListCustomersTest extends TestCase
 {
     public function testListCustomers(): void
     {
-        $CCTClientMockFactory = new CCTClientMockFactory();
-        $cctClient = $CCTClientMockFactory->createCctClient();
+        $clientMockFactory = new CCTClientMockFactory();
+        $client = $clientMockFactory->createCctClient();
 
-        $listResult = $cctClient->customerClient()->list();
+        $listResult = $client->customerClient()->list();
 
         $this->assertGreaterThan(1, $listResult->count());
     }
