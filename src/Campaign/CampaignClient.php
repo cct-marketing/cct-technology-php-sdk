@@ -11,7 +11,7 @@ use CCT\SDK\Campaign\Response\CommonMutateResponse;
 use CCT\SDK\Client\AbstractServiceClient;
 use CCT\SDK\Client\Options\Options;
 use CCT\SDK\Customer\Data\CustomerId;
-use CCT\SDK\Infrastucture\ValueObject\AbstractUrlOption;
+use CCT\SDK\Infrastructure\ValueObject\AbstractUrlOption;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 

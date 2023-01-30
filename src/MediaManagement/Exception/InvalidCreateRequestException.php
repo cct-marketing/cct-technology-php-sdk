@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CCT\SDK\MediaManagement\Exception;
 
-use CCT\SDK\Infrastucture\Assert\Exception\AssertionFailedException;
+use CCT\SDK\Infrastructure\Assert\Exception\AssertionFailedException;
 use CCT\SDK\MediaManagement\Request\Media\UploadMedia;
 
 final class InvalidCreateRequestException extends AssertionFailedException

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CCT\SDK\Campaign\Data\AdContent\Image;
 
-use CCT\SDK\Infrastucture\ValueObject\AbstractCollection;
+use CCT\SDK\Infrastructure\ValueObject\AbstractCollection;
 use CCT\SDK\MediaManagement\ViewModel\MediaCollection;
 use CCT\SDK\MediaManagement\ViewModel\MediaImage;
 

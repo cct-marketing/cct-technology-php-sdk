@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace CCT\SDK\MediaManagement\Request\Media;
 
-use CCT\SDK\Infrastucture\Assert\Assertion;
-use CCT\SDK\Infrastucture\ValueObject\AbstractMulti;
+use CCT\SDK\Infrastructure\Assert\Assertion;
+use CCT\SDK\Infrastructure\ValueObject\AbstractMulti;
 use EventSauce\ObjectHydrator\MapFrom;
 
 final class UploadMedia extends AbstractMulti implements CreateMediaInterface

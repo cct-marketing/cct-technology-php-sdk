@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace CCT\SDK\Campaign\Data\AdContent\CampaignVideo;
 
 use CCT\SDK\Campaign\Data\AdContent\Video\VideoCollection;
-use CCT\SDK\Infrastucture\Serialization\Caster\CastToCollectionObject;
-use CCT\SDK\Infrastucture\ValueObject\AbstractMulti;
+use CCT\SDK\Infrastructure\Serialization\Caster\CastToCollectionObject;
+use CCT\SDK\Infrastructure\ValueObject\AbstractMulti;
 use EventSauce\ObjectHydrator\MapperSettings;
 
 #[MapperSettings(serializePublicMethods: false)]

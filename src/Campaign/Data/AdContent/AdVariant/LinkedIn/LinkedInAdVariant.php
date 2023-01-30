@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace CCT\SDK\Campaign\Data\AdContent\AdVariant\LinkedIn;
 
 use CCT\SDK\Campaign\Data\AdContent\Image\ImageCollection;
-use CCT\SDK\Infrastucture\Assert\Assertion;
-use CCT\SDK\Infrastucture\Serialization\Caster\CastToCollectionObject;
-use CCT\SDK\Infrastucture\ValueObject\AbstractMulti;
+use CCT\SDK\Infrastructure\Assert\Assertion;
+use CCT\SDK\Infrastructure\Serialization\Caster\CastToCollectionObject;
+use CCT\SDK\Infrastructure\ValueObject\AbstractMulti;
 use EventSauce\ObjectHydrator\MapperSettings;
 
 #[MapperSettings(serializePublicMethods: false)]

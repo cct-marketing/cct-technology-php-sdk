@@ -8,7 +8,7 @@ use CCT\SDK\Analytics\Response\CampaignAnalytics;
 use CCT\SDK\Campaign\Data\CampaignId;
 use CCT\SDK\Client\AbstractServiceClient;
 use CCT\SDK\Customer\Data\CustomerId;
-use CCT\SDK\Infrastucture\ValueObject\AbstractUrlOption;
+use CCT\SDK\Infrastructure\ValueObject\AbstractUrlOption;
 use GuzzleHttp\Psr7\Request;
 
 final class AnalyticsClient extends AbstractServiceClient

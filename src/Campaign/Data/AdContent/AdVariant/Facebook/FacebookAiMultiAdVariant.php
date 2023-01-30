@@ -9,8 +9,8 @@ use CCT\SDK\Campaign\Data\AdContent\AdVariant\Facebook\AiMultiVariantPart\Headin
 use CCT\SDK\Campaign\Data\AdContent\AdVariant\Facebook\AiMultiVariantPart\TextCollection;
 use CCT\SDK\Campaign\Data\AdContent\Image\ImageCollection;
 use CCT\SDK\Campaign\Data\AdContent\Video\VideoCollection;
-use CCT\SDK\Infrastucture\Serialization\Caster\CastToCollectionObject;
-use CCT\SDK\Infrastucture\ValueObject\AbstractMulti;
+use CCT\SDK\Infrastructure\Serialization\Caster\CastToCollectionObject;
+use CCT\SDK\Infrastructure\ValueObject\AbstractMulti;
 use EventSauce\ObjectHydrator\MapperSettings;
 
 #[MapperSettings(serializePublicMethods: false)]

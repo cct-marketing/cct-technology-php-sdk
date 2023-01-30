@@ -8,9 +8,9 @@ use CCT\SDK\CampaignFlow\Data\CampaignFlowId;
 use CCT\SDK\CampaignFlow\Data\Category;
 use CCT\SDK\CampaignFlow\Data\Pricing;
 use CCT\SDK\CampaignFlow\Data\Settings;
-use CCT\SDK\Infrastucture\Serialization\Caster\CastToCollectionObject;
-use CCT\SDK\Infrastucture\Serialization\Caster\CastToSingleValueObject;
-use CCT\SDK\Infrastucture\ValueObject\AbstractMulti;
+use CCT\SDK\Infrastructure\Serialization\Caster\CastToCollectionObject;
+use CCT\SDK\Infrastructure\Serialization\Caster\CastToSingleValueObject;
+use CCT\SDK\Infrastructure\ValueObject\AbstractMulti;
 
 final class CampaignFlowItem extends AbstractMulti
 {

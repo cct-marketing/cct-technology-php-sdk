@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CCT\SDK\Client\Options;
 
-use CCT\SDK\Infrastucture\ValueObject\AbstractUrlOption;
+use CCT\SDK\Infrastructure\ValueObject\AbstractUrlOption;
 
 final class MediaHost extends AbstractUrlOption
 {

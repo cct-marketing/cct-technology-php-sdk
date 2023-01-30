@@ -17,7 +17,8 @@
         "friendsofphp/php-cs-fixer": "^3.13",
         "vimeo/psalm": "^5.4.0",
         "nyholm/psr7": "^1.4",
-        "symfony/cache": "^6.1"
+        "symfony/cache": "^6.1",
+        "league/construct-finder": "^1.2"
     },
     "autoload": {
         "psr-4": {

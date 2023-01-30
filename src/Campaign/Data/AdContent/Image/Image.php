@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace CCT\SDK\Campaign\Data\AdContent\Image;
 
-use CCT\SDK\Infrastucture\Assert\Assertion;
-use CCT\SDK\Infrastucture\Serialization\Caster\CastToSingleValueObject;
-use CCT\SDK\Infrastucture\ValueObject\AbstractMulti;
-use CCT\SDK\Infrastucture\ValueObject\Uri;
+use CCT\SDK\Infrastructure\Assert\Assertion;
+use CCT\SDK\Infrastructure\Serialization\Caster\CastToSingleValueObject;
+use CCT\SDK\Infrastructure\ValueObject\AbstractMulti;
+use CCT\SDK\Infrastructure\ValueObject\Uri;
 use CCT\SDK\MediaManagement\ViewModel\MediaImage;
 use EventSauce\ObjectHydrator\MapperSettings;
 

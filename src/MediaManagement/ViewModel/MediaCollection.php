@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace CCT\SDK\MediaManagement\ViewModel;
 
-use CCT\SDK\Infrastucture\Serialization\Caster\CastListUnionToType;
-use CCT\SDK\Infrastucture\ValueObject\AbstractCollection;
+use CCT\SDK\Infrastructure\Serialization\Caster\CastListUnionToType;
+use CCT\SDK\Infrastructure\ValueObject\AbstractCollection;
 
 final class MediaCollection extends AbstractCollection
 {

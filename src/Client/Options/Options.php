@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace CCT\SDK\Client\Options;
 
 use CCT\SDK\Client\AuthProvider\Credentials;
-use CCT\SDK\Infrastucture\ValueObject\AbstractMulti;
+use CCT\SDK\Infrastructure\ValueObject\AbstractMulti;
 
 final class Options extends AbstractMulti
 {

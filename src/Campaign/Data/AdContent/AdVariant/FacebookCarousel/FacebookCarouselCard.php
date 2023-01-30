@@ -6,7 +6,7 @@ namespace CCT\SDK\Campaign\Data\AdContent\AdVariant\FacebookCarousel;
 
 use Assert\Assertion;
 use CCT\SDK\Campaign\Data\AdContent\Image\Image;
-use CCT\SDK\Infrastucture\ValueObject\AbstractMulti;
+use CCT\SDK\Infrastructure\ValueObject\AbstractMulti;
 use EventSauce\ObjectHydrator\MapperSettings;
 
 #[MapperSettings(serializePublicMethods: false)]

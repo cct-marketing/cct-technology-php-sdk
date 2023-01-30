@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace CCT\SDK\CampaignFlow\Data;
 
-use CCT\SDK\Infrastucture\Assert\Assertion;
-use CCT\SDK\Infrastucture\ValueObject\AbstractFloat;
+use CCT\SDK\Infrastructure\Assert\Assertion;
+use CCT\SDK\Infrastructure\ValueObject\AbstractFloat;
 
 final class Vat extends AbstractFloat
 {

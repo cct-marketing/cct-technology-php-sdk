@@ -4,7 +4,7 @@ namespace CCT\SDK\Tests\Unit\Campaign\Data\AdContent\AdVariant\LinkedIn;
 
 use CCT\SDK\Campaign\Data\AdContent\AdVariant\LinkedIn\LinkedInAdVariant;
 use CCT\SDK\Campaign\Data\AdContent\Image\ImageCollection;
-use CCT\SDK\Infrastucture\Assert\Exception\AssertionFailedException;
+use CCT\SDK\Infrastructure\Assert\Exception\AssertionFailedException;
 use PHPUnit\Framework\TestCase;
 
 class LinkedInAdVariantTest extends TestCase

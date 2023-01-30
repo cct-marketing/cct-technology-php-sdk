@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CCT\SDK\MediaManagement\Request\Media;
 
-use CCT\SDK\Infrastucture\ValueObject\AbstractMulti;
+use CCT\SDK\Infrastructure\ValueObject\AbstractMulti;
 use CCT\SDK\MediaManagement\ViewModel\MediaType;
 use EventSauce\ObjectHydrator\MapperSettings;
 

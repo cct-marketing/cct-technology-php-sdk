@@ -10,7 +10,7 @@ use CCT\SDK\Analytics\Response\Analytics\Impressions;
 use CCT\SDK\Analytics\Response\Analytics\Reach;
 use CCT\SDK\Analytics\Response\Analytics\Readers;
 use CCT\SDK\Analytics\Response\Analytics\Target;
-use CCT\SDK\Infrastucture\ValueObject\AbstractMulti;
+use CCT\SDK\Infrastructure\ValueObject\AbstractMulti;
 use EventSauce\ObjectHydrator\MapperSettings;
 
 #[MapperSettings(serializePublicMethods: false)]

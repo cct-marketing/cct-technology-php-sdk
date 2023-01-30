@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace CCT\SDK\Campaign\Response;
 
 use CCT\SDK\Campaign\Data\CampaignId;
-use CCT\SDK\Infrastucture\Serialization\Caster\CastToSingleValueObject;
-use CCT\SDK\Infrastucture\ValueObject\AbstractMulti;
+use CCT\SDK\Infrastructure\Serialization\Caster\CastToSingleValueObject;
+use CCT\SDK\Infrastructure\ValueObject\AbstractMulti;
 use EventSauce\ObjectHydrator\MapFrom;
 
 final class CommonMutateResponse extends AbstractMulti

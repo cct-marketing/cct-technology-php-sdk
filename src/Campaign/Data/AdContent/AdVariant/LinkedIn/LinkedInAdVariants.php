@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CCT\SDK\Campaign\Data\AdContent\AdVariant\LinkedIn;
 
-use CCT\SDK\Infrastucture\ValueObject\AbstractCollection;
+use CCT\SDK\Infrastructure\ValueObject\AbstractCollection;
 
 final class LinkedInAdVariants extends AbstractCollection
 {

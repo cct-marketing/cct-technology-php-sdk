@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace CCT\SDK\Campaign\Data\AdContent\AdVariant\Google\ResponsiveAd;
 
-use CCT\SDK\Infrastucture\Assert\Assertion;
-use CCT\SDK\Infrastucture\ValueObject\AbstractCollection;
-use CCT\SDK\Infrastucture\ValueObject\CollectionWithSingleVOTrait;
+use CCT\SDK\Infrastructure\Assert\Assertion;
+use CCT\SDK\Infrastructure\ValueObject\AbstractCollection;
+use CCT\SDK\Infrastructure\ValueObject\CollectionWithSingleVOTrait;
 
 final class DescriptionCollection extends AbstractCollection
 {

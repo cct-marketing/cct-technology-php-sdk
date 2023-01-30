@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace CCT\SDK\Campaign\Data\AdContent\CampaignImage\ChannelImage;
 
 use CCT\SDK\Campaign\Data\AdContent\Image\ImageCollection;
-use CCT\SDK\Infrastucture\Serialization\Caster\CastListUnionToType;
-use CCT\SDK\Infrastucture\ValueObject\AbstractCollection;
+use CCT\SDK\Infrastructure\Serialization\Caster\CastListUnionToType;
+use CCT\SDK\Infrastructure\ValueObject\AbstractCollection;
 
 final class ChannelCollection extends AbstractCollection
 {

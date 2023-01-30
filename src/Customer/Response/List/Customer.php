@@ -6,8 +6,8 @@ namespace CCT\SDK\Customer\Response\List;
 
 use CCT\SDK\Customer\Data\CustomerId;
 use CCT\SDK\Customer\Data\Name;
-use CCT\SDK\Infrastucture\Serialization\Caster\CastToSingleValueObject;
-use CCT\SDK\Infrastucture\ValueObject\AbstractMulti;
+use CCT\SDK\Infrastructure\Serialization\Caster\CastToSingleValueObject;
+use CCT\SDK\Infrastructure\ValueObject\AbstractMulti;
 
 final class Customer extends AbstractMulti
 {

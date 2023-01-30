@@ -3,7 +3,7 @@
 namespace CCT\SDK\Tests\Unit\Client\AuthProvider;
 
 use CCT\SDK\Client\AuthProvider\Provider;
-use CCT\SDK\Infrastucture\Assert\Exception\AssertionFailedException;
+use CCT\SDK\Infrastructure\Assert\Exception\AssertionFailedException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Handler\MockHandler;

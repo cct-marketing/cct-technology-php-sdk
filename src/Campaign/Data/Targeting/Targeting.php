@@ -7,8 +7,8 @@ namespace CCT\SDK\Campaign\Data\Targeting;
 use CCT\SDK\Campaign\Data\Targeting\LocationTargeting\IndustryAddress;
 use CCT\SDK\Campaign\Data\Targeting\LocationTargeting\Locations;
 use CCT\SDK\Campaign\Data\Targeting\PropertyInformation\PropertyInformation;
-use CCT\SDK\Infrastucture\Serialization\Caster\CastToCollectionObject;
-use CCT\SDK\Infrastucture\ValueObject\AbstractMulti;
+use CCT\SDK\Infrastructure\Serialization\Caster\CastToCollectionObject;
+use CCT\SDK\Infrastructure\ValueObject\AbstractMulti;
 use EventSauce\ObjectHydrator\MapperSettings;
 
 #[MapperSettings(serializePublicMethods: false)]

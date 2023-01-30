@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CCT\SDK\Customer\Response\List;
 
-use CCT\SDK\Infrastucture\ValueObject\AbstractCollection;
+use CCT\SDK\Infrastructure\ValueObject\AbstractCollection;
 
 final class Customers extends AbstractCollection
 {

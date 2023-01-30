@@ -7,7 +7,7 @@ namespace CCT\SDK\Client;
 use CCT\SDK\Client\Options\Options;
 use CCT\SDK\Exception\ApiRequestException;
 use CCT\SDK\Exception\InvalidStatusCodeException;
-use CCT\SDK\Infrastucture\ValueObject\AbstractUrlOption;
+use CCT\SDK\Infrastructure\ValueObject\AbstractUrlOption;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\RequestOptions;

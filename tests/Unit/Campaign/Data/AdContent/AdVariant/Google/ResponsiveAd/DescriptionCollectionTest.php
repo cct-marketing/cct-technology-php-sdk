@@ -4,7 +4,7 @@ namespace CCT\SDK\Tests\Unit\Campaign\Data\AdContent\AdVariant\Google\Responsive
 
 use CCT\SDK\Campaign\Data\AdContent\AdVariant\Google\ResponsiveAd\Description;
 use CCT\SDK\Campaign\Data\AdContent\AdVariant\Google\ResponsiveAd\DescriptionCollection;
-use CCT\SDK\Infrastucture\Assert\Exception\AssertionFailedException;
+use CCT\SDK\Infrastructure\Assert\Exception\AssertionFailedException;
 use PHPUnit\Framework\TestCase;
 
 final class DescriptionCollectionTest extends TestCase

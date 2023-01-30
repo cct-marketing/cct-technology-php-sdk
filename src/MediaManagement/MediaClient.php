@@ -5,7 +5,7 @@ namespace CCT\SDK\MediaManagement;
 use CCT\SDK\Campaign\Data\CampaignId;
 use CCT\SDK\Client\AbstractServiceClient;
 use CCT\SDK\Customer\Data\CustomerId;
-use CCT\SDK\Infrastucture\ValueObject\AbstractUrlOption;
+use CCT\SDK\Infrastructure\ValueObject\AbstractUrlOption;
 use CCT\SDK\MediaManagement\Request\Media\CreateMediaCollection;
 use CCT\SDK\MediaManagement\ViewModel\MediaCollection;
 use GuzzleHttp\Psr7\Request;

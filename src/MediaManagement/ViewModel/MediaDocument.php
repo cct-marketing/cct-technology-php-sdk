@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CCT\SDK\MediaManagement\ViewModel;
 
-use CCT\SDK\Infrastucture\ValueObject\AbstractMulti;
+use CCT\SDK\Infrastructure\ValueObject\AbstractMulti;
 use CCT\SDK\MediaManagement\ViewModel\Traits\BaseMediaGettersTrait;
 use EventSauce\ObjectHydrator\MapFrom;
 

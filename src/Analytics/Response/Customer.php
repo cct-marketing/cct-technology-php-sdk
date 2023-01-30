@@ -6,8 +6,8 @@ namespace CCT\SDK\Analytics\Response;
 
 use CCT\SDK\Customer\Data\AgencyId;
 use CCT\SDK\Customer\Data\CustomerId;
-use CCT\SDK\Infrastucture\Serialization\Caster\CastToSingleValueObject;
-use CCT\SDK\Infrastucture\ValueObject\AbstractMulti;
+use CCT\SDK\Infrastructure\Serialization\Caster\CastToSingleValueObject;
+use CCT\SDK\Infrastructure\ValueObject\AbstractMulti;
 use EventSauce\ObjectHydrator\MapperSettings;
 
 #[MapperSettings(serializePublicMethods: false)]
