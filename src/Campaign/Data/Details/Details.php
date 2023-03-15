@@ -14,7 +14,7 @@ final class Details extends AbstractMulti
     public function __construct(
         #[CastToSingleValueObject(CampaignTitle::class)]
         public readonly CampaignTitle $campaignTitle,
-        public readonly CampaignPeriod $campaignPeriod,
+        public readonly ?CampaignPeriod $campaignPeriod,
         #[CastToSingleValueObject(LandingPage::class)]
         public readonly LandingPage $landingPage
     ) {

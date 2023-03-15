@@ -23,6 +23,20 @@ class AdContentTest extends TestCase
         $this->assertInstanceOf(LinkedInAdVariants::class, $adContent->linkedInAdVariants);
     }
 
+    public function testWithEmptyArray(): void
+    {
+        $adContent = AdContent::fromArray([]);
+
+        $this->assertNull($adContent->campaignImages);
+        $this->assertNull($adContent->campaignVideos);
+        $this->assertNull($adContent->facebookAiMultiAdVariants);
+        $this->assertNull($adContent->googleResponsiveAdVariants);
+        $this->assertNull($adContent->linkedInAdVariants);
+        $this->assertNull($adContent->twitterAdVariants);
+        $this->assertNull($adContent->facebookCarouselVariants);
+        $this->assertNull($adContent->adText);
+    }
+
     public function testToArray(): void
     {
         $data = AdContentAdData::dataWithOverride();

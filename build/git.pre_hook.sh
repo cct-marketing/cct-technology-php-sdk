@@ -11,7 +11,7 @@ if [ "$FILES" == "" ]; then
 fi
 
 # Check the coding standards
-./bin/php-cs-fixer fix $FILES --config=.php-cs-fixer.dist.php -v --dry-run --show-progress=dots --using-cache=no --diff
+./bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php -v --dry-run --show-progress=dots --using-cache=no --diff
 RESULT=$?
 
 if ! [ $RESULT -eq 0 ]; then

@@ -22,14 +22,25 @@ class PropertyInformationTest extends TestCase
         $this->assertEquals(123456, $propertyInformation->propertyPrice->toInt());
         $this->assertEquals(7890, $propertyInformation->propertySize->toInt());
         $this->assertEquals(3, $propertyInformation->numberOfBedrooms->toInt());
+        $this->assertEquals('Property description used to help create ad content texts', $propertyInformation->propertyDescription->toString());
+    }
+
+    public function testWithEmptyArray(): void
+    {
+        $propertyInformation = PropertyInformation::fromArray([]);
+
+        $this->assertNull($propertyInformation->propertyPrice);
+        $this->assertNull($propertyInformation->propertySize);
+        $this->assertNull($propertyInformation->numberOfBedrooms);
+        $this->assertNull($propertyInformation->propertyDescription);
     }
 
     public function testToArray(): void
     {
         $data = PropertyInformationData::dataWithOverride();
 
-        $adContent = PropertyInformation::fromArray($data);
+        $propertyInformation = PropertyInformation::fromArray($data);
 
-        $this->assertSame($data, $adContent->toArray());
+        $this->assertSame($data, $propertyInformation->toArray());
     }
 }

@@ -15,6 +15,7 @@ final class PropertyInformationData
                 'property_price' => 123456,
                 'property_size' => 7890,
                 'number_of_bedrooms' => 3,
+                'property_description' => 'Property description used to help create ad content texts',
             ],
             $data
         );

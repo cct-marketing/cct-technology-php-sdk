@@ -7,7 +7,7 @@ $finder = PhpCsFixer\Finder::create()
          ])
     ->exclude(
         [
-            'Infrastructure/Serialization/Mapper'
+            'Infrastructure/Serialization/Mapper',
         ]
     );
 

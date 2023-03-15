@@ -19,19 +19,19 @@ use EventSauce\ObjectHydrator\MapperSettings;
 final class AdContent extends AbstractMulti
 {
     public function __construct(
-        public readonly ?CampaignImages $campaignImages,
-        public readonly ?CampaignVideos $campaignVideos,
+        public readonly ?CampaignImages $campaignImages = null,
+        public readonly ?CampaignVideos $campaignVideos = null,
         #[CastToCollectionObject(FacebookAiMultiAdVariants::class)]
-        public readonly ?FacebookAiMultiAdVariants $facebookAiMultiAdVariants,
+        public readonly ?FacebookAiMultiAdVariants $facebookAiMultiAdVariants = null,
         #[CastToCollectionObject(FacebookCarouselVariants::class)]
-        public readonly ?FacebookCarouselVariants $facebookCarouselVariants,
-        public readonly ?AdText $adText,
+        public readonly ?FacebookCarouselVariants $facebookCarouselVariants = null,
+        public readonly ?AdText $adText = null,
         #[CastToCollectionObject(LinkedInAdVariants::class)]
-        public readonly ?LinkedInAdVariants $linkedInAdVariants,
+        public readonly ?LinkedInAdVariants $linkedInAdVariants = null,
         #[CastToCollectionObject(TwitterAdVariants::class)]
-        public readonly ?TwitterAdVariants $twitterAdVariants,
+        public readonly ?TwitterAdVariants $twitterAdVariants = null,
         #[CastToCollectionObject(GoogleResponsiveAdVariants::class)]
-        public readonly ?GoogleResponsiveAdVariants $googleResponsiveAdVariants
+        public readonly ?GoogleResponsiveAdVariants $googleResponsiveAdVariants = null
     ) {
     }
 }

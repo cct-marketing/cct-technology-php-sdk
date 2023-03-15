@@ -12,8 +12,8 @@ final class Location extends AbstractMulti
 {
     public function __construct(
         public readonly string $address,
-        public readonly Coordinate $coordinate,
-        public readonly Radius $radius,
+        public readonly ?Coordinate $coordinate,
+        public readonly ?Radius $radius,
         public readonly ?LocationType $type = LocationType::DEFAULT
     ) {
     }

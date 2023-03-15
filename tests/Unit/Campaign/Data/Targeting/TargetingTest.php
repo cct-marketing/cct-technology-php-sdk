@@ -21,6 +21,15 @@ class TargetingTest extends TestCase
         $this->assertInstanceOf(PropertyInformation::class, $targeting->propertyInformation);
     }
 
+    public function testEmptyArray(): void
+    {
+        $targeting = Targeting::fromArray([]);
+
+        $this->assertNull($targeting->locations);
+        $this->assertNull($targeting->industryAddress);
+        $this->assertNull($targeting->propertyInformation);
+    }
+
     public function testToArray(): void
     {
         $data = TargetingData::dataWithOverride();

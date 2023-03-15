@@ -54,7 +54,7 @@ final class CreateFullCampaign
             // Establish the campaign details, define the ad content, and ad targeting criteria.
             self::setCampaignData($client, $customerId, $campaignId, $images);
 
-            // Places the campaign and upon review will deploys it into the appropriate advertising channels
+            // Places the campaign and upon review will deploy it into the appropriate advertising channels
             self::placeCampaign($client, $customerId, $campaignId);
         } catch (IdentityProviderException $e) {
             printf('Auth error: %s', $e->getMessage());
@@ -179,6 +179,7 @@ final class CreateFullCampaign
                     'property_price' => 120000000,
                     'property_size' => 40000,
                     'number_of_bedrooms' => 5,
+                    'property_description' => 'Property description, used to help create ad content texts'
                 ],
             ]
         );
