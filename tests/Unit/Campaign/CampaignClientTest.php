@@ -55,6 +55,67 @@ final class CampaignClientTest extends TestCase
         $this->assertEquals('12345678-1234-1234-1234-123456789012', $response->campaignId->toString());
     }
 
+    public function testGetCampaignState(): void
+    {
+        $mockResponse = $this->createMockResponse(
+            '{"uuid": "12345678-1234-1234-1234-123456789012", "state": "live"}',
+            200
+        );
+
+        $client = $this->createMockClient($mockResponse);
+
+        $options = Options::fromArray(['client_id' => 'test', 'client_secret' => 'key']);
+        $campaignClient = new CampaignClient($options, $client);
+
+        $response = $campaignClient->getCampaignState(
+            CustomerId::fromString('51e13ad1-65ee-4cbb-b3db-65a5ec86e4c1'),
+            CampaignId::fromString('12345678-1234-1234-1234-123456789012')
+        );
+
+        $this->assertEquals('12345678-1234-1234-1234-123456789012', $response->campaignId->toString());
+        $this->assertEquals('live', $response->state->value);
+    }
+
+    public function testPauseCampaign(): void
+    {
+        $mockResponse = $this->createMockResponse(
+            '{"uuid": "12345678-1234-1234-1234-123456789012"}',
+            200
+        );
+
+        $client = $this->createMockClient($mockResponse);
+
+        $options = Options::fromArray(['client_id' => 'test', 'client_secret' => 'key']);
+        $campaignClient = new CampaignClient($options, $client);
+
+        $response = $campaignClient->pauseCampaign(
+            CustomerId::fromString('51e13ad1-65ee-4cbb-b3db-65a5ec86e4c1'),
+            CampaignId::fromString('12345678-1234-1234-1234-123456789012')
+        );
+
+        $this->assertEquals('12345678-1234-1234-1234-123456789012', $response->campaignId->toString());
+    }
+
+    public function testResumeCampaign(): void
+    {
+        $mockResponse = $this->createMockResponse(
+            '{"uuid": "12345678-1234-1234-1234-123456789012"}',
+            200
+        );
+
+        $client = $this->createMockClient($mockResponse);
+
+        $options = Options::fromArray(['client_id' => 'test', 'client_secret' => 'key']);
+        $campaignClient = new CampaignClient($options, $client);
+
+        $response = $campaignClient->resumeCampaign(
+            CustomerId::fromString('51e13ad1-65ee-4cbb-b3db-65a5ec86e4c1'),
+            CampaignId::fromString('12345678-1234-1234-1234-123456789012')
+        );
+
+        $this->assertEquals('12345678-1234-1234-1234-123456789012', $response->campaignId->toString());
+    }
+
     private function createMockClient(ResponseInterface|MockObject $mockResponse): Client
     {
         // Create a mock client that will return a predefined response
