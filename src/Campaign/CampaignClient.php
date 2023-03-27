@@ -7,6 +7,7 @@ namespace CCT\SDK\Campaign;
 use CCT\SDK\Campaign\Data\CampaignId;
 use CCT\SDK\Campaign\Payload\SaveCampaign;
 use CCT\SDK\Campaign\Payload\StartCampaign;
+use CCT\SDK\Campaign\Response\CampaignStateResponse;
 use CCT\SDK\Campaign\Response\CommonMutateResponse;
 use CCT\SDK\Client\AbstractServiceClient;
 use CCT\SDK\Client\Options\Options;
@@ -57,6 +58,42 @@ final class CampaignClient extends AbstractServiceClient
         );
 
         $data = $this->sendJsonRequest($request, 202);
+
+        return CommonMutateResponse::fromArray($data);
+    }
+
+    public function getCampaignState(CustomerId $customerId, CampaignId $campaignId): CampaignStateResponse
+    {
+        $request = new Request(
+            'GET',
+            sprintf('customers/%s/campaigns/%s/state', $customerId->toString(), $campaignId->toString())
+        );
+
+        $data = $this->sendJsonRequest($request, 200);
+
+        return CampaignStateResponse::fromArray($data);
+    }
+
+    public function pauseCampaign(CustomerId $customerId, CampaignId $campaignId): CommonMutateResponse
+    {
+        $request = new Request(
+            'POST',
+            sprintf('customers/%s/campaigns/%s/pause', $customerId->toString(), $campaignId->toString())
+        );
+
+        $data = $this->sendJsonRequest($request, 200);
+
+        return CommonMutateResponse::fromArray($data);
+    }
+
+    public function resumeCampaign(CustomerId $customerId, CampaignId $campaignId): CommonMutateResponse
+    {
+        $request = new Request(
+            'POST',
+            sprintf('customers/%s/campaigns/%s/resume', $customerId->toString(), $campaignId->toString())
+        );
+
+        $data = $this->sendJsonRequest($request, 200);
 
         return CommonMutateResponse::fromArray($data);
     }

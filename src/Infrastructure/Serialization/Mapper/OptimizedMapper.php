@@ -110,6 +110,7 @@ class OptimizedMapper implements ObjectMapper
                 'CCT\SDK\Campaign\Payload\CreateCampaign' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Payload⚡️CreateCampaign($payload),
                 'CCT\SDK\Campaign\Payload\SaveCampaign' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Payload⚡️SaveCampaign($payload),
                 'CCT\SDK\Campaign\Payload\StartCampaign' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Payload⚡️StartCampaign($payload),
+                'CCT\SDK\Campaign\Response\CampaignStateResponse' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Response⚡️CampaignStateResponse($payload),
                 'CCT\SDK\Campaign\Response\CommonMutateResponse' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Response⚡️CommonMutateResponse($payload),
                 'CCT\SDK\Customer\Data\AgencyId' => $this->hydrateCCT⚡️SDK⚡️Customer⚡️Data⚡️AgencyId($payload),
                 'CCT\SDK\Customer\Data\CustomerId' => $this->hydrateCCT⚡️SDK⚡️Customer⚡️Data⚡️CustomerId($payload),
@@ -146,6 +147,7 @@ class OptimizedMapper implements ObjectMapper
                 'CCT\SDK\Campaign\Data\Options\ActionType' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Options⚡️ActionType($payload),
                 'CCT\SDK\Campaign\Data\Targeting\LocationTargeting\LocationType' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Targeting⚡️LocationTargeting⚡️LocationType($payload),
                 'CCT\SDK\Campaign\Data\Targeting\LocationTargeting\MeasurementUnit' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Targeting⚡️LocationTargeting⚡️MeasurementUnit($payload),
+                'CCT\SDK\Campaign\Data\CampaignState' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️CampaignState($payload),
                 'CCT\SDK\MediaManagement\ViewModel\MediaType' => $this->hydrateCCT⚡️SDK⚡️MediaManagement⚡️ViewModel⚡️MediaType($payload),
                 'CCT\SDK\MediaManagement\ViewModel\Status' => $this->hydrateCCT⚡️SDK⚡️MediaManagement⚡️ViewModel⚡️Status($payload),
             default => throw UnableToHydrateObject::noHydrationDefined($className, $this->hydrationStack),
@@ -5424,6 +5426,70 @@ class OptimizedMapper implements ObjectMapper
     }
 
         
+    private function hydrateCCT⚡️SDK⚡️Campaign⚡️Response⚡️CampaignStateResponse(array $payload): \CCT\SDK\Campaign\Response\CampaignStateResponse
+    {
+        $properties = []; 
+        $missingFields = [];
+        try {
+            $value = $payload['uuid'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'uuid';
+                goto after_campaignId;
+            }
+
+            static $campaignIdCaster1;
+
+            if ($campaignIdCaster1 === null) {
+                $campaignIdCaster1 = new \CCT\SDK\Infrastructure\Serialization\Caster\CastToSingleValueObject(...array (
+  0 => 'CCT\\SDK\\Campaign\\Data\\CampaignId',
+));
+            }
+
+            $value = $campaignIdCaster1->cast($value, $this);
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'campaignId';
+                    $value = $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️CampaignId($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['campaignId'] = $value;
+
+            after_campaignId:
+
+            $value = $payload['state'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'state';
+                goto after_state;
+            }
+
+            $value = \CCT\SDK\Campaign\Data\CampaignState::from($value);
+
+            $properties['state'] = $value;
+
+            after_state:
+
+        } catch (\Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Response\CampaignStateResponse', $exception, stack: $this->hydrationStack);
+        }
+
+        if (count($missingFields) > 0) {
+            throw UnableToHydrateObject::dueToMissingFields(\CCT\SDK\Campaign\Response\CampaignStateResponse::class, $missingFields, stack: $this->hydrationStack);
+        }
+
+        try {
+            return new \CCT\SDK\Campaign\Response\CampaignStateResponse(...$properties);
+        } catch (\Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Response\CampaignStateResponse', $exception, stack: $this->hydrationStack);
+        }
+    }
+
+        
     private function hydrateCCT⚡️SDK⚡️Campaign⚡️Response⚡️CommonMutateResponse(array $payload): \CCT\SDK\Campaign\Response\CommonMutateResponse
     {
         $properties = []; 
@@ -7790,6 +7856,13 @@ class OptimizedMapper implements ObjectMapper
 
 
 
+    private function hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️CampaignState(array $payload): \CCT\SDK\Campaign\Data\CampaignState
+    {
+        throw UnableToHydrateObject::classIsNotInstantiable('CCT\SDK\Campaign\Data\CampaignState', $exception, stack: $this->hydrationStack);
+    }
+
+
+
     private function hydrateCCT⚡️SDK⚡️MediaManagement⚡️ViewModel⚡️MediaType(array $payload): \CCT\SDK\MediaManagement\ViewModel\MediaType
     {
         throw UnableToHydrateObject::classIsNotInstantiable('CCT\SDK\MediaManagement\ViewModel\MediaType', $exception, stack: $this->hydrationStack);
@@ -7921,6 +7994,7 @@ class OptimizedMapper implements ObjectMapper
             'CCT\SDK\Campaign\Payload\CreateCampaign' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Payload⚡️CreateCampaign($object),
             'CCT\SDK\Campaign\Payload\SaveCampaign' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Payload⚡️SaveCampaign($object),
             'CCT\SDK\Campaign\Payload\StartCampaign' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Payload⚡️StartCampaign($object),
+            'CCT\SDK\Campaign\Response\CampaignStateResponse' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Response⚡️CampaignStateResponse($object),
             'CCT\SDK\Campaign\Response\CommonMutateResponse' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Response⚡️CommonMutateResponse($object),
             'CCT\SDK\Customer\Data\AgencyId' => $this->serializeObjectCCT⚡️SDK⚡️Customer⚡️Data⚡️AgencyId($object),
             'CCT\SDK\Customer\Data\CustomerId' => $this->serializeObjectCCT⚡️SDK⚡️Customer⚡️Data⚡️CustomerId($object),
@@ -10541,6 +10615,52 @@ class OptimizedMapper implements ObjectMapper
         
         $campaignFlowUuid = $campaignFlowUuidSerializer0->serialize($campaignFlowUuid, $this);
         after_campaignFlowUuid:        $result['campaign_flow_uuid'] = $campaignFlowUuid;
+
+
+        return $result;
+    }
+
+
+    private function serializeObjectCCT⚡️SDK⚡️Campaign⚡️Response⚡️CampaignStateResponse(mixed $object): mixed
+    {
+        \assert($object instanceof \CCT\SDK\Campaign\Response\CampaignStateResponse);
+        $result = [];
+
+        $toArray = $object->toArray();
+        static $toArraySerializer0;
+
+        if ($toArraySerializer0 === null) {
+            $toArraySerializer0 = new \EventSauce\ObjectHydrator\PropertySerializers\SerializeArrayItems(...array (
+));
+        }
+        
+        $toArray = $toArraySerializer0->serialize($toArray, $this);
+        after_toArray:        $result['to_array'] = $toArray;
+
+        
+        $__toString = $object->__toString();
+        after___toString:        $result['__to_string'] = $__toString;
+
+        
+        $toString = $object->toString();
+        after_toString:        $result['to_string'] = $toString;
+
+        
+        $campaignId = $object->campaignId;
+        static $campaignIdSerializer0;
+
+        if ($campaignIdSerializer0 === null) {
+            $campaignIdSerializer0 = new \CCT\SDK\Infrastructure\Serialization\Caster\CastToSingleValueObject(...array (
+  0 => 'CCT\\SDK\\Campaign\\Data\\CampaignId',
+));
+        }
+        
+        $campaignId = $campaignIdSerializer0->serialize($campaignId, $this);
+        after_campaignId:        $result['uuid'] = $campaignId;
+
+        
+        $state = $object->state;
+        $state = $state->value;        after_state:        $result['state'] = $state;
 
 
         return $result;
