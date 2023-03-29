@@ -11,6 +11,6 @@ final class PropertyDescription extends AbstractString
 {
     protected function guard(string $value): void
     {
-        Assertion::maxLength($value, 3000, self::errorPropertyPath());
+        Assertion::maxLength($value, 30000, self::errorPropertyPath());
     }
 }
