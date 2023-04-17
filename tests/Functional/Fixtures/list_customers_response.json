@@ -1,0 +1,29 @@
+[
+  {
+    "id": "a79db45e-76d1-4f0a-b37a-afd64276c630",
+    "name": "Zrch NO Agency",
+    "trading_name": null,
+    "customers": [
+      {
+        "id": "bbb8ef90-01d6-4729-b4cc-69847b12f70a",
+        "name": "Zrch",
+        "trading_name": null
+      },
+      {
+        "id": "7051b95b-3590-4f1a-b4d6-9e9d6047e6a1",
+        "name": "Zrch NO",
+        "trading_name": null
+      },
+      {
+        "id": "6d9ba511-7a7e-4a6e-8bb5-23035017b6a4",
+        "name": "Zrch Bergen",
+        "trading_name": null
+      },
+      {
+        "id": "3de35b07-f02e-4bf0-a6fc-a83f93df5af8",
+        "name": "Zrch Stavanger",
+        "trading_name": null
+      }
+    ]
+  }
+]

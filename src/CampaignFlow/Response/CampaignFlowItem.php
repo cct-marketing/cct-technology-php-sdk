@@ -6,6 +6,7 @@ namespace CCT\SDK\CampaignFlow\Response;
 
 use CCT\SDK\CampaignFlow\Data\CampaignFlowId;
 use CCT\SDK\CampaignFlow\Data\Category;
+use CCT\SDK\CampaignFlow\Data\PeriodSettings;
 use CCT\SDK\CampaignFlow\Data\Pricing;
 use CCT\SDK\CampaignFlow\Data\Settings;
 use CCT\SDK\Infrastructure\Serialization\Caster\CastToCollectionObject;
@@ -22,7 +23,8 @@ final class CampaignFlowItem extends AbstractMulti
         #[CastToCollectionObject(Pricing::class)]
         public readonly Pricing $pricing,
         public readonly Category $category,
-        public readonly Settings $settings
+        public readonly Settings $settings,
+        public readonly PeriodSettings $periodSettings
     ) {
     }
 }

@@ -36,6 +36,7 @@ class OptimizedMapper implements ObjectMapper
                 'CCT\SDK\CampaignFlow\Data\CampaignFlowId' => $this->hydrateCCT⚡️SDK⚡️CampaignFlow⚡️Data⚡️CampaignFlowId($payload),
                 'CCT\SDK\CampaignFlow\Data\Currency' => $this->hydrateCCT⚡️SDK⚡️CampaignFlow⚡️Data⚡️Currency($payload),
                 'CCT\SDK\CampaignFlow\Data\ExcludeVat' => $this->hydrateCCT⚡️SDK⚡️CampaignFlow⚡️Data⚡️ExcludeVat($payload),
+                'CCT\SDK\CampaignFlow\Data\PeriodSettings' => $this->hydrateCCT⚡️SDK⚡️CampaignFlow⚡️Data⚡️PeriodSettings($payload),
                 'CCT\SDK\CampaignFlow\Data\Pricing' => $this->hydrateCCT⚡️SDK⚡️CampaignFlow⚡️Data⚡️Pricing($payload),
                 'CCT\SDK\CampaignFlow\Data\PricingItem' => $this->hydrateCCT⚡️SDK⚡️CampaignFlow⚡️Data⚡️PricingItem($payload),
                 'CCT\SDK\CampaignFlow\Data\Settings' => $this->hydrateCCT⚡️SDK⚡️CampaignFlow⚡️Data⚡️Settings($payload),
@@ -1070,6 +1071,60 @@ class OptimizedMapper implements ObjectMapper
     }
 
         
+    private function hydrateCCT⚡️SDK⚡️CampaignFlow⚡️Data⚡️PeriodSettings(array $payload): \CCT\SDK\CampaignFlow\Data\PeriodSettings
+    {
+        $properties = []; 
+        $missingFields = [];
+        try {
+            $value = $payload['min_offset_in_days'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'min_offset_in_days';
+                goto after_minOffsetInDays;
+            }
+
+            $properties['minOffsetInDays'] = $value;
+
+            after_minOffsetInDays:
+
+            $value = $payload['max_length_in_days'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'max_length_in_days';
+                goto after_maxLengthInDays;
+            }
+
+            $properties['maxLengthInDays'] = $value;
+
+            after_maxLengthInDays:
+
+            $value = $payload['default_length_in_days'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'default_length_in_days';
+                goto after_defaultLengthInDays;
+            }
+
+            $properties['defaultLengthInDays'] = $value;
+
+            after_defaultLengthInDays:
+
+        } catch (\Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('CCT\SDK\CampaignFlow\Data\PeriodSettings', $exception, stack: $this->hydrationStack);
+        }
+
+        if (count($missingFields) > 0) {
+            throw UnableToHydrateObject::dueToMissingFields(\CCT\SDK\CampaignFlow\Data\PeriodSettings::class, $missingFields, stack: $this->hydrationStack);
+        }
+
+        try {
+            return new \CCT\SDK\CampaignFlow\Data\PeriodSettings(...$properties);
+        } catch (\Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('CCT\SDK\CampaignFlow\Data\PeriodSettings', $exception, stack: $this->hydrationStack);
+        }
+    }
+
+        
     private function hydrateCCT⚡️SDK⚡️CampaignFlow⚡️Data⚡️Pricing(array $payload): \CCT\SDK\CampaignFlow\Data\Pricing
     {
         $properties = []; 
@@ -1408,6 +1463,26 @@ class OptimizedMapper implements ObjectMapper
             $properties['settings'] = $value;
 
             after_settings:
+
+            $value = $payload['period_settings'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'period_settings';
+                goto after_periodSettings;
+            }
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'periodSettings';
+                    $value = $this->hydrateCCT⚡️SDK⚡️CampaignFlow⚡️Data⚡️PeriodSettings($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['periodSettings'] = $value;
+
+            after_periodSettings:
 
         } catch (\Throwable $exception) {
             throw UnableToHydrateObject::dueToError('CCT\SDK\CampaignFlow\Response\CampaignFlowItem', $exception, stack: $this->hydrationStack);
@@ -7920,6 +7995,7 @@ class OptimizedMapper implements ObjectMapper
             'CCT\SDK\CampaignFlow\Data\CampaignFlowId' => $this->serializeObjectCCT⚡️SDK⚡️CampaignFlow⚡️Data⚡️CampaignFlowId($object),
             'CCT\SDK\CampaignFlow\Data\Currency' => $this->serializeObjectCCT⚡️SDK⚡️CampaignFlow⚡️Data⚡️Currency($object),
             'CCT\SDK\CampaignFlow\Data\ExcludeVat' => $this->serializeObjectCCT⚡️SDK⚡️CampaignFlow⚡️Data⚡️ExcludeVat($object),
+            'CCT\SDK\CampaignFlow\Data\PeriodSettings' => $this->serializeObjectCCT⚡️SDK⚡️CampaignFlow⚡️Data⚡️PeriodSettings($object),
             'CCT\SDK\CampaignFlow\Data\Pricing' => $this->serializeObjectCCT⚡️SDK⚡️CampaignFlow⚡️Data⚡️Pricing($object),
             'CCT\SDK\CampaignFlow\Data\PricingItem' => $this->serializeObjectCCT⚡️SDK⚡️CampaignFlow⚡️Data⚡️PricingItem($object),
             'CCT\SDK\CampaignFlow\Data\Settings' => $this->serializeObjectCCT⚡️SDK⚡️CampaignFlow⚡️Data⚡️Settings($object),
@@ -8538,6 +8614,27 @@ class OptimizedMapper implements ObjectMapper
     }
 
 
+    private function serializeObjectCCT⚡️SDK⚡️CampaignFlow⚡️Data⚡️PeriodSettings(mixed $object): mixed
+    {
+        \assert($object instanceof \CCT\SDK\CampaignFlow\Data\PeriodSettings);
+        $result = [];
+
+        $minOffsetInDays = $object->minOffsetInDays;
+        after_minOffsetInDays:        $result['min_offset_in_days'] = $minOffsetInDays;
+
+        
+        $maxLengthInDays = $object->maxLengthInDays;
+        after_maxLengthInDays:        $result['max_length_in_days'] = $maxLengthInDays;
+
+        
+        $defaultLengthInDays = $object->defaultLengthInDays;
+        after_defaultLengthInDays:        $result['default_length_in_days'] = $defaultLengthInDays;
+
+
+        return $result;
+    }
+
+
     private function serializeObjectCCT⚡️SDK⚡️CampaignFlow⚡️Data⚡️Pricing(mixed $object): mixed
     {
         \assert($object instanceof \CCT\SDK\CampaignFlow\Data\Pricing);
@@ -8751,6 +8848,11 @@ class OptimizedMapper implements ObjectMapper
         $settings = $object->settings;
         $settings = $this->serializeObjectCCT⚡️SDK⚡️CampaignFlow⚡️Data⚡️Settings($settings);
         after_settings:        $result['settings'] = $settings;
+
+        
+        $periodSettings = $object->periodSettings;
+        $periodSettings = $this->serializeObjectCCT⚡️SDK⚡️CampaignFlow⚡️Data⚡️PeriodSettings($periodSettings);
+        after_periodSettings:        $result['period_settings'] = $periodSettings;
 
 
         return $result;

@@ -16,6 +16,8 @@ use CCT\SDK\MediaManagement\Request\Media\CreateMediaCollection;
 use CCT\SDK\MediaManagement\Request\Media\RemoteMedia;
 use CCT\SDK\MediaManagement\ViewModel\MediaCollection;
 use CCT\SDK\MediaManagement\ViewModel\MediaType;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 
 final class CreateCampaignRequestTest extends TestCase
@@ -23,7 +25,20 @@ final class CreateCampaignRequestTest extends TestCase
     public function testCreateCampaign(): void
     {
         $clientMockFactory = new CCTClientMockFactory();
-        $client = $clientMockFactory->createCctClient();
+        $mock = new MockHandler(
+            [
+                // Start Campaign
+                new Response(201, [], file_get_contents(__DIR__ . '/Fixtures/campaign_common_response.json')),
+                // Add images to service with campaign id context
+                new Response(201, [], file_get_contents(__DIR__ . '/Fixtures/media_collection_creation_response.json')),
+                // Mutate Campaign content
+                new Response(200, [], file_get_contents(__DIR__ . '/Fixtures/campaign_common_response.json')),
+                // Place Campaign
+                new Response(202, [], file_get_contents(__DIR__ . '/Fixtures/campaign_common_response.json')),
+            ]
+        );
+
+        $client = $clientMockFactory->createClientWithMock($mock);
 
         $campaignFlowUuid = CampaignFlowId::fromString('27ff5c00-e651-479e-81c2-a92e6957123d');
         $customerId = CustomerId::fromString('7533e424-de27-4e7b-9864-bc8130623391');

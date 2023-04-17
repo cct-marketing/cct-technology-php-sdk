@@ -14,11 +14,47 @@ use CCT\SDK\Client\Options\MediaHost;
 use CCT\SDK\Client\Options\Mode;
 use CCT\SDK\Client\Options\OAuthHost;
 use CCT\SDK\Client\Options\Options;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
+use GuzzleHttp\Client as GuzzleClient;
 
 final class CCTClientMockFactory
 {
     public function createCctClient(): Client
+    {
+        $option = $this->getOption();
+
+        $cache = new ArrayAdapter();
+
+        return ClientFactory::create($option, $cache);
+    }
+
+    /**
+     * This will not authenticate, but will use the mock handler to return the response.
+     */
+    public function createClientWithMock(MockHandler $mock): Client
+    {
+        $option = $this->getOption();
+
+        $handlerStack = HandlerStack::create($mock);
+
+        $guzzleClient = new GuzzleClient(['handler' => $handlerStack]);
+
+        return new Client($option, $guzzleClient);
+    }
+
+    public function configBoolValue(string $name): bool
+    {
+        return in_array(getenv($name), [true, 1, 'true', '1'], true);
+    }
+
+    public function configStringValue(string $name): string
+    {
+        return (string) getenv($name);
+    }
+
+    private function getOption(): Options
     {
         $credentials = new Credentials($this->configStringValue('CLIENT_ID'), $this->configStringValue('CLIENT_SECRET'));
         $oAuthHost = OAuthHost::createCustom($this->configStringValue('OAUTH_HOST'));
@@ -30,18 +66,6 @@ final class CCTClientMockFactory
 
         $option = new Options(Mode::SANDBOX, $credentials, $oAuthHost, $campaignWizardHost, $mediaHost, $customerHost, $analyticsHost, $debug);
 
-        $cache = new ArrayAdapter();
-
-        return ClientFactory::create($option, $cache);
-    }
-
-    public function configBoolValue(string $name): bool
-    {
-        return in_array(getenv($name), [true, 1, 'true', '1'], true);
-    }
-
-    public function configStringValue(string $name): string
-    {
-        return (string) getenv($name);
+        return $option;
     }
 }

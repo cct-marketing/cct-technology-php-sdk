@@ -1,0 +1,37 @@
+[
+  {
+    "id": "0c0f2055-cc3f-49c9-8284-7589eb1bfd6f",
+    "name": "original.jpg",
+    "endpoint": "https://s3.eu-west-1.amazonaws.com/files-staging.cct-marketing.com/media/images/0c0f2055-cc3f-49c9-8284-7589eb1bfd6f/test%20of%20name.jpg",
+    "description": null,
+    "created_at": "2023-04-17T14:31:38+00:00",
+    "updated_at": null,
+    "private": false,
+    "extension": "jpg",
+    "file_format": "image/jpeg",
+    "client_id": null,
+    "status": "new",
+    "upload_id": null,
+    "external": false,
+    "contexts": [
+      {
+        "id": "9e538014-74f7-4aaa-acde-896939a5a097",
+        "name": "customer_bbb8ef90-01d6-4729-b4cc-69847b12f70a"
+      },
+      {
+        "id": "b287a949-629b-4f31-8e87-4ce2f8733429",
+        "name": "f1587569-0193-4c2c-94b3-a4680c1486ac"
+      },
+      {
+        "id": "0adfa0f1-72f7-4fd2-8150-f343eae549bc",
+        "name": "agency_a79db45e-76d1-4f0a-b37a-afd64276c630"
+      }
+    ],
+    "original_uri": "https://s3.eu-west-1.amazonaws.com/files-staging.cct-marketing.com/media/images/6e99ca2e-9cc1-4daf-b358-785a1ee85a3c/original.jpg",
+    "predefined_name": "test of name",
+    "content_size": null,
+    "width": null,
+    "height": null,
+    "type": "image"
+  }
+]

@@ -11,13 +11,13 @@ use Psr\Cache\CacheItemPoolInterface;
 
 final class ClientFactory
 {
-    public static function create(Options $options, CacheItemPoolInterface $cache): Client
+    public static function create(Options $options, CacheItemPoolInterface $cache, array $guzzleOptions = [], array $collaborators = []): Client
     {
-        $provider = new Provider($options->toArray());
+        $provider = new Provider($options->toArray(), $collaborators);
 
         $config = ['grant_type' => 'client_credentials', 'scope' => 'cct-api'];
 
-        $client = ClientBuilder::build($provider, $config, $cache, ['']);
+        $client = ClientBuilder::build($provider, $config, $cache, $guzzleOptions);
 
         return new Client($options, $client);
     }

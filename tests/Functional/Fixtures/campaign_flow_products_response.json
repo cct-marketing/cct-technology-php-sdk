@@ -1,0 +1,60 @@
+[
+  {
+    "id": "7a33583b-c29a-4c43-8017-4c07304b5a2d",
+    "name": "basic",
+    "label": "Zrch+ basic",
+    "pricing": [
+      {
+        "price": 50000,
+        "type": "media_spending"
+      },
+      {
+        "price": 34900,
+        "type": "setup_fee"
+      }
+    ],
+    "category": "default",
+    "settings": {
+      "currency": "NOK",
+      "vat": 25,
+      "exclude_vat": {
+        "enabled": true
+      },
+      "map_to": null
+    },
+    "period_settings": {
+      "min_offset_in_days": 1,
+      "max_length_in_days": 31,
+      "default_length_in_days": 14
+    }
+  },
+  {
+    "id": "8cdaf947-323d-44f1-b4ee-a65324d13c87",
+    "name": "bronze",
+    "label": "Zrch+ pro",
+    "pricing": [
+      {
+        "price": 70000,
+        "type": "media_spending"
+      },
+      {
+        "price": 34900,
+        "type": "setup_fee"
+      }
+    ],
+    "category": "default",
+    "settings": {
+      "currency": "NOK",
+      "vat": 25,
+      "exclude_vat": {
+        "enabled": true
+      },
+      "map_to": null
+    },
+    "period_settings": {
+      "min_offset_in_days": 1,
+      "max_length_in_days": 31,
+      "default_length_in_days": 14
+    }
+  }
+]
