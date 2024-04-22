@@ -19,7 +19,8 @@ final class CampaignAnalytics extends AbstractMulti
         public readonly string $orderType,
         public readonly Customer $customer,
         public readonly Analytics $analytics,
-        public readonly Period $period
+        public readonly Period $period,
+        public readonly string $facebookPreviewShareableLink = ''
     ) {
     }
 }

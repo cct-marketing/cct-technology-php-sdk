@@ -760,6 +760,16 @@ class OptimizedMapper implements ObjectMapper
 
             after_period:
 
+            $value = $payload['facebook_preview_shareable_link'] ?? null;
+
+            if ($value === null) {
+                goto after_facebookPreviewShareableLink;
+            }
+
+            $properties['facebookPreviewShareableLink'] = $value;
+
+            after_facebookPreviewShareableLink:
+
         } catch (\Throwable $exception) {
             throw UnableToHydrateObject::dueToError('CCT\SDK\Analytics\Response\CampaignAnalytics', $exception, stack: $this->hydrationStack);
         }
@@ -8424,6 +8434,10 @@ class OptimizedMapper implements ObjectMapper
         $period = $object->period;
         $period = $this->serializeObjectCCT⚡️SDK⚡️Analytics⚡️Response⚡️Period($period);
         after_period:        $result['period'] = $period;
+
+        
+        $facebookPreviewShareableLink = $object->facebookPreviewShareableLink;
+        after_facebookPreviewShareableLink:        $result['facebook_preview_shareable_link'] = $facebookPreviewShareableLink;
 
 
         return $result;
