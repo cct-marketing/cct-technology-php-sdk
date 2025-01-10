@@ -17,7 +17,6 @@ final class PropertyInformationData
                 'number_of_bedrooms' => 3,
                 'property_description' => 'Property description used to help create ad content texts',
                 'property_type' => 'Property Type',
-                'property_area' => 'Property Area',
             ],
             $data
         );
