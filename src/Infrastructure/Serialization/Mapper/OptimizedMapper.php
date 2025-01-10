@@ -4548,6 +4548,16 @@ class OptimizedMapper implements ObjectMapper
 
             after_formattedAddress:
 
+            $value = $payload['sub_locality'] ?? null;
+
+            if ($value === null) {
+                goto after_subLocality;
+            }
+
+            $properties['subLocality'] = $value;
+
+            after_subLocality:
+
         } catch (\Throwable $exception) {
             throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\Targeting\LocationTargeting\Address', $exception, stack: $this->hydrationStack);
         }
@@ -10363,6 +10373,14 @@ class OptimizedMapper implements ObjectMapper
             goto after_formattedAddress;
         }
         after_formattedAddress:        $result['formatted_address'] = $formattedAddress;
+
+        
+        $subLocality = $object->subLocality;
+
+        if ($subLocality === null) {
+            goto after_subLocality;
+        }
+        after_subLocality:        $result['sub_locality'] = $subLocality;
 
 
         return $result;
