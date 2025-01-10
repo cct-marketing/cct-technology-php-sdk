@@ -23,6 +23,8 @@ class PropertyInformationTest extends TestCase
         $this->assertEquals(7890, $propertyInformation->propertySize->toInt());
         $this->assertEquals(3, $propertyInformation->numberOfBedrooms->toInt());
         $this->assertEquals('Property description used to help create ad content texts', $propertyInformation->propertyDescription->toString());
+        $this->assertEquals('Property Type', $propertyInformation->propertyType->toString());
+        $this->assertEquals('Property Area', $propertyInformation->propertyArea->toString());
     }
 
     public function testWithEmptyArray(): void
@@ -33,6 +35,8 @@ class PropertyInformationTest extends TestCase
         $this->assertNull($propertyInformation->propertySize);
         $this->assertNull($propertyInformation->numberOfBedrooms);
         $this->assertNull($propertyInformation->propertyDescription);
+        $this->assertNull($propertyInformation->propertyType);
+        $this->assertNull($propertyInformation->propertyArea);
     }
 
     public function testToArray(): void

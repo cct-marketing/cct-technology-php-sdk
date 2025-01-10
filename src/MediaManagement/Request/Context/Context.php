@@ -38,7 +38,7 @@ final class Context implements ValueObjectInterface
     {
         return [
             'name' => $this->name,
-         ];
+        ];
     }
 
     public function equals(ValueObjectInterface $valueObject): bool

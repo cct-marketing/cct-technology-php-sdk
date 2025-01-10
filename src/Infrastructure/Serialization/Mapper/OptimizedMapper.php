@@ -103,10 +103,12 @@ class OptimizedMapper implements ObjectMapper
                 'CCT\SDK\Campaign\Data\Targeting\LocationTargeting\Locations' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Targeting⚡️LocationTargeting⚡️Locations($payload),
                 'CCT\SDK\Campaign\Data\Targeting\LocationTargeting\Radius' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Targeting⚡️LocationTargeting⚡️Radius($payload),
                 'CCT\SDK\Campaign\Data\Targeting\PropertyInformation\NumberOfBedrooms' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Targeting⚡️PropertyInformation⚡️NumberOfBedrooms($payload),
+                'CCT\SDK\Campaign\Data\Targeting\PropertyInformation\PropertyArea' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Targeting⚡️PropertyInformation⚡️PropertyArea($payload),
                 'CCT\SDK\Campaign\Data\Targeting\PropertyInformation\PropertyDescription' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Targeting⚡️PropertyInformation⚡️PropertyDescription($payload),
                 'CCT\SDK\Campaign\Data\Targeting\PropertyInformation\PropertyInformation' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Targeting⚡️PropertyInformation⚡️PropertyInformation($payload),
                 'CCT\SDK\Campaign\Data\Targeting\PropertyInformation\PropertyPrice' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Targeting⚡️PropertyInformation⚡️PropertyPrice($payload),
                 'CCT\SDK\Campaign\Data\Targeting\PropertyInformation\PropertySize' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Targeting⚡️PropertyInformation⚡️PropertySize($payload),
+                'CCT\SDK\Campaign\Data\Targeting\PropertyInformation\PropertyType' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Targeting⚡️PropertyInformation⚡️PropertyType($payload),
                 'CCT\SDK\Campaign\Data\Targeting\Targeting' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Targeting⚡️Targeting($payload),
                 'CCT\SDK\Campaign\Payload\CreateCampaign' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Payload⚡️CreateCampaign($payload),
                 'CCT\SDK\Campaign\Payload\SaveCampaign' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Payload⚡️SaveCampaign($payload),
@@ -4924,6 +4926,38 @@ class OptimizedMapper implements ObjectMapper
     }
 
         
+    private function hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Targeting⚡️PropertyInformation⚡️PropertyArea(array $payload): \CCT\SDK\Campaign\Data\Targeting\PropertyInformation\PropertyArea
+    {
+        $properties = []; 
+        $missingFields = [];
+        try {
+            $value = $payload['value'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'value';
+                goto after_value;
+            }
+
+            $properties['value'] = $value;
+
+            after_value:
+
+        } catch (\Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\Targeting\PropertyInformation\PropertyArea', $exception, stack: $this->hydrationStack);
+        }
+
+        if (count($missingFields) > 0) {
+            throw UnableToHydrateObject::dueToMissingFields(\CCT\SDK\Campaign\Data\Targeting\PropertyInformation\PropertyArea::class, $missingFields, stack: $this->hydrationStack);
+        }
+
+        try {
+            return new \CCT\SDK\Campaign\Data\Targeting\PropertyInformation\PropertyArea(...$properties);
+        } catch (\Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\Targeting\PropertyInformation\PropertyArea', $exception, stack: $this->hydrationStack);
+        }
+    }
+
+        
     private function hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Targeting⚡️PropertyInformation⚡️PropertyDescription(array $payload): \CCT\SDK\Campaign\Data\Targeting\PropertyInformation\PropertyDescription
     {
         $properties = []; 
@@ -5080,6 +5114,64 @@ class OptimizedMapper implements ObjectMapper
 
             after_propertyDescription:
 
+            $value = $payload['property_type'] ?? null;
+
+            if ($value === null) {
+                goto after_propertyType;
+            }
+
+            static $propertyTypeCaster1;
+
+            if ($propertyTypeCaster1 === null) {
+                $propertyTypeCaster1 = new \CCT\SDK\Infrastructure\Serialization\Caster\CastToSingleValueObject(...array (
+  0 => 'CCT\\SDK\\Campaign\\Data\\Targeting\\PropertyInformation\\PropertyType',
+));
+            }
+
+            $value = $propertyTypeCaster1->cast($value, $this);
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'propertyType';
+                    $value = $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Targeting⚡️PropertyInformation⚡️PropertyType($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['propertyType'] = $value;
+
+            after_propertyType:
+
+            $value = $payload['property_area'] ?? null;
+
+            if ($value === null) {
+                goto after_propertyArea;
+            }
+
+            static $propertyAreaCaster1;
+
+            if ($propertyAreaCaster1 === null) {
+                $propertyAreaCaster1 = new \CCT\SDK\Infrastructure\Serialization\Caster\CastToSingleValueObject(...array (
+  0 => 'CCT\\SDK\\Campaign\\Data\\Targeting\\PropertyInformation\\PropertyArea',
+));
+            }
+
+            $value = $propertyAreaCaster1->cast($value, $this);
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'propertyArea';
+                    $value = $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Targeting⚡️PropertyInformation⚡️PropertyArea($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['propertyArea'] = $value;
+
+            after_propertyArea:
+
         } catch (\Throwable $exception) {
             throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\Targeting\PropertyInformation\PropertyInformation', $exception, stack: $this->hydrationStack);
         }
@@ -5156,6 +5248,38 @@ class OptimizedMapper implements ObjectMapper
             return new \CCT\SDK\Campaign\Data\Targeting\PropertyInformation\PropertySize(...$properties);
         } catch (\Throwable $exception) {
             throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\Targeting\PropertyInformation\PropertySize', $exception, stack: $this->hydrationStack);
+        }
+    }
+
+        
+    private function hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Targeting⚡️PropertyInformation⚡️PropertyType(array $payload): \CCT\SDK\Campaign\Data\Targeting\PropertyInformation\PropertyType
+    {
+        $properties = []; 
+        $missingFields = [];
+        try {
+            $value = $payload['value'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'value';
+                goto after_value;
+            }
+
+            $properties['value'] = $value;
+
+            after_value:
+
+        } catch (\Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\Targeting\PropertyInformation\PropertyType', $exception, stack: $this->hydrationStack);
+        }
+
+        if (count($missingFields) > 0) {
+            throw UnableToHydrateObject::dueToMissingFields(\CCT\SDK\Campaign\Data\Targeting\PropertyInformation\PropertyType::class, $missingFields, stack: $this->hydrationStack);
+        }
+
+        try {
+            return new \CCT\SDK\Campaign\Data\Targeting\PropertyInformation\PropertyType(...$properties);
+        } catch (\Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\Targeting\PropertyInformation\PropertyType', $exception, stack: $this->hydrationStack);
         }
     }
 
@@ -8072,10 +8196,12 @@ class OptimizedMapper implements ObjectMapper
             'CCT\SDK\Campaign\Data\Targeting\LocationTargeting\Locations' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Targeting⚡️LocationTargeting⚡️Locations($object),
             'CCT\SDK\Campaign\Data\Targeting\LocationTargeting\Radius' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Targeting⚡️LocationTargeting⚡️Radius($object),
             'CCT\SDK\Campaign\Data\Targeting\PropertyInformation\NumberOfBedrooms' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Targeting⚡️PropertyInformation⚡️NumberOfBedrooms($object),
+            'CCT\SDK\Campaign\Data\Targeting\PropertyInformation\PropertyArea' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Targeting⚡️PropertyInformation⚡️PropertyArea($object),
             'CCT\SDK\Campaign\Data\Targeting\PropertyInformation\PropertyDescription' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Targeting⚡️PropertyInformation⚡️PropertyDescription($object),
             'CCT\SDK\Campaign\Data\Targeting\PropertyInformation\PropertyInformation' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Targeting⚡️PropertyInformation⚡️PropertyInformation($object),
             'CCT\SDK\Campaign\Data\Targeting\PropertyInformation\PropertyPrice' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Targeting⚡️PropertyInformation⚡️PropertyPrice($object),
             'CCT\SDK\Campaign\Data\Targeting\PropertyInformation\PropertySize' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Targeting⚡️PropertyInformation⚡️PropertySize($object),
+            'CCT\SDK\Campaign\Data\Targeting\PropertyInformation\PropertyType' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Targeting⚡️PropertyInformation⚡️PropertyType($object),
             'CCT\SDK\Campaign\Data\Targeting\Targeting' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Targeting⚡️Targeting($object),
             'CCT\SDK\Campaign\Payload\CreateCampaign' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Payload⚡️CreateCampaign($object),
             'CCT\SDK\Campaign\Payload\SaveCampaign' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Payload⚡️SaveCampaign($object),
@@ -10461,6 +10587,31 @@ class OptimizedMapper implements ObjectMapper
     }
 
 
+    private function serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Targeting⚡️PropertyInformation⚡️PropertyArea(mixed $object): mixed
+    {
+        \assert($object instanceof \CCT\SDK\Campaign\Data\Targeting\PropertyInformation\PropertyArea);
+        $result = [];
+
+        $toString = $object->toString();
+        after_toString:        $result['to_string'] = $toString;
+
+        
+        $__toString = $object->__toString();
+        after___toString:        $result['__to_string'] = $__toString;
+
+        
+        $toNative = $object->toNative();
+        after_toNative:        $result['to_native'] = $toNative;
+
+        
+        $value = $object->value;
+        after_value:        $result['value'] = $value;
+
+
+        return $result;
+    }
+
+
     private function serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Targeting⚡️PropertyInformation⚡️PropertyDescription(mixed $object): mixed
     {
         \assert($object instanceof \CCT\SDK\Campaign\Data\Targeting\PropertyInformation\PropertyDescription);
@@ -10558,6 +10709,40 @@ class OptimizedMapper implements ObjectMapper
         $propertyDescription = $propertyDescriptionSerializer0->serialize($propertyDescription, $this);
         after_propertyDescription:        $result['property_description'] = $propertyDescription;
 
+        
+        $propertyType = $object->propertyType;
+
+        if ($propertyType === null) {
+            goto after_propertyType;
+        }
+        static $propertyTypeSerializer0;
+
+        if ($propertyTypeSerializer0 === null) {
+            $propertyTypeSerializer0 = new \CCT\SDK\Infrastructure\Serialization\Caster\CastToSingleValueObject(...array (
+  0 => 'CCT\\SDK\\Campaign\\Data\\Targeting\\PropertyInformation\\PropertyType',
+));
+        }
+        
+        $propertyType = $propertyTypeSerializer0->serialize($propertyType, $this);
+        after_propertyType:        $result['property_type'] = $propertyType;
+
+        
+        $propertyArea = $object->propertyArea;
+
+        if ($propertyArea === null) {
+            goto after_propertyArea;
+        }
+        static $propertyAreaSerializer0;
+
+        if ($propertyAreaSerializer0 === null) {
+            $propertyAreaSerializer0 = new \CCT\SDK\Infrastructure\Serialization\Caster\CastToSingleValueObject(...array (
+  0 => 'CCT\\SDK\\Campaign\\Data\\Targeting\\PropertyInformation\\PropertyArea',
+));
+        }
+        
+        $propertyArea = $propertyAreaSerializer0->serialize($propertyArea, $this);
+        after_propertyArea:        $result['property_area'] = $propertyArea;
+
 
         return $result;
     }
@@ -10581,6 +10766,31 @@ class OptimizedMapper implements ObjectMapper
         \assert($object instanceof \CCT\SDK\Campaign\Data\Targeting\PropertyInformation\PropertySize);
         $result = [];
 
+        $value = $object->value;
+        after_value:        $result['value'] = $value;
+
+
+        return $result;
+    }
+
+
+    private function serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Targeting⚡️PropertyInformation⚡️PropertyType(mixed $object): mixed
+    {
+        \assert($object instanceof \CCT\SDK\Campaign\Data\Targeting\PropertyInformation\PropertyType);
+        $result = [];
+
+        $toString = $object->toString();
+        after_toString:        $result['to_string'] = $toString;
+
+        
+        $__toString = $object->__toString();
+        after___toString:        $result['__to_string'] = $__toString;
+
+        
+        $toNative = $object->toNative();
+        after_toNative:        $result['to_native'] = $toNative;
+
+        
         $value = $object->value;
         after_value:        $result['value'] = $value;
 
