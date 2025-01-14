@@ -19,6 +19,7 @@ final class IndustryAddressData
                     'locality' => 'San Francisco',
                     'region' => 'CA',
                     'postal_code' => '94105',
+                    'sub_locality' => 'California',
                     'country' => [
                         'name' => 'United States',
                         'code' => 'US',

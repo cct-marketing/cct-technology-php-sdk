@@ -12,7 +12,7 @@ use IteratorAggregate;
 /**
  * @template-implements IteratorAggregate<int, ValueObjectInterface>
  */
-abstract class AbstractCollection extends AbstractValueObject implements \IteratorAggregate
+abstract class AbstractCollection extends AbstractValueObject implements IteratorAggregate
 {
     public function __construct(
         protected array $items

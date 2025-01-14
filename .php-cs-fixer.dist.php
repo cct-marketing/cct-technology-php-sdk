@@ -46,6 +46,8 @@ return (new PhpCsFixer\Config())
             'no_superfluous_phpdoc_tags' => true,
             'single_line_throw' => false,
             'ordered_imports' => false,
+            'trailing_comma_in_multiline' => false,
+            'global_namespace_import' => false,
         ]
     )
     ->setFinder($finder);

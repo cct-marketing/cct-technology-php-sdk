@@ -10,7 +10,7 @@ use EventSauce\ObjectHydrator\ObjectMapper;
 use EventSauce\ObjectHydrator\PropertyCaster;
 use EventSauce\ObjectHydrator\PropertySerializer;
 
-#[\Attribute(\Attribute::TARGET_PARAMETER | \Attribute::IS_REPEATABLE | \Attribute::TARGET_PROPERTY)]
+#[Attribute(Attribute::TARGET_PARAMETER | Attribute::IS_REPEATABLE | Attribute::TARGET_PROPERTY)]
 final class CastToCollectionObject implements PropertyCaster, PropertySerializer
 {
     /**

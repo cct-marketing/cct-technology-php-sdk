@@ -8,7 +8,7 @@ use Attribute;
 use EventSauce\ObjectHydrator\ObjectMapper;
 use EventSauce\ObjectHydrator\PropertyCaster;
 
-#[\Attribute(\Attribute::TARGET_PARAMETER)]
+#[Attribute(Attribute::TARGET_PARAMETER)]
 class CastUnionToType implements PropertyCaster
 {
     public function __construct(
