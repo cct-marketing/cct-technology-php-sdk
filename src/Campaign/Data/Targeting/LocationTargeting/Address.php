@@ -15,11 +15,11 @@ final class Address extends AbstractMulti
         public readonly ?string $streetName = null,
         public readonly ?string $neighborhood = null,
         public readonly ?string $locality = null,
+        public readonly ?string $subLocality = null,
         public readonly ?string $region = null,
         public readonly ?string $postalCode = null,
         public readonly ?Country $country = null,
-        public readonly ?string $formattedAddress = null,
-        public readonly ?string $subLocality = null
+        public readonly ?string $formattedAddress = null
     ) {
     }
 
@@ -37,7 +37,6 @@ final class Address extends AbstractMulti
         $this->region === null ?: $address[] = $this->region;
         $this->postalCode === null ?: $address[] = $this->postalCode;
         $this->country === null ?: $address[] = $this->country->name;
-        $this->subLocality === null ?: $address[] = $this->subLocality;
 
         return \implode(', ', $address);
     }
