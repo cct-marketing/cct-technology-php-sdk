@@ -56,7 +56,8 @@ final class CreateFullCampaign
                         'email' => 'test@test.com',
                         'name' => 'Agent Name',
                         'phone' => '0123456789',
-                        'image' => Image::fromMediaImage($agentImage)->toArray()
+                        'image' => Image::fromMediaImage($agentImage)->toArray(),
+                        'type' => 'principal',
                     ]
                 ]
             );
