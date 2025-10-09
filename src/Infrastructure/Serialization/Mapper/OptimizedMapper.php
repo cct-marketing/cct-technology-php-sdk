@@ -88,6 +88,9 @@ class OptimizedMapper implements ObjectMapper
                 'CCT\SDK\Campaign\Data\Details\CampaignTitle' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Details⚡️CampaignTitle($payload),
                 'CCT\SDK\Campaign\Data\Details\Details' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Details⚡️Details($payload),
                 'CCT\SDK\Campaign\Data\Details\LandingPage' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Details⚡️LandingPage($payload),
+                'CCT\SDK\Campaign\Data\Metadata\Agent\Agent' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Agent⚡️Agent($payload),
+                'CCT\SDK\Campaign\Data\Metadata\Agent\Agents' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Agent⚡️Agents($payload),
+                'CCT\SDK\Campaign\Data\Metadata\Metadata' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Metadata($payload),
                 'CCT\SDK\Campaign\Data\Options\AdvancedSlideshow' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Options⚡️AdvancedSlideshow($payload),
                 'CCT\SDK\Campaign\Data\Options\AfterSoldAction' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Options⚡️AfterSoldAction($payload),
                 'CCT\SDK\Campaign\Data\Options\FacebookSlideshow' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Options⚡️FacebookSlideshow($payload),
@@ -4044,6 +4047,183 @@ class OptimizedMapper implements ObjectMapper
     }
 
         
+    private function hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Agent⚡️Agent(array $payload): \CCT\SDK\Campaign\Data\Metadata\Agent\Agent
+    {
+        $properties = []; 
+        $missingFields = [];
+        try {
+            $value = $payload['email'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'email';
+                goto after_email;
+            }
+
+            $properties['email'] = $value;
+
+            after_email:
+
+            $value = $payload['name'] ?? null;
+
+            if ($value === null) {
+                $properties['name'] = null;
+                goto after_name;
+            }
+
+            $properties['name'] = $value;
+
+            after_name:
+
+            $value = $payload['phone'] ?? null;
+
+            if ($value === null) {
+                $properties['phone'] = null;
+                goto after_phone;
+            }
+
+            $properties['phone'] = $value;
+
+            after_phone:
+
+            $value = $payload['image'] ?? null;
+
+            if ($value === null) {
+                $properties['image'] = null;
+                goto after_image;
+            }
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'image';
+                    $value = $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️AdContent⚡️Image⚡️Image($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['image'] = $value;
+
+            after_image:
+
+            $value = $payload['type'] ?? null;
+
+            if ($value === null) {
+                $properties['type'] = null;
+                goto after_type;
+            }
+
+            $properties['type'] = $value;
+
+            after_type:
+
+        } catch (\Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\Metadata\Agent\Agent', $exception, stack: $this->hydrationStack);
+        }
+
+        if (count($missingFields) > 0) {
+            throw UnableToHydrateObject::dueToMissingFields(\CCT\SDK\Campaign\Data\Metadata\Agent\Agent::class, $missingFields, stack: $this->hydrationStack);
+        }
+
+        try {
+            return new \CCT\SDK\Campaign\Data\Metadata\Agent\Agent(...$properties);
+        } catch (\Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\Metadata\Agent\Agent', $exception, stack: $this->hydrationStack);
+        }
+    }
+
+        
+    private function hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Agent⚡️Agents(array $payload): \CCT\SDK\Campaign\Data\Metadata\Agent\Agents
+    {
+        $properties = []; 
+        $missingFields = [];
+        try {
+            $value = $payload['items'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'items';
+                goto after_items;
+            }
+
+            if (is_array($value[array_key_first($value)] ?? false)) {
+                try {
+                    $this->hydrationStack[] = 'items';
+                    $value = $this->hydrateObjects('CCT\SDK\Campaign\Data\Metadata\Agent\Agent', $value)->toArray();
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['items'] = $value;
+
+            after_items:
+
+        } catch (\Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\Metadata\Agent\Agents', $exception, stack: $this->hydrationStack);
+        }
+
+        if (count($missingFields) > 0) {
+            throw UnableToHydrateObject::dueToMissingFields(\CCT\SDK\Campaign\Data\Metadata\Agent\Agents::class, $missingFields, stack: $this->hydrationStack);
+        }
+
+        try {
+            return new \CCT\SDK\Campaign\Data\Metadata\Agent\Agents(...$properties);
+        } catch (\Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\Metadata\Agent\Agents', $exception, stack: $this->hydrationStack);
+        }
+    }
+
+        
+    private function hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Metadata(array $payload): \CCT\SDK\Campaign\Data\Metadata\Metadata
+    {
+        $properties = []; 
+        $missingFields = [];
+        try {
+            $value = $payload['agents'] ?? null;
+
+            if ($value === null) {
+                $properties['agents'] = null;
+                goto after_agents;
+            }
+
+            static $agentsCaster1;
+
+            if ($agentsCaster1 === null) {
+                $agentsCaster1 = new \CCT\SDK\Infrastructure\Serialization\Caster\CastToCollectionObject(...array (
+  0 => 'CCT\\SDK\\Campaign\\Data\\Metadata\\Agent\\Agents',
+));
+            }
+
+            $value = $agentsCaster1->cast($value, $this);
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'agents';
+                    $value = $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Agent⚡️Agents($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['agents'] = $value;
+
+            after_agents:
+
+        } catch (\Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\Metadata\Metadata', $exception, stack: $this->hydrationStack);
+        }
+
+        if (count($missingFields) > 0) {
+            throw UnableToHydrateObject::dueToMissingFields(\CCT\SDK\Campaign\Data\Metadata\Metadata::class, $missingFields, stack: $this->hydrationStack);
+        }
+
+        try {
+            return new \CCT\SDK\Campaign\Data\Metadata\Metadata(...$properties);
+        } catch (\Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\Metadata\Metadata', $exception, stack: $this->hydrationStack);
+        }
+    }
+
+        
     private function hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Options⚡️AdvancedSlideshow(array $payload): \CCT\SDK\Campaign\Data\Options\AdvancedSlideshow
     {
         $properties = []; 
@@ -4499,6 +4679,16 @@ class OptimizedMapper implements ObjectMapper
 
             after_locality:
 
+            $value = $payload['sub_locality'] ?? null;
+
+            if ($value === null) {
+                goto after_subLocality;
+            }
+
+            $properties['subLocality'] = $value;
+
+            after_subLocality:
+
             $value = $payload['region'] ?? null;
 
             if ($value === null) {
@@ -4547,16 +4737,6 @@ class OptimizedMapper implements ObjectMapper
             $properties['formattedAddress'] = $value;
 
             after_formattedAddress:
-
-            $value = $payload['sub_locality'] ?? null;
-
-            if ($value === null) {
-                goto after_subLocality;
-            }
-
-            $properties['subLocality'] = $value;
-
-            after_subLocality:
 
         } catch (\Throwable $exception) {
             throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\Targeting\LocationTargeting\Address', $exception, stack: $this->hydrationStack);
@@ -5566,6 +5746,25 @@ class OptimizedMapper implements ObjectMapper
             $properties['campaignFlowUuid'] = $value;
 
             after_campaignFlowUuid:
+
+            $value = $payload['metadata'] ?? null;
+
+            if ($value === null) {
+                goto after_metadata;
+            }
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'metadata';
+                    $value = $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Metadata($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['metadata'] = $value;
+
+            after_metadata:
 
         } catch (\Throwable $exception) {
             throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Payload\StartCampaign', $exception, stack: $this->hydrationStack);
@@ -8129,6 +8328,9 @@ class OptimizedMapper implements ObjectMapper
             'CCT\SDK\Campaign\Data\Details\CampaignTitle' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Details⚡️CampaignTitle($object),
             'CCT\SDK\Campaign\Data\Details\Details' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Details⚡️Details($object),
             'CCT\SDK\Campaign\Data\Details\LandingPage' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Details⚡️LandingPage($object),
+            'CCT\SDK\Campaign\Data\Metadata\Agent\Agent' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Agent⚡️Agent($object),
+            'CCT\SDK\Campaign\Data\Metadata\Agent\Agents' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Agent⚡️Agents($object),
+            'CCT\SDK\Campaign\Data\Metadata\Metadata' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Metadata($object),
             'CCT\SDK\Campaign\Data\Options\AdvancedSlideshow' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Options⚡️AdvancedSlideshow($object),
             'CCT\SDK\Campaign\Data\Options\AfterSoldAction' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Options⚡️AfterSoldAction($object),
             'CCT\SDK\Campaign\Data\Options\FacebookSlideshow' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Options⚡️FacebookSlideshow($object),
@@ -10128,6 +10330,99 @@ class OptimizedMapper implements ObjectMapper
     }
 
 
+    private function serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Agent⚡️Agent(mixed $object): mixed
+    {
+        \assert($object instanceof \CCT\SDK\Campaign\Data\Metadata\Agent\Agent);
+        $result = [];
+
+        $email = $object->email;
+        after_email:        $result['email'] = $email;
+
+        
+        $name = $object->name;
+
+        if ($name === null) {
+            goto after_name;
+        }
+        after_name:        $result['name'] = $name;
+
+        
+        $phone = $object->phone;
+
+        if ($phone === null) {
+            goto after_phone;
+        }
+        after_phone:        $result['phone'] = $phone;
+
+        
+        $image = $object->image;
+
+        if ($image === null) {
+            goto after_image;
+        }
+        $image = $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️AdContent⚡️Image⚡️Image($image);
+        after_image:        $result['image'] = $image;
+
+        
+        $type = $object->type;
+
+        if ($type === null) {
+            goto after_type;
+        }
+        after_type:        $result['type'] = $type;
+
+
+        return $result;
+    }
+
+
+    private function serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Agent⚡️Agents(mixed $object): mixed
+    {
+        \assert($object instanceof \CCT\SDK\Campaign\Data\Metadata\Agent\Agents);
+        $result = [];
+
+        $items = $object->items();
+        static $itemsSerializer0;
+
+        if ($itemsSerializer0 === null) {
+            $itemsSerializer0 = new \EventSauce\ObjectHydrator\PropertySerializers\SerializeArrayItems(...array (
+));
+        }
+        
+        $items = $itemsSerializer0->serialize($items, $this);
+        after_items:        $result['items'] = $items;
+
+
+        return $result;
+    }
+
+
+    private function serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Metadata(mixed $object): mixed
+    {
+        \assert($object instanceof \CCT\SDK\Campaign\Data\Metadata\Metadata);
+        $result = [];
+
+        $agents = $object->agents;
+
+        if ($agents === null) {
+            goto after_agents;
+        }
+        static $agentsSerializer0;
+
+        if ($agentsSerializer0 === null) {
+            $agentsSerializer0 = new \CCT\SDK\Infrastructure\Serialization\Caster\CastToCollectionObject(...array (
+  0 => 'CCT\\SDK\\Campaign\\Data\\Metadata\\Agent\\Agents',
+));
+        }
+        
+        $agents = $agentsSerializer0->serialize($agents, $this);
+        after_agents:        $result['agents'] = $agents;
+
+
+        return $result;
+    }
+
+
     private function serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Options⚡️AdvancedSlideshow(mixed $object): mixed
     {
         \assert($object instanceof \CCT\SDK\Campaign\Data\Options\AdvancedSlideshow);
@@ -10342,6 +10637,14 @@ class OptimizedMapper implements ObjectMapper
         after_locality:        $result['locality'] = $locality;
 
         
+        $subLocality = $object->subLocality;
+
+        if ($subLocality === null) {
+            goto after_subLocality;
+        }
+        after_subLocality:        $result['sub_locality'] = $subLocality;
+
+        
         $region = $object->region;
 
         if ($region === null) {
@@ -10373,14 +10676,6 @@ class OptimizedMapper implements ObjectMapper
             goto after_formattedAddress;
         }
         after_formattedAddress:        $result['formatted_address'] = $formattedAddress;
-
-        
-        $subLocality = $object->subLocality;
-
-        if ($subLocality === null) {
-            goto after_subLocality;
-        }
-        after_subLocality:        $result['sub_locality'] = $subLocality;
 
 
         return $result;
@@ -10854,6 +11149,15 @@ class OptimizedMapper implements ObjectMapper
         
         $campaignFlowUuid = $campaignFlowUuidSerializer0->serialize($campaignFlowUuid, $this);
         after_campaignFlowUuid:        $result['campaign_flow_uuid'] = $campaignFlowUuid;
+
+        
+        $metadata = $object->metadata;
+
+        if ($metadata === null) {
+            goto after_metadata;
+        }
+        $metadata = $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Metadata($metadata);
+        after_metadata:        $result['metadata'] = $metadata;
 
 
         return $result;

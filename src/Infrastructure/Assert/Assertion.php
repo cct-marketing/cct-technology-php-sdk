@@ -119,6 +119,11 @@ final class Assertion
         AssertionLib::maxCount($value, $maxCount, null, $propertyPath);
     }
 
+    public static function email(string $value, string $propertyPath): void
+    {
+        AssertionLib::email($value, null, $propertyPath);
+    }
+
     public static function noDuplicates(array $value, string $propertyPath): void
     {
         $value = self::removeEmpties($value);

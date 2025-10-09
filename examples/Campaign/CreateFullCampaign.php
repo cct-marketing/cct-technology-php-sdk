@@ -8,9 +8,12 @@ require __DIR__ . '/../../vendor/autoload.php';
 
 use CCT\SDK\Campaign\Data\AdContent\AdContent;
 use CCT\SDK\Campaign\Data\AdContent\CampaignImage\CampaignImages;
+use CCT\SDK\Campaign\Data\AdContent\Image\Image;
 use CCT\SDK\Campaign\Data\AdContent\Image\ImageCollection;
 use CCT\SDK\Campaign\Data\CampaignId;
 use CCT\SDK\Campaign\Data\Details\Details;
+use CCT\SDK\Campaign\Data\Metadata\Agent\Agents;
+use CCT\SDK\Campaign\Data\Metadata\Metadata;
 use CCT\SDK\Campaign\Data\Targeting\Targeting;
 use CCT\SDK\Campaign\Payload\SaveCampaign;
 use CCT\SDK\Campaign\Payload\StartCampaign;
@@ -23,6 +26,7 @@ use CCT\SDK\Exception\ApiRequestException;
 use CCT\SDK\MediaManagement\Request\Media\CreateMediaCollection;
 use CCT\SDK\MediaManagement\Request\Media\RemoteMedia;
 use CCT\SDK\MediaManagement\ViewModel\MediaCollection;
+use CCT\SDK\MediaManagement\ViewModel\MediaImage;
 use CCT\SDK\MediaManagement\ViewModel\MediaType;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
@@ -44,8 +48,23 @@ final class CreateFullCampaign
         $client = ClientFactory::create($option, $cache);
 
         try {
+            // Add Agent Image
+            $agentImage = self::addAgencyImage($client, $customerId);
+            $agents = Agents::fromArray(
+                [
+                    [
+                        'email' => 'test@test.com',
+                        'name' => 'Agent Name',
+                        'phone' => '0123456789',
+                        'image' => Image::fromMediaImage($agentImage)->toArray()
+                    ]
+                ]
+            );
+
+            $metadata = new Metadata($agents);
+
             // This will initialize a campaign for specific product and return a campaign uuid
-            $campaignId = self::startCampaign($client, $customerId, $campaignFlowId);
+            $campaignId = self::startCampaign($client, $customerId, $campaignFlowId, $metadata);
 
             // This action will incorporate assets into the system and link them to the specified campaign.
             // Note that this does not select which assets will be utilized.
@@ -62,10 +81,10 @@ final class CreateFullCampaign
         }
     }
 
-    private static function startCampaign(Client $client, CustomerId $customerId, CampaignFlowId $campaignFlowId): CampaignId
+    private static function startCampaign(Client $client, CustomerId $customerId, CampaignFlowId $campaignFlowId, ?Metadata $metadata): CampaignId
     {
         // Start Campaign creation
-        $startCampaign = new StartCampaign($campaignFlowId);
+        $startCampaign = new StartCampaign($campaignFlowId, $metadata);
         $campaignCreationResponse = $client->campaignClient()->startCampaign($startCampaign, $customerId);
 
         printf('Campaign with id "%s" initialized.%s', $campaignCreationResponse->campaignId->toString(), PHP_EOL);
@@ -92,6 +111,32 @@ final class CreateFullCampaign
         printf('Image uploaded to the system form campaign "%s": %d%s', $campaignId->toString(), $images->count(), PHP_EOL);
 
         return $images;
+    }
+
+    private static function addAgencyImage(Client $client, CustomerId $customerId): MediaImage
+    {
+        $remoteMedia = RemoteMedia::fromArray(
+            [
+                'remote_file' => 'https://s3.eu-west-1.amazonaws.com/files-staging.cct-marketing.com/media/images/214454d8-1fa9-4670-af28-81ecf3956a04/original.jpeg',
+                'type' => MediaType::IMAGE->value,
+            ]
+        );
+
+        try {
+            $image = $client->mediaClient()->createMedia($customerId, $remoteMedia);
+        } catch (ApiRequestException $requestException) {
+            printf('Failed to create agent image with error %s %s', $requestException->getMessage(), PHP_EOL);
+            exit(1);
+        }
+
+        printf('Agent Image uploaded to the system for customer "%s" %s', $customerId->toString(), PHP_EOL);
+
+        if (!$image instanceof MediaImage) {
+            printf('Failed to create agent image, media is not an image %s', PHP_EOL);
+            exit(1);
+        }
+
+        return $image;
     }
 
     private static function setCampaignData(Client $client, CustomerId $customerId, CampaignId $campaignId, MediaCollection $images): void

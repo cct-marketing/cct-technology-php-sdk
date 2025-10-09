@@ -14,10 +14,10 @@ final class FacebookCarouselVariant extends AbstractMulti
 {
     public function __construct(public readonly string $text, public readonly FacebookCarouselCardCollection $cardCollection)
     {
-        $this->guard($text, $cardCollection);
+        $this->guard($text);
     }
 
-    private function guard(string $text, FacebookCarouselCardCollection $cardCollection)
+    private function guard(string $text): void
     {
         Assertion::maxLength($text, 200, self::errorPropertyPath());
     }

@@ -11,9 +11,11 @@
         <ignoreFiles>
             <directory name="vendor" />
             <directory name="src/Infrastructure/Serialization/Mapper" />
+            <file name="src/Infrastructure/ValueObject/AbstractUrl.php"/>
         </ignoreFiles>
     </projectFiles>
 
     <issueHandlers>
+        <MissingOverrideAttribute errorLevel="info" />
     </issueHandlers>
 </psalm>
