@@ -90,6 +90,8 @@ class OptimizedMapper implements ObjectMapper
                 'CCT\SDK\Campaign\Data\Details\LandingPage' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Details⚡️LandingPage($payload),
                 'CCT\SDK\Campaign\Data\Metadata\Agent\Agent' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Agent⚡️Agent($payload),
                 'CCT\SDK\Campaign\Data\Metadata\Agent\Agents' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Agent⚡️Agents($payload),
+                'CCT\SDK\Campaign\Data\Metadata\Generic\GenericItem' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Generic⚡️GenericItem($payload),
+                'CCT\SDK\Campaign\Data\Metadata\Generic\GenericItems' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Generic⚡️GenericItems($payload),
                 'CCT\SDK\Campaign\Data\Metadata\Metadata' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Metadata($payload),
                 'CCT\SDK\Campaign\Data\Options\AdvancedSlideshow' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Options⚡️AdvancedSlideshow($payload),
                 'CCT\SDK\Campaign\Data\Options\AfterSoldAction' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Options⚡️AfterSoldAction($payload),
@@ -149,6 +151,7 @@ class OptimizedMapper implements ObjectMapper
                 'CCT\SDK\CampaignFlow\Data\PricingType' => $this->hydrateCCT⚡️SDK⚡️CampaignFlow⚡️Data⚡️PricingType($payload),
                 'CCT\SDK\CampaignFlow\Data\Category' => $this->hydrateCCT⚡️SDK⚡️CampaignFlow⚡️Data⚡️Category($payload),
                 'CCT\SDK\Infrastructure\ValueObject\Uri' => $this->hydrateCCT⚡️SDK⚡️Infrastructure⚡️ValueObject⚡️Uri($payload),
+                'CCT\SDK\Campaign\Data\Metadata\Generic\GenericKey' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Generic⚡️GenericKey($payload),
                 'CCT\SDK\Campaign\Data\Options\ActionType' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Options⚡️ActionType($payload),
                 'CCT\SDK\Campaign\Data\Targeting\LocationTargeting\LocationType' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Targeting⚡️LocationTargeting⚡️LocationType($payload),
                 'CCT\SDK\Campaign\Data\Targeting\LocationTargeting\MeasurementUnit' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Targeting⚡️LocationTargeting⚡️MeasurementUnit($payload),
@@ -4173,6 +4176,92 @@ class OptimizedMapper implements ObjectMapper
     }
 
         
+    private function hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Generic⚡️GenericItem(array $payload): \CCT\SDK\Campaign\Data\Metadata\Generic\GenericItem
+    {
+        $properties = []; 
+        $missingFields = [];
+        try {
+            $value = $payload['key'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'key';
+                goto after_key;
+            }
+
+            $value = \CCT\SDK\Campaign\Data\Metadata\Generic\GenericKey::from($value);
+
+            $properties['key'] = $value;
+
+            after_key:
+
+            $value = $payload['value'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'value';
+                goto after_value;
+            }
+
+            $properties['value'] = $value;
+
+            after_value:
+
+        } catch (\Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\Metadata\Generic\GenericItem', $exception, stack: $this->hydrationStack);
+        }
+
+        if (count($missingFields) > 0) {
+            throw UnableToHydrateObject::dueToMissingFields(\CCT\SDK\Campaign\Data\Metadata\Generic\GenericItem::class, $missingFields, stack: $this->hydrationStack);
+        }
+
+        try {
+            return new \CCT\SDK\Campaign\Data\Metadata\Generic\GenericItem(...$properties);
+        } catch (\Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\Metadata\Generic\GenericItem', $exception, stack: $this->hydrationStack);
+        }
+    }
+
+        
+    private function hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Generic⚡️GenericItems(array $payload): \CCT\SDK\Campaign\Data\Metadata\Generic\GenericItems
+    {
+        $properties = []; 
+        $missingFields = [];
+        try {
+            $value = $payload['items'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'items';
+                goto after_items;
+            }
+
+            if (is_array($value[array_key_first($value)] ?? false)) {
+                try {
+                    $this->hydrationStack[] = 'items';
+                    $value = $this->hydrateObjects('CCT\SDK\Campaign\Data\Metadata\Generic\GenericItem', $value)->toArray();
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['items'] = $value;
+
+            after_items:
+
+        } catch (\Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\Metadata\Generic\GenericItems', $exception, stack: $this->hydrationStack);
+        }
+
+        if (count($missingFields) > 0) {
+            throw UnableToHydrateObject::dueToMissingFields(\CCT\SDK\Campaign\Data\Metadata\Generic\GenericItems::class, $missingFields, stack: $this->hydrationStack);
+        }
+
+        try {
+            return new \CCT\SDK\Campaign\Data\Metadata\Generic\GenericItems(...$properties);
+        } catch (\Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\Metadata\Generic\GenericItems', $exception, stack: $this->hydrationStack);
+        }
+    }
+
+        
     private function hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Metadata(array $payload): \CCT\SDK\Campaign\Data\Metadata\Metadata
     {
         $properties = []; 
@@ -4207,6 +4296,35 @@ class OptimizedMapper implements ObjectMapper
             $properties['agents'] = $value;
 
             after_agents:
+
+            $value = $payload['generic'] ?? null;
+
+            if ($value === null) {
+                goto after_generic;
+            }
+
+            static $genericCaster1;
+
+            if ($genericCaster1 === null) {
+                $genericCaster1 = new \CCT\SDK\Infrastructure\Serialization\Caster\CastToCollectionObject(...array (
+  0 => 'CCT\\SDK\\Campaign\\Data\\Metadata\\Generic\\GenericItems',
+));
+            }
+
+            $value = $genericCaster1->cast($value, $this);
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'generic';
+                    $value = $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Generic⚡️GenericItems($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['generic'] = $value;
+
+            after_generic:
 
         } catch (\Throwable $exception) {
             throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\Metadata\Metadata', $exception, stack: $this->hydrationStack);
@@ -8191,6 +8309,13 @@ class OptimizedMapper implements ObjectMapper
     }
 
 
+    private function hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Generic⚡️GenericKey(array $payload): \CCT\SDK\Campaign\Data\Metadata\Generic\GenericKey
+    {
+        throw UnableToHydrateObject::classIsNotInstantiable('CCT\SDK\Campaign\Data\Metadata\Generic\GenericKey', $exception, stack: $this->hydrationStack);
+    }
+
+
+
     private function hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Options⚡️ActionType(array $payload): \CCT\SDK\Campaign\Data\Options\ActionType
     {
         throw UnableToHydrateObject::classIsNotInstantiable('CCT\SDK\Campaign\Data\Options\ActionType', $exception, stack: $this->hydrationStack);
@@ -8330,6 +8455,8 @@ class OptimizedMapper implements ObjectMapper
             'CCT\SDK\Campaign\Data\Details\LandingPage' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Details⚡️LandingPage($object),
             'CCT\SDK\Campaign\Data\Metadata\Agent\Agent' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Agent⚡️Agent($object),
             'CCT\SDK\Campaign\Data\Metadata\Agent\Agents' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Agent⚡️Agents($object),
+            'CCT\SDK\Campaign\Data\Metadata\Generic\GenericItem' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Generic⚡️GenericItem($object),
+            'CCT\SDK\Campaign\Data\Metadata\Generic\GenericItems' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Generic⚡️GenericItems($object),
             'CCT\SDK\Campaign\Data\Metadata\Metadata' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Metadata($object),
             'CCT\SDK\Campaign\Data\Options\AdvancedSlideshow' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Options⚡️AdvancedSlideshow($object),
             'CCT\SDK\Campaign\Data\Options\AfterSoldAction' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Options⚡️AfterSoldAction($object),
@@ -10397,6 +10524,44 @@ class OptimizedMapper implements ObjectMapper
     }
 
 
+    private function serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Generic⚡️GenericItem(mixed $object): mixed
+    {
+        \assert($object instanceof \CCT\SDK\Campaign\Data\Metadata\Generic\GenericItem);
+        $result = [];
+
+        $key = $object->key;
+        $key = $key->value;        after_key:        $result['key'] = $key;
+
+        
+        $value = $object->value;
+        after_value:        $result['value'] = $value;
+
+
+        return $result;
+    }
+
+
+    private function serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Generic⚡️GenericItems(mixed $object): mixed
+    {
+        \assert($object instanceof \CCT\SDK\Campaign\Data\Metadata\Generic\GenericItems);
+        $result = [];
+
+        $items = $object->items();
+        static $itemsSerializer0;
+
+        if ($itemsSerializer0 === null) {
+            $itemsSerializer0 = new \EventSauce\ObjectHydrator\PropertySerializers\SerializeArrayItems(...array (
+));
+        }
+        
+        $items = $itemsSerializer0->serialize($items, $this);
+        after_items:        $result['items'] = $items;
+
+
+        return $result;
+    }
+
+
     private function serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Metadata(mixed $object): mixed
     {
         \assert($object instanceof \CCT\SDK\Campaign\Data\Metadata\Metadata);
@@ -10417,6 +10582,23 @@ class OptimizedMapper implements ObjectMapper
         
         $agents = $agentsSerializer0->serialize($agents, $this);
         after_agents:        $result['agents'] = $agents;
+
+        
+        $generic = $object->generic;
+
+        if ($generic === null) {
+            goto after_generic;
+        }
+        static $genericSerializer0;
+
+        if ($genericSerializer0 === null) {
+            $genericSerializer0 = new \CCT\SDK\Infrastructure\Serialization\Caster\CastToCollectionObject(...array (
+  0 => 'CCT\\SDK\\Campaign\\Data\\Metadata\\Generic\\GenericItems',
+));
+        }
+        
+        $generic = $genericSerializer0->serialize($generic, $this);
+        after_generic:        $result['generic'] = $generic;
 
 
         return $result;

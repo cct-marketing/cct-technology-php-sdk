@@ -13,6 +13,8 @@ use CCT\SDK\Campaign\Data\AdContent\Image\ImageCollection;
 use CCT\SDK\Campaign\Data\CampaignId;
 use CCT\SDK\Campaign\Data\Details\Details;
 use CCT\SDK\Campaign\Data\Metadata\Agent\Agents;
+use CCT\SDK\Campaign\Data\Metadata\Generic\GenericItems;
+use CCT\SDK\Campaign\Data\Metadata\Generic\GenericKey;
 use CCT\SDK\Campaign\Data\Metadata\Metadata;
 use CCT\SDK\Campaign\Data\Targeting\Targeting;
 use CCT\SDK\Campaign\Payload\SaveCampaign;
@@ -62,7 +64,12 @@ final class CreateFullCampaign
                 ]
             );
 
-            $metadata = new Metadata($agents);
+            $generic = GenericItems::fromArray([
+                'key' => GenericKey::ADDITIONAL_SPENDING->value,
+                'value' => '200000'
+            ]);
+
+            $metadata = new Metadata($agents, $generic);
 
             // This will initialize a campaign for specific product and return a campaign uuid
             $campaignId = self::startCampaign($client, $customerId, $campaignFlowId, $metadata);
