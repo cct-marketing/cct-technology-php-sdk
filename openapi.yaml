@@ -1,0 +1,973 @@
+openapi: 3.0.3
+info:
+  title: CCT Technology API
+  description: |
+    CCT Technology API for managing advertising campaigns across multiple platforms.
+    This API allows you to create, manage, and analyze campaigns on Facebook, Google, LinkedIn, and Twitter.
+  version: 1.0.0
+  contact:
+    name: CCT Marketing
+    email: ps@cct-marketing.com
+
+servers:
+  - url: https://tool.cct-marketing.com/api-v2
+    description: Monolith - Production
+  - url: https://staging.cct-marketing.com/api-v2
+    description: Monolith - Staging
+  - url: https://cw-api.cct.marketing
+    description: Campaign Wizard - Production
+  - url: https://cw-api-staging.cct.marketing
+    description: Campaign Wizard - Staging
+  - url: https://media-management.cct.marketing
+    description: Media Management - Production
+  - url: https://media-management-staging.cct.marketing
+    description: Media Management - Staging
+
+security:
+  - OAuth2:
+      - read
+      - write
+
+tags:
+  - name: Campaigns
+    description: Campaign management operations
+  - name: Media
+    description: Media asset management
+  - name: Customers
+    description: Customer and agency information
+  - name: Campaign Flows
+    description: Campaign product flows
+  - name: Analytics
+    description: Campaign analytics and reporting
+
+paths:
+  /customers:
+    get:
+      tags:
+        - Customers
+      summary: List accessible customers
+      description: Retrieve a list of all customers/agencies that the authenticated user has access to
+      operationId: listCustomers
+      servers:
+        - url: https://tool.cct-marketing.com/api-v2
+          description: Monolith - Production
+        - url: https://staging.cct-marketing.com/api-v2
+          description: Monolith - Staging
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Agency'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+  /customers/{customerId}/campaign-flows/products:
+    get:
+      tags:
+        - Campaign Flows
+      summary: List campaign products
+      description: Get available campaign flow products for a specific customer
+      operationId: listCampaignFlowProducts
+      servers:
+        - url: https://cw-api.cct.marketing
+          description: Campaign Wizard - Production
+        - url: https://cw-api-staging.cct.marketing
+          description: Campaign Wizard - Staging
+      parameters:
+        - $ref: '#/components/parameters/CustomerIdParam'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CampaignFlowProduct'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+
+  /customers/{customerId}/campaigns/start:
+    post:
+      tags:
+        - Campaigns
+      summary: Start a new campaign
+      description: Initialize a new campaign for a specific customer with a campaign flow product
+      operationId: startCampaign
+      servers:
+        - url: https://cw-api.cct.marketing
+          description: Campaign Wizard - Production
+        - url: https://cw-api-staging.cct.marketing
+          description: Campaign Wizard - Staging
+      parameters:
+        - $ref: '#/components/parameters/CustomerIdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartCampaignRequest'
+      responses:
+        '201':
+          description: Campaign created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignMutateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+  /customers/{customerId}/campaigns/{campaignId}:
+    patch:
+      tags:
+        - Campaigns
+      summary: Update campaign
+      description: Save campaign details, ad content, targeting, and options
+      operationId: saveCampaign
+      servers:
+        - url: https://cw-api.cct.marketing
+          description: Campaign Wizard - Production
+        - url: https://cw-api-staging.cct.marketing
+          description: Campaign Wizard - Staging
+      parameters:
+        - $ref: '#/components/parameters/CustomerIdParam'
+        - $ref: '#/components/parameters/CampaignIdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaveCampaignRequest'
+      responses:
+        '200':
+          description: Campaign updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignMutateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+
+  /customers/{customerId}/campaigns/{campaignId}/state:
+    get:
+      tags:
+        - Campaigns
+      summary: Get campaign state
+      description: Retrieve the current state of a campaign
+      operationId: getCampaignState
+      servers:
+        - url: https://cw-api.cct.marketing
+          description: Campaign Wizard - Production
+        - url: https://cw-api-staging.cct.marketing
+          description: Campaign Wizard - Staging
+      parameters:
+        - $ref: '#/components/parameters/CustomerIdParam'
+        - $ref: '#/components/parameters/CampaignIdParam'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignStateResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+
+  /customers/{customerId}/campaigns/{campaignId}/place:
+    post:
+      tags:
+        - Campaigns
+      summary: Place campaign
+      description: Submit campaign for review and deployment to advertising channels
+      operationId: placeCampaign
+      servers:
+        - url: https://cw-api.cct.marketing
+          description: Campaign Wizard - Production
+        - url: https://cw-api-staging.cct.marketing
+          description: Campaign Wizard - Staging
+      parameters:
+        - $ref: '#/components/parameters/CustomerIdParam'
+        - $ref: '#/components/parameters/CampaignIdParam'
+      responses:
+        '202':
+          description: Campaign placed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignMutateResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+
+  /customers/{customerId}/campaigns/{campaignId}/pause:
+    post:
+      tags:
+        - Campaigns
+      summary: Pause campaign
+      description: Pause an active campaign
+      operationId: pauseCampaign
+      servers:
+        - url: https://cw-api.cct.marketing
+          description: Campaign Wizard - Production
+        - url: https://cw-api-staging.cct.marketing
+          description: Campaign Wizard - Staging
+      parameters:
+        - $ref: '#/components/parameters/CustomerIdParam'
+        - $ref: '#/components/parameters/CampaignIdParam'
+      responses:
+        '200':
+          description: Campaign paused successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignMutateResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+
+  /customers/{customerId}/campaigns/{campaignId}/resume:
+    post:
+      tags:
+        - Campaigns
+      summary: Resume campaign
+      description: Resume a paused campaign
+      operationId: resumeCampaign
+      servers:
+        - url: https://cw-api.cct.marketing
+          description: Campaign Wizard - Production
+        - url: https://cw-api-staging.cct.marketing
+          description: Campaign Wizard - Staging
+      parameters:
+        - $ref: '#/components/parameters/CustomerIdParam'
+        - $ref: '#/components/parameters/CampaignIdParam'
+      responses:
+        '200':
+          description: Campaign resumed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignMutateResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+
+  /customers/{customerId}/campaigns/{campaignId}/media:
+    post:
+      tags:
+        - Media
+      summary: Create bulk media
+      description: Upload multiple media assets (images/videos) for a campaign
+      operationId: createBulkMedia
+      servers:
+        - url: https://media-management.cct.marketing
+          description: Media Management - Production
+        - url: https://media-management-staging.cct.marketing
+          description: Media Management - Staging
+      parameters:
+        - $ref: '#/components/parameters/CustomerIdParam'
+        - $ref: '#/components/parameters/CampaignIdParam'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                bulk_create:
+                  type: object
+                  properties:
+                    media:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/RemoteMedia'
+      responses:
+        '201':
+          description: Media created successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Media'
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+  /customers/{customerId}/medium:
+    post:
+      tags:
+        - Media
+      summary: Create single media
+      description: Upload a single media asset (image/video)
+      operationId: createMedia
+      servers:
+        - url: https://media-management.cct.marketing
+          description: Media Management - Production
+        - url: https://media-management-staging.cct.marketing
+          description: Media Management - Staging
+      parameters:
+        - $ref: '#/components/parameters/CustomerIdParam'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                media:
+                  $ref: '#/components/schemas/RemoteMedia'
+      responses:
+        '201':
+          description: Media created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Media'
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+  /customers/{customerId}/campaigns/{campaignId}/analytics:
+    get:
+      tags:
+        - Analytics
+      summary: Get campaign analytics
+      description: Retrieve analytics data for a specific campaign
+      operationId: getCampaignAnalytics
+      servers:
+        - url: https://tool.cct-marketing.com/api-v2
+          description: Monolith - Production
+        - url: https://staging.cct-marketing.com/api-v2
+          description: Monolith - Staging
+      parameters:
+        - $ref: '#/components/parameters/CustomerIdParam'
+        - $ref: '#/components/parameters/CampaignIdParam'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignAnalytics'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://oauth.cct-marketing.com/token
+          scopes:
+            read: Read access
+            write: Write access
+
+  parameters:
+    CustomerIdParam:
+      name: customerId
+      in: path
+      required: true
+      description: Unique identifier of the customer/agency
+      schema:
+        type: string
+        format: uuid
+        example: "550e8400-e29b-41d4-a716-446655440000"
+
+    CampaignIdParam:
+      name: campaignId
+      in: path
+      required: true
+      description: Unique identifier of the campaign
+      schema:
+        type: string
+        format: uuid
+        example: "123e4567-e89b-12d3-a456-426614174000"
+
+  schemas:
+    Agency:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Customer/agency unique identifier
+        name:
+          type: string
+          description: Agency name
+        email:
+          type: string
+          format: email
+          description: Contact email
+
+    CampaignFlowProduct:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Campaign flow unique identifier
+        name:
+          type: string
+          description: Product name
+        category:
+          type: string
+          description: Product category
+        pricing:
+          $ref: '#/components/schemas/Pricing'
+        settings:
+          type: object
+          description: Product settings
+
+    Pricing:
+      type: object
+      properties:
+        currency:
+          type: string
+          example: "EUR"
+          description: Currency code (ISO 4217)
+        vat:
+          type: number
+          format: float
+          example: 21.0
+          description: VAT percentage
+        exclude_vat:
+          type: boolean
+          description: Whether VAT is excluded
+        pricing_type:
+          type: string
+          enum: [fixed, flexible]
+          description: Type of pricing
+
+    StartCampaignRequest:
+      type: object
+      required:
+        - campaign_flow_uuid
+      properties:
+        campaign_flow_uuid:
+          type: string
+          format: uuid
+          description: Campaign flow product identifier
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+
+    SaveCampaignRequest:
+      type: object
+      properties:
+        details:
+          $ref: '#/components/schemas/CampaignDetails'
+        ad_content:
+          $ref: '#/components/schemas/AdContent'
+        targeting:
+          $ref: '#/components/schemas/Targeting'
+        options:
+          $ref: '#/components/schemas/CampaignOptions'
+
+    Metadata:
+      type: object
+      properties:
+        agents:
+          type: array
+          items:
+            $ref: '#/components/schemas/Agent'
+          description: Real estate agents or contact persons
+        generic:
+          type: array
+          items:
+            $ref: '#/components/schemas/GenericItem'
+          description: Generic key-value metadata items
+
+    GenericItem:
+      type: object
+      required:
+        - key
+        - value
+      properties:
+        key:
+          type: string
+          enum: [budget, additional_spending]
+          description: The metadata key name
+          example: "budget"
+        value:
+          type: string
+          description: The metadata value
+          example: "50000"
+
+    Agent:
+      type: object
+      required:
+        - email
+      properties:
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+          nullable: true
+        phone:
+          type: string
+          nullable: true
+        image:
+          allOf:
+            - $ref: '#/components/schemas/Image'
+          nullable: true
+        type:
+          type: string
+          enum: [principal, secondary]
+          nullable: true
+          description: Agent role type
+
+    CampaignDetails:
+      type: object
+      required:
+        - campaign_title
+        - landing_page
+      properties:
+        campaign_title:
+          type: string
+          minLength: 1
+          maxLength: 255
+          example: "Luxury Apartment in Boston"
+        campaign_period:
+          $ref: '#/components/schemas/CampaignPeriod'
+        landing_page:
+          type: string
+          format: uri
+          example: "https://example.com/property/123"
+
+    CampaignPeriod:
+      type: object
+      required:
+        - start_date
+        - end_date
+      properties:
+        start_date:
+          type: string
+          format: date
+          example: "2025-10-15"
+        end_date:
+          type: string
+          format: date
+          example: "2025-10-25"
+
+    AdContent:
+      type: object
+      properties:
+        campaign_images:
+          $ref: '#/components/schemas/CampaignImages'
+        campaign_videos:
+          type: object
+          description: Campaign video assets
+        facebook_ai_multi_ad_variants:
+          type: array
+          items:
+            $ref: '#/components/schemas/FacebookAiMultiAdVariant'
+        facebook_carousel_variants:
+          type: array
+          items:
+            type: object
+            description: Facebook carousel ad variants
+        ad_text:
+          type: object
+          description: General ad text content
+        linkedin_ad_variants:
+          type: array
+          items:
+            type: object
+            description: LinkedIn ad variants
+        twitter_ad_variants:
+          type: array
+          items:
+            type: object
+            description: Twitter ad variants
+        google_responsive_ad_variants:
+          type: array
+          items:
+            $ref: '#/components/schemas/GoogleResponsiveAdVariant'
+
+    CampaignImages:
+      type: object
+      properties:
+        channel_images:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChannelImages'
+        user_images_selected:
+          type: boolean
+          default: true
+
+    ChannelImages:
+      type: object
+      properties:
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+        _type:
+          type: string
+          enum: [facebook_images, google_images]
+    Image:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        image_url:
+          type: string
+          format: uri
+
+    FacebookAiMultiAdVariant:
+      type: object
+      properties:
+        texts:
+          type: array
+          items:
+            type: string
+          minItems: 1
+          maxItems: 5
+          description: Multiple text variations for Facebook AI optimization
+        headings:
+          type: array
+          items:
+            type: string
+          minItems: 1
+          maxItems: 5
+          description: Multiple heading variations
+        descriptions:
+          type: array
+          items:
+            type: string
+          minItems: 1
+          maxItems: 5
+          description: Multiple description variations
+
+    GoogleResponsiveAdVariant:
+      type: object
+      properties:
+        short_headlines:
+          type: array
+          items:
+            type: string
+          minItems: 3
+          maxItems: 15
+          description: Short headlines (max 30 characters each)
+        long_headline:
+          type: string
+          maxLength: 90
+          description: Long headline
+        descriptions:
+          type: array
+          items:
+            type: string
+          minItems: 2
+          maxItems: 4
+          description: Descriptions (max 90 characters each)
+
+    Targeting:
+      type: object
+      properties:
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Location'
+        industry_address:
+          $ref: '#/components/schemas/IndustryAddress'
+        property_information:
+          $ref: '#/components/schemas/PropertyInformation'
+
+    Location:
+      type: object
+      required:
+        - address
+        - coordinate
+        - radius
+      properties:
+        address:
+          type: string
+          example: "55 Fruit St, Boston, MA 02114, USA"
+        coordinate:
+          $ref: '#/components/schemas/Coordinate'
+        radius:
+          $ref: '#/components/schemas/Radius'
+
+    Coordinate:
+      type: object
+      required:
+        - latitude
+        - longitude
+      properties:
+        latitude:
+          type: number
+          format: double
+          example: 42.36308280000001
+        longitude:
+          type: number
+          format: double
+          example: -71.0686204
+
+    Radius:
+      type: object
+      required:
+        - radius
+        - measurement_unit
+      properties:
+        radius:
+          type: number
+          format: float
+          example: 20
+        measurement_unit:
+          type: string
+          enum: [km, mi]
+          example: "km"
+
+    IndustryAddress:
+      type: object
+      properties:
+        address:
+          type: object
+          properties:
+            formatted_address:
+              type: string
+        coordinate:
+          $ref: '#/components/schemas/Coordinate'
+
+    PropertyInformation:
+      type: object
+      properties:
+        property_price:
+          type: integer
+          description: Property price in smallest currency unit (cents)
+          example: 120000000
+        property_size:
+          type: integer
+          description: Property size in square meters or feet
+          example: 40000
+        number_of_bedrooms:
+          type: integer
+          minimum: 0
+          example: 5
+        property_description:
+          type: string
+          description: Property description for ad content generation
+          example: "Luxury apartment with stunning views"
+        property_total_price:
+          type: integer
+          description: Total property price in smallest currency unit (cents)
+          example: 125000000
+        property_energy_label:
+          type: string
+          description: Property energy label
+          example: "A+"
+
+    CampaignOptions:
+      type: object
+      properties:
+        post_first_variant_to_facebook:
+          type: object
+          properties:
+            enabled:
+              type: boolean
+              default: false
+        local_boost:
+          type: object
+          description: Local boost settings
+        facebook_slideshow:
+          type: object
+          description: Facebook slideshow settings
+        advanced_slideshow:
+          type: object
+          description: Advanced slideshow settings
+        action_type:
+          type: string
+          description: Call to action type
+        after_sold_action:
+          type: string
+          description: Action to take after property is sold
+        new_price:
+          type: object
+          description: Price update settings
+
+    RemoteMedia:
+      type: object
+      required:
+        - remote_file
+        - type
+      properties:
+        remote_file:
+          type: string
+          format: uri
+          description: URL of the remote media file
+          example: "https://example.com/image.jpg"
+        type:
+          type: string
+          enum: [image, video]
+          description: Media type
+
+    Media:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        name:
+          type: string
+        type:
+          type: string
+          enum: [image, video]
+        url:
+          type: string
+          format: uri
+        thumbnail_url:
+          type: string
+          format: uri
+        status:
+          type: string
+          enum: [processing, ready, failed]
+        context:
+          type: object
+          description: Additional media metadata
+
+    CampaignMutateResponse:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Campaign unique identifier
+
+    CampaignStateResponse:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Campaign unique identifier
+        state:
+          type: string
+          enum: [draft, pending_review, active, paused, completed, cancelled]
+          description: Current campaign state
+
+    CampaignAnalytics:
+      type: object
+      properties:
+        campaign_id:
+          type: string
+          format: uuid
+        order_code:
+          type: string
+        order_type:
+          type: string
+        customer:
+          $ref: '#/components/schemas/AnalyticsCustomer'
+        analytics:
+          $ref: '#/components/schemas/Analytics'
+        period:
+          $ref: '#/components/schemas/AnalyticsPeriod'
+        facebook_preview_shareable_link:
+          type: string
+          format: uri
+
+    AnalyticsCustomer:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        name:
+          type: string
+
+    Analytics:
+      type: object
+      properties:
+        impressions:
+          type: object
+          properties:
+            value:
+              type: integer
+        clicks:
+          type: object
+          properties:
+            value:
+              type: integer
+        reach:
+          type: object
+          properties:
+            value:
+              type: integer
+        readers:
+          type: object
+          properties:
+            value:
+              type: integer
+        target:
+          type: object
+          description: Target metrics
+        facebook:
+          type: object
+          description: Facebook-specific metrics
+
+    AnalyticsPeriod:
+      type: object
+      properties:
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error message
+        code:
+          type: string
+          description: Error code
+        details:
+          type: object
+          description: Additional error details
+
+  responses:
+    BadRequestError:
+      description: Bad request - invalid input
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    UnauthorizedError:
+      description: Authentication required or failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    NotFoundError:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

@@ -21,7 +21,11 @@ final class PropertyInformation extends AbstractMulti
         #[CastToSingleValueObject(PropertyDescription::class)]
         public readonly ?PropertyDescription $propertyDescription = null,
         #[CastToSingleValueObject(PropertyType::class)]
-        public readonly ?PropertyType $propertyType = null
+        public readonly ?PropertyType $propertyType = null,
+        #[CastToSingleValueObject(PropertyTotalPrice::class)]
+        public readonly ?PropertyTotalPrice $propertyTotalPrice = null,
+        #[CastToSingleValueObject(PropertyEnergyLabel::class)]
+        public readonly ?PropertyEnergyLabel $propertyEnergyLabel = null
     ) {
     }
 }
