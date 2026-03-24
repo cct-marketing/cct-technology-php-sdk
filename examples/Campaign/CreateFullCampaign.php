@@ -232,7 +232,9 @@ final class CreateFullCampaign
                     'property_price' => 120000000,
                     'property_size' => 40000,
                     'number_of_bedrooms' => 5,
-                    'property_description' => 'Property description, used to help create ad content texts'
+                    'property_description' => 'Property description, used to help create ad content texts',
+                    'property_total_price' => 125000000,
+                    'property_energy_label' => 'A+',
                 ],
             ]
         );

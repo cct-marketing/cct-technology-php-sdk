@@ -179,6 +179,8 @@ final class CreateFullCampaignWithMultipleSaves
                     'property_price' => 120000000,
                     'property_size' => 40000,
                     'number_of_bedrooms' => 5,
+                    'property_total_price' => 125000000,
+                    'property_energy_label' => 'A+',
                 ],
             ]
         );
