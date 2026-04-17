@@ -13,6 +13,7 @@ use CCT\SDK\Campaign\Data\AdContent\Image\ImageCollection;
 use CCT\SDK\Campaign\Data\CampaignId;
 use CCT\SDK\Campaign\Data\Details\Details;
 use CCT\SDK\Campaign\Data\Metadata\Agent\Agents;
+use CCT\SDK\Campaign\Data\Metadata\Branding\BrandingItems;
 use CCT\SDK\Campaign\Data\Metadata\Generic\GenericItems;
 use CCT\SDK\Campaign\Data\Metadata\Generic\GenericKey;
 use CCT\SDK\Campaign\Data\Metadata\Metadata;
@@ -69,7 +70,13 @@ final class CreateFullCampaign
                 'value' => '200000'
             ]);
 
-            $metadata = new Metadata($agents, $generic);
+            $branding = BrandingItems::fromArray([
+                ['key' => 'brand_colour', 'value' => '#FF0000'],
+                ['key' => 'text_colour', 'value' => '#000000'],
+                ['key' => 'logo_url', 'value' => 'https://example.com/logo.png'],
+            ]);
+
+            $metadata = new Metadata($agents, $generic, $branding);
 
             // This will initialize a campaign for specific product and return a campaign uuid
             $campaignId = self::startCampaign($client, $customerId, $campaignFlowId, $metadata);

@@ -90,6 +90,9 @@ class OptimizedMapper implements ObjectMapper
                 'CCT\SDK\Campaign\Data\Details\LandingPage' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Details⚡️LandingPage($payload),
                 'CCT\SDK\Campaign\Data\Metadata\Agent\Agent' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Agent⚡️Agent($payload),
                 'CCT\SDK\Campaign\Data\Metadata\Agent\Agents' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Agent⚡️Agents($payload),
+                'CCT\SDK\Campaign\Data\Metadata\Branding\BrandingItem' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Branding⚡️BrandingItem($payload),
+                'CCT\SDK\Campaign\Data\Metadata\Branding\BrandingItems' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Branding⚡️BrandingItems($payload),
+                'CCT\SDK\Campaign\Data\Metadata\Branding\BrandingKey' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Branding⚡️BrandingKey($payload),
                 'CCT\SDK\Campaign\Data\Metadata\Generic\GenericItem' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Generic⚡️GenericItem($payload),
                 'CCT\SDK\Campaign\Data\Metadata\Generic\GenericItems' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Generic⚡️GenericItems($payload),
                 'CCT\SDK\Campaign\Data\Metadata\Metadata' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Metadata($payload),
@@ -4178,6 +4181,141 @@ class OptimizedMapper implements ObjectMapper
     }
 
         
+    private function hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Branding⚡️BrandingItem(array $payload): \CCT\SDK\Campaign\Data\Metadata\Branding\BrandingItem
+    {
+        $properties = []; 
+        $missingFields = [];
+        try {
+            $value = $payload['key'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'key';
+                goto after_key;
+            }
+
+            static $keyCaster1;
+
+            if ($keyCaster1 === null) {
+                $keyCaster1 = new \CCT\SDK\Infrastructure\Serialization\Caster\CastToSingleValueObject(...array (
+  0 => 'CCT\\SDK\\Campaign\\Data\\Metadata\\Branding\\BrandingKey',
+));
+            }
+
+            $value = $keyCaster1->cast($value, $this);
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'key';
+                    $value = $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Branding⚡️BrandingKey($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['key'] = $value;
+
+            after_key:
+
+            $value = $payload['value'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'value';
+                goto after_value;
+            }
+
+            $properties['value'] = $value;
+
+            after_value:
+
+        } catch (\Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\Metadata\Branding\BrandingItem', $exception, stack: $this->hydrationStack);
+        }
+
+        if (count($missingFields) > 0) {
+            throw UnableToHydrateObject::dueToMissingFields(\CCT\SDK\Campaign\Data\Metadata\Branding\BrandingItem::class, $missingFields, stack: $this->hydrationStack);
+        }
+
+        try {
+            return new \CCT\SDK\Campaign\Data\Metadata\Branding\BrandingItem(...$properties);
+        } catch (\Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\Metadata\Branding\BrandingItem', $exception, stack: $this->hydrationStack);
+        }
+    }
+
+        
+    private function hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Branding⚡️BrandingItems(array $payload): \CCT\SDK\Campaign\Data\Metadata\Branding\BrandingItems
+    {
+        $properties = []; 
+        $missingFields = [];
+        try {
+            $value = $payload['items'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'items';
+                goto after_items;
+            }
+
+            if (is_array($value[array_key_first($value)] ?? false)) {
+                try {
+                    $this->hydrationStack[] = 'items';
+                    $value = $this->hydrateObjects('CCT\SDK\Campaign\Data\Metadata\Branding\BrandingItem', $value)->toArray();
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['items'] = $value;
+
+            after_items:
+
+        } catch (\Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\Metadata\Branding\BrandingItems', $exception, stack: $this->hydrationStack);
+        }
+
+        if (count($missingFields) > 0) {
+            throw UnableToHydrateObject::dueToMissingFields(\CCT\SDK\Campaign\Data\Metadata\Branding\BrandingItems::class, $missingFields, stack: $this->hydrationStack);
+        }
+
+        try {
+            return new \CCT\SDK\Campaign\Data\Metadata\Branding\BrandingItems(...$properties);
+        } catch (\Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\Metadata\Branding\BrandingItems', $exception, stack: $this->hydrationStack);
+        }
+    }
+
+        
+    private function hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Branding⚡️BrandingKey(array $payload): \CCT\SDK\Campaign\Data\Metadata\Branding\BrandingKey
+    {
+        $properties = []; 
+        $missingFields = [];
+        try {
+            $value = $payload['value'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'value';
+                goto after_value;
+            }
+
+            $properties['value'] = $value;
+
+            after_value:
+
+        } catch (\Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\Metadata\Branding\BrandingKey', $exception, stack: $this->hydrationStack);
+        }
+
+        if (count($missingFields) > 0) {
+            throw UnableToHydrateObject::dueToMissingFields(\CCT\SDK\Campaign\Data\Metadata\Branding\BrandingKey::class, $missingFields, stack: $this->hydrationStack);
+        }
+
+        try {
+            return new \CCT\SDK\Campaign\Data\Metadata\Branding\BrandingKey(...$properties);
+        } catch (\Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\Metadata\Branding\BrandingKey', $exception, stack: $this->hydrationStack);
+        }
+    }
+
+        
     private function hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Generic⚡️GenericItem(array $payload): \CCT\SDK\Campaign\Data\Metadata\Generic\GenericItem
     {
         $properties = []; 
@@ -4327,6 +4465,35 @@ class OptimizedMapper implements ObjectMapper
             $properties['generic'] = $value;
 
             after_generic:
+
+            $value = $payload['branding'] ?? null;
+
+            if ($value === null) {
+                goto after_branding;
+            }
+
+            static $brandingCaster1;
+
+            if ($brandingCaster1 === null) {
+                $brandingCaster1 = new \CCT\SDK\Infrastructure\Serialization\Caster\CastToCollectionObject(...array (
+  0 => 'CCT\\SDK\\Campaign\\Data\\Metadata\\Branding\\BrandingItems',
+));
+            }
+
+            $value = $brandingCaster1->cast($value, $this);
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'branding';
+                    $value = $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Branding⚡️BrandingItems($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['branding'] = $value;
+
+            after_branding:
 
         } catch (\Throwable $exception) {
             throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\Metadata\Metadata', $exception, stack: $this->hydrationStack);
@@ -8579,6 +8746,9 @@ class OptimizedMapper implements ObjectMapper
             'CCT\SDK\Campaign\Data\Details\LandingPage' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Details⚡️LandingPage($object),
             'CCT\SDK\Campaign\Data\Metadata\Agent\Agent' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Agent⚡️Agent($object),
             'CCT\SDK\Campaign\Data\Metadata\Agent\Agents' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Agent⚡️Agents($object),
+            'CCT\SDK\Campaign\Data\Metadata\Branding\BrandingItem' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Branding⚡️BrandingItem($object),
+            'CCT\SDK\Campaign\Data\Metadata\Branding\BrandingItems' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Branding⚡️BrandingItems($object),
+            'CCT\SDK\Campaign\Data\Metadata\Branding\BrandingKey' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Branding⚡️BrandingKey($object),
             'CCT\SDK\Campaign\Data\Metadata\Generic\GenericItem' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Generic⚡️GenericItem($object),
             'CCT\SDK\Campaign\Data\Metadata\Generic\GenericItems' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Generic⚡️GenericItems($object),
             'CCT\SDK\Campaign\Data\Metadata\Metadata' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Metadata($object),
@@ -10650,6 +10820,78 @@ class OptimizedMapper implements ObjectMapper
     }
 
 
+    private function serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Branding⚡️BrandingItem(mixed $object): mixed
+    {
+        \assert($object instanceof \CCT\SDK\Campaign\Data\Metadata\Branding\BrandingItem);
+        $result = [];
+
+        $key = $object->key;
+        static $keySerializer0;
+
+        if ($keySerializer0 === null) {
+            $keySerializer0 = new \CCT\SDK\Infrastructure\Serialization\Caster\CastToSingleValueObject(...array (
+  0 => 'CCT\\SDK\\Campaign\\Data\\Metadata\\Branding\\BrandingKey',
+));
+        }
+        
+        $key = $keySerializer0->serialize($key, $this);
+        after_key:        $result['key'] = $key;
+
+        
+        $value = $object->value;
+        after_value:        $result['value'] = $value;
+
+
+        return $result;
+    }
+
+
+    private function serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Branding⚡️BrandingItems(mixed $object): mixed
+    {
+        \assert($object instanceof \CCT\SDK\Campaign\Data\Metadata\Branding\BrandingItems);
+        $result = [];
+
+        $items = $object->items();
+        static $itemsSerializer0;
+
+        if ($itemsSerializer0 === null) {
+            $itemsSerializer0 = new \EventSauce\ObjectHydrator\PropertySerializers\SerializeArrayItems(...array (
+));
+        }
+        
+        $items = $itemsSerializer0->serialize($items, $this);
+        after_items:        $result['items'] = $items;
+
+
+        return $result;
+    }
+
+
+    private function serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Branding⚡️BrandingKey(mixed $object): mixed
+    {
+        \assert($object instanceof \CCT\SDK\Campaign\Data\Metadata\Branding\BrandingKey);
+        $result = [];
+
+        $toString = $object->toString();
+        after_toString:        $result['to_string'] = $toString;
+
+        
+        $__toString = $object->__toString();
+        after___toString:        $result['__to_string'] = $__toString;
+
+        
+        $toNative = $object->toNative();
+        after_toNative:        $result['to_native'] = $toNative;
+
+        
+        $value = $object->value;
+        after_value:        $result['value'] = $value;
+
+
+        return $result;
+    }
+
+
     private function serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Metadata⚡️Generic⚡️GenericItem(mixed $object): mixed
     {
         \assert($object instanceof \CCT\SDK\Campaign\Data\Metadata\Generic\GenericItem);
@@ -10725,6 +10967,23 @@ class OptimizedMapper implements ObjectMapper
         
         $generic = $genericSerializer0->serialize($generic, $this);
         after_generic:        $result['generic'] = $generic;
+
+        
+        $branding = $object->branding;
+
+        if ($branding === null) {
+            goto after_branding;
+        }
+        static $brandingSerializer0;
+
+        if ($brandingSerializer0 === null) {
+            $brandingSerializer0 = new \CCT\SDK\Infrastructure\Serialization\Caster\CastToCollectionObject(...array (
+  0 => 'CCT\\SDK\\Campaign\\Data\\Metadata\\Branding\\BrandingItems',
+));
+        }
+        
+        $branding = $brandingSerializer0->serialize($branding, $this);
+        after_branding:        $result['branding'] = $branding;
 
 
         return $result;

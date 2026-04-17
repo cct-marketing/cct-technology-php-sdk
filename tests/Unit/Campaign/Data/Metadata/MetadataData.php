@@ -25,6 +25,11 @@ final class MetadataData
                     ['key' => 'budget', 'value' => '50000'],
                     ['key' => 'additional_spending', 'value' => '10000'],
                 ],
+                'branding' => [
+                    ['key' => 'brand_colour', 'value' => '#FF0000'],
+                    ['key' => 'text_colour', 'value' => '#000000'],
+                    ['key' => 'logo_url', 'value' => 'https://example.com/logo.png'],
+                ],
             ],
             $data
         );
