@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace CCT\SDK\Campaign\Data\Metadata;
 
 use CCT\SDK\Campaign\Data\Metadata\Agent\Agents;
+use CCT\SDK\Campaign\Data\Metadata\Branding\BrandingItems;
 use CCT\SDK\Campaign\Data\Metadata\Generic\GenericItems;
 use CCT\SDK\Infrastructure\Serialization\Caster\CastToCollectionObject;
 use CCT\SDK\Infrastructure\ValueObject\AbstractMulti;
@@ -17,7 +18,9 @@ final class Metadata extends AbstractMulti
         #[CastToCollectionObject(Agents::class)]
         public readonly ?Agents $agents,
         #[CastToCollectionObject(GenericItems::class)]
-        public readonly ?GenericItems $generic = null
+        public readonly ?GenericItems $generic = null,
+        #[CastToCollectionObject(BrandingItems::class)]
+        public readonly ?BrandingItems $branding = null
     ) {
     }
 }

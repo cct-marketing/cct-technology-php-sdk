@@ -497,6 +497,11 @@ components:
           items:
             $ref: '#/components/schemas/GenericItem'
           description: Generic key-value metadata items
+        branding:
+          type: array
+          items:
+            $ref: '#/components/schemas/BrandingItem'
+          description: Branding key-value metadata items
 
     GenericItem:
       type: object
@@ -513,6 +518,22 @@ components:
           type: string
           description: The metadata value
           example: "50000"
+
+    BrandingItem:
+      type: object
+      required:
+        - key
+        - value
+      properties:
+        key:
+          type: string
+          pattern: '^[a-z][a-z0-9]*(_[a-z0-9]+)*$'
+          description: The branding key name (lowercase snake_case)
+          example: "brand_colour"
+        value:
+          type: string
+          description: The branding value
+          example: "#FF0000"
 
     Agent:
       type: object
