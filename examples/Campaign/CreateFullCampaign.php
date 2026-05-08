@@ -11,6 +11,9 @@ use CCT\SDK\Campaign\Data\AdContent\CampaignImage\CampaignImages;
 use CCT\SDK\Campaign\Data\AdContent\Image\Image;
 use CCT\SDK\Campaign\Data\AdContent\Image\ImageCollection;
 use CCT\SDK\Campaign\Data\CampaignId;
+use CCT\SDK\Campaign\Data\CampaignPhase\CampaignPhases;
+use CCT\SDK\Campaign\Data\CampaignPhase\OpenHouse;
+use CCT\SDK\Campaign\Data\CampaignPhase\Phases;
 use CCT\SDK\Campaign\Data\Details\Details;
 use CCT\SDK\Campaign\Data\Metadata\Agent\Agents;
 use CCT\SDK\Campaign\Data\Metadata\Branding\BrandingItems;
@@ -160,9 +163,10 @@ final class CreateFullCampaign
         $adContent = self::createCampaignAdContent($images);
         $targeting = self::createCampaignTargeting();
         $options = self::createCampaignOptions();
+        $campaignPhases = self::createCampaignPhases();
 
         // Save campaign content
-        $saveCampaign = new SaveCampaign($details, $adContent, $targeting, $options);
+        $saveCampaign = new SaveCampaign($details, $adContent, $targeting, $options, $campaignPhases);
         try {
             $client->campaignClient()->saveCampaign($saveCampaign, $customerId, $campaignId);
         } catch (ApiRequestException $requestException) {
@@ -253,6 +257,16 @@ final class CreateFullCampaign
             [
                 'post_first_variant_to_facebook' => ['enabled' => true],
             ]
+        );
+    }
+
+    private static function createCampaignPhases(): CampaignPhases
+    {
+        $openHouseStart = (new \DateTimeImmutable())->modify('+ 5 days')->setTime(16, 0);
+        $openHouseEnd = $openHouseStart->setTime(18, 0);
+
+        return new CampaignPhases(
+            Phases::fromItems(new OpenHouse($openHouseStart, $openHouseEnd))
         );
     }
 
