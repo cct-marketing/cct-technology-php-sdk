@@ -483,6 +483,49 @@ components:
           $ref: '#/components/schemas/Targeting'
         options:
           $ref: '#/components/schemas/CampaignOptions'
+        campaign_phases:
+          $ref: '#/components/schemas/CampaignPhases'
+
+    CampaignPhases:
+      type: object
+      required:
+        - phases
+      properties:
+        phases:
+          type: array
+          items:
+            $ref: '#/components/schemas/CampaignPhase'
+          description: Ordered list of phases that take place during the campaign
+
+    CampaignPhase:
+      oneOf:
+        - $ref: '#/components/schemas/OpenHousePhase'
+      discriminator:
+        propertyName: _type
+        mapping:
+          open_house: '#/components/schemas/OpenHousePhase'
+
+    OpenHousePhase:
+      type: object
+      required:
+        - _type
+        - start_date
+        - end_date
+      properties:
+        _type:
+          type: string
+          enum: [open_house]
+          description: Phase type discriminator
+        start_date:
+          type: string
+          format: date-time
+          description: Open house start (ISO 8601 / RFC 3339)
+          example: "2019-02-02T16:00:00+00:00"
+        end_date:
+          type: string
+          format: date-time
+          description: Open house end (ISO 8601 / RFC 3339)
+          example: "2019-02-02T18:00:00+00:00"
 
     Metadata:
       type: object

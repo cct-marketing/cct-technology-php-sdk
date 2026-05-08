@@ -84,6 +84,9 @@ class OptimizedMapper implements ObjectMapper
                 'CCT\SDK\Campaign\Data\AdContent\Video\VideoCollection' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️AdContent⚡️Video⚡️VideoCollection($payload),
                 'CCT\SDK\Campaign\Data\AdContent\Video\VideoId' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️AdContent⚡️Video⚡️VideoId($payload),
                 'CCT\SDK\Campaign\Data\CampaignId' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️CampaignId($payload),
+                'CCT\SDK\Campaign\Data\CampaignPhase\CampaignPhases' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️CampaignPhase⚡️CampaignPhases($payload),
+                'CCT\SDK\Campaign\Data\CampaignPhase\OpenHouse' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️CampaignPhase⚡️OpenHouse($payload),
+                'CCT\SDK\Campaign\Data\CampaignPhase\Phases' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️CampaignPhase⚡️Phases($payload),
                 'CCT\SDK\Campaign\Data\Details\CampaignPeriod' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Details⚡️CampaignPeriod($payload),
                 'CCT\SDK\Campaign\Data\Details\CampaignTitle' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Details⚡️CampaignTitle($payload),
                 'CCT\SDK\Campaign\Data\Details\Details' => $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Details⚡️Details($payload),
@@ -3827,6 +3830,165 @@ class OptimizedMapper implements ObjectMapper
     }
 
         
+    private function hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️CampaignPhase⚡️CampaignPhases(array $payload): \CCT\SDK\Campaign\Data\CampaignPhase\CampaignPhases
+    {
+        $properties = []; 
+        $missingFields = [];
+        try {
+            $value = $payload['phases'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'phases';
+                goto after_phases;
+            }
+
+            static $phasesCaster1;
+
+            if ($phasesCaster1 === null) {
+                $phasesCaster1 = new \CCT\SDK\Infrastructure\Serialization\Caster\CastToCollectionObject(...array (
+  0 => 'CCT\\SDK\\Campaign\\Data\\CampaignPhase\\Phases',
+));
+            }
+
+            $value = $phasesCaster1->cast($value, $this);
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'phases';
+                    $value = $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️CampaignPhase⚡️Phases($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['phases'] = $value;
+
+            after_phases:
+
+        } catch (\Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\CampaignPhase\CampaignPhases', $exception, stack: $this->hydrationStack);
+        }
+
+        if (count($missingFields) > 0) {
+            throw UnableToHydrateObject::dueToMissingFields(\CCT\SDK\Campaign\Data\CampaignPhase\CampaignPhases::class, $missingFields, stack: $this->hydrationStack);
+        }
+
+        try {
+            return new \CCT\SDK\Campaign\Data\CampaignPhase\CampaignPhases(...$properties);
+        } catch (\Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\CampaignPhase\CampaignPhases', $exception, stack: $this->hydrationStack);
+        }
+    }
+
+        
+    private function hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️CampaignPhase⚡️OpenHouse(array $payload): \CCT\SDK\Campaign\Data\CampaignPhase\OpenHouse
+    {
+        $properties = []; 
+        $missingFields = [];
+        try {
+            $value = $payload['start_date'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'start_date';
+                goto after_startDate;
+            }
+
+            static $startDateCaster1;
+
+            if ($startDateCaster1 === null) {
+                $startDateCaster1 = new \EventSauce\ObjectHydrator\PropertyCasters\CastToDateTimeImmutable(...array (
+  0 => 'Y-m-d\\TH:i:sP',
+));
+            }
+
+            $value = $startDateCaster1->cast($value, $this);
+
+            $properties['startDate'] = $value;
+
+            after_startDate:
+
+            $value = $payload['end_date'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'end_date';
+                goto after_endDate;
+            }
+
+            static $endDateCaster1;
+
+            if ($endDateCaster1 === null) {
+                $endDateCaster1 = new \EventSauce\ObjectHydrator\PropertyCasters\CastToDateTimeImmutable(...array (
+  0 => 'Y-m-d\\TH:i:sP',
+));
+            }
+
+            $value = $endDateCaster1->cast($value, $this);
+
+            $properties['endDate'] = $value;
+
+            after_endDate:
+
+        } catch (\Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\CampaignPhase\OpenHouse', $exception, stack: $this->hydrationStack);
+        }
+
+        if (count($missingFields) > 0) {
+            throw UnableToHydrateObject::dueToMissingFields(\CCT\SDK\Campaign\Data\CampaignPhase\OpenHouse::class, $missingFields, stack: $this->hydrationStack);
+        }
+
+        try {
+            return new \CCT\SDK\Campaign\Data\CampaignPhase\OpenHouse(...$properties);
+        } catch (\Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\CampaignPhase\OpenHouse', $exception, stack: $this->hydrationStack);
+        }
+    }
+
+        
+    private function hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️CampaignPhase⚡️Phases(array $payload): \CCT\SDK\Campaign\Data\CampaignPhase\Phases
+    {
+        $properties = []; 
+        $missingFields = [];
+        try {
+            $value = $payload['items'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'items';
+                goto after_items;
+            }
+
+            static $itemsCaster1;
+
+            if ($itemsCaster1 === null) {
+                $itemsCaster1 = new \CCT\SDK\Infrastructure\Serialization\Caster\CastListUnionToType(...array (
+  0 => 
+  array (
+    'open_house' => 'CCT\\SDK\\Campaign\\Data\\CampaignPhase\\OpenHouse',
+  ),
+));
+            }
+
+            $value = $itemsCaster1->cast($value, $this);
+
+            $properties['items'] = $value;
+
+            after_items:
+
+        } catch (\Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\CampaignPhase\Phases', $exception, stack: $this->hydrationStack);
+        }
+
+        if (count($missingFields) > 0) {
+            throw UnableToHydrateObject::dueToMissingFields(\CCT\SDK\Campaign\Data\CampaignPhase\Phases::class, $missingFields, stack: $this->hydrationStack);
+        }
+
+        try {
+            return new \CCT\SDK\Campaign\Data\CampaignPhase\Phases(...$properties);
+        } catch (\Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\CampaignPhase\Phases', $exception, stack: $this->hydrationStack);
+        }
+    }
+
+        
     private function hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️Details⚡️CampaignPeriod(array $payload): \CCT\SDK\Campaign\Data\Details\CampaignPeriod
     {
         $properties = []; 
@@ -6104,6 +6266,25 @@ class OptimizedMapper implements ObjectMapper
             $properties['options'] = $value;
 
             after_options:
+
+            $value = $payload['campaign_phases'] ?? null;
+
+            if ($value === null) {
+                goto after_campaignPhases;
+            }
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'campaignPhases';
+                    $value = $this->hydrateCCT⚡️SDK⚡️Campaign⚡️Data⚡️CampaignPhase⚡️CampaignPhases($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['campaignPhases'] = $value;
+
+            after_campaignPhases:
 
         } catch (\Throwable $exception) {
             throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Payload\SaveCampaign', $exception, stack: $this->hydrationStack);
@@ -8740,6 +8921,9 @@ class OptimizedMapper implements ObjectMapper
             'CCT\SDK\Campaign\Data\AdContent\Video\VideoCollection' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️AdContent⚡️Video⚡️VideoCollection($object),
             'CCT\SDK\Campaign\Data\AdContent\Video\VideoId' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️AdContent⚡️Video⚡️VideoId($object),
             'CCT\SDK\Campaign\Data\CampaignId' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️CampaignId($object),
+            'CCT\SDK\Campaign\Data\CampaignPhase\CampaignPhases' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️CampaignPhase⚡️CampaignPhases($object),
+            'CCT\SDK\Campaign\Data\CampaignPhase\OpenHouse' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️CampaignPhase⚡️OpenHouse($object),
+            'CCT\SDK\Campaign\Data\CampaignPhase\Phases' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️CampaignPhase⚡️Phases($object),
             'CCT\SDK\Campaign\Data\Details\CampaignPeriod' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Details⚡️CampaignPeriod($object),
             'CCT\SDK\Campaign\Data\Details\CampaignTitle' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Details⚡️CampaignTitle($object),
             'CCT\SDK\Campaign\Data\Details\Details' => $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Details⚡️Details($object),
@@ -10648,6 +10832,88 @@ class OptimizedMapper implements ObjectMapper
     }
 
 
+    private function serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️CampaignPhase⚡️CampaignPhases(mixed $object): mixed
+    {
+        \assert($object instanceof \CCT\SDK\Campaign\Data\CampaignPhase\CampaignPhases);
+        $result = [];
+
+        $phases = $object->phases;
+        static $phasesSerializer0;
+
+        if ($phasesSerializer0 === null) {
+            $phasesSerializer0 = new \CCT\SDK\Infrastructure\Serialization\Caster\CastToCollectionObject(...array (
+  0 => 'CCT\\SDK\\Campaign\\Data\\CampaignPhase\\Phases',
+));
+        }
+        
+        $phases = $phasesSerializer0->serialize($phases, $this);
+        after_phases:        $result['phases'] = $phases;
+
+
+        return $result;
+    }
+
+
+    private function serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️CampaignPhase⚡️OpenHouse(mixed $object): mixed
+    {
+        \assert($object instanceof \CCT\SDK\Campaign\Data\CampaignPhase\OpenHouse);
+        $result = [];
+
+        $startDate = $object->startDate;
+        static $startDateSerializer0;
+
+        if ($startDateSerializer0 === null) {
+            $startDateSerializer0 = new \EventSauce\ObjectHydrator\PropertyCasters\CastToDateTimeImmutable(...array (
+  0 => 'Y-m-d\\TH:i:sP',
+));
+        }
+        
+        $startDate = $startDateSerializer0->serialize($startDate, $this);
+        after_startDate:        $result['start_date'] = $startDate;
+
+        
+        $endDate = $object->endDate;
+        static $endDateSerializer0;
+
+        if ($endDateSerializer0 === null) {
+            $endDateSerializer0 = new \EventSauce\ObjectHydrator\PropertyCasters\CastToDateTimeImmutable(...array (
+  0 => 'Y-m-d\\TH:i:sP',
+));
+        }
+        
+        $endDate = $endDateSerializer0->serialize($endDate, $this);
+        after_endDate:        $result['end_date'] = $endDate;
+
+
+        return $result;
+    }
+
+
+    private function serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️CampaignPhase⚡️Phases(mixed $object): mixed
+    {
+        \assert($object instanceof \CCT\SDK\Campaign\Data\CampaignPhase\Phases);
+        $result = [];
+
+        $items = $object->items();
+        static $itemsSerializer0;
+
+        if ($itemsSerializer0 === null) {
+            $itemsSerializer0 = new \CCT\SDK\Infrastructure\Serialization\Caster\CastListUnionToType(...array (
+  0 => 
+  array (
+    'open_house' => 'CCT\\SDK\\Campaign\\Data\\CampaignPhase\\OpenHouse',
+  ),
+));
+        }
+        
+        $items = $itemsSerializer0->serialize($items, $this);
+        after_items:        $result['items'] = $items;
+
+
+        return $result;
+    }
+
+
     private function serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Details⚡️CampaignPeriod(mixed $object): mixed
     {
         \assert($object instanceof \CCT\SDK\Campaign\Data\Details\CampaignPeriod);
@@ -11766,6 +12032,15 @@ class OptimizedMapper implements ObjectMapper
         }
         $options = $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️Options⚡️Options($options);
         after_options:        $result['options'] = $options;
+
+        
+        $campaignPhases = $object->campaignPhases;
+
+        if ($campaignPhases === null) {
+            goto after_campaignPhases;
+        }
+        $campaignPhases = $this->serializeObjectCCT⚡️SDK⚡️Campaign⚡️Data⚡️CampaignPhase⚡️CampaignPhases($campaignPhases);
+        after_campaignPhases:        $result['campaign_phases'] = $campaignPhases;
 
 
         return $result;
