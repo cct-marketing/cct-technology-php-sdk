@@ -990,6 +990,10 @@ components:
         facebook:
           type: object
           description: Facebook-specific metrics
+        video_quartiles:
+          type: object
+          nullable: true
+          description: Video quartile metrics (plays, p25/p50/p75/p100, per-channel and per-day breakdowns)
 
     AnalyticsPeriod:
       type: object
