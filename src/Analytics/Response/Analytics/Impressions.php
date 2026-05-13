@@ -13,6 +13,7 @@ final class Impressions extends AbstractMulti
     public function __construct(
         public readonly int $impressions,
         public readonly int $impressionsCtr,
+        public readonly float $impressionsCtrDecimal,
         public readonly array $impressionsByChannel,
         public readonly array $impressionsPerDay
     ) {

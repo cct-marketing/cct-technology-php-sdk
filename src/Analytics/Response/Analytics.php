@@ -10,6 +10,7 @@ use CCT\SDK\Analytics\Response\Analytics\Impressions;
 use CCT\SDK\Analytics\Response\Analytics\Reach;
 use CCT\SDK\Analytics\Response\Analytics\Readers;
 use CCT\SDK\Analytics\Response\Analytics\Target;
+use CCT\SDK\Analytics\Response\Analytics\VideoQuartiles;
 use CCT\SDK\Infrastructure\ValueObject\AbstractMulti;
 use EventSauce\ObjectHydrator\MapperSettings;
 
@@ -22,7 +23,8 @@ final class Analytics extends AbstractMulti
         public readonly Impressions $impressions,
         public readonly Reach $reach,
         public readonly Readers $readers,
-        public readonly Target $target
+        public readonly Target $target,
+        public readonly ?VideoQuartiles $videoQuartiles = null
     ) {
     }
 }
