@@ -73,11 +73,11 @@ class MediaClient extends AbstractServiceClient
         return $mediaItem;
     }
 
-    public function uploadMedia(CustomerId $customerId, UploadMedia $media): MediaInterface
+    public function uploadMedia(CustomerId $customerId, CampaignId $campaignId, UploadMedia $media): MediaInterface
     {
         $request = new Request(
             'POST',
-            sprintf('/customers/%s/medium', $customerId->toString()),
+            sprintf('/customers/%s/campaigns/%s/medium', $customerId->toString(), $campaignId->toString()),
             $this->getHeaders()
         );
 

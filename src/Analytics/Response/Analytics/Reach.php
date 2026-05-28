@@ -13,7 +13,6 @@ final class Reach extends AbstractMulti
     public function __construct(
         public readonly int $reach,
         public readonly int $reachCtr,
-        public readonly float $reachCtrDecimal,
         public readonly array $reachByChannel
     ) {
     }

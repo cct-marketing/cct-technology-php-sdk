@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace CCT\SDK\Tests\Functional;
 
+use CCT\SDK\Campaign\Data\CampaignId;
 use CCT\SDK\Customer\Data\CustomerId;
 use CCT\SDK\MediaManagement\Request\Media\BaseMediaCreate;
 use CCT\SDK\MediaManagement\Request\Media\UploadMedia;
@@ -27,6 +28,7 @@ final class UploadMediaTest extends TestCase
         $client = $clientMockFactory->createClientWithMockAndHistory($mock, $history);
 
         $customerId = CustomerId::fromString('7533e424-de27-4e7b-9864-bc8130623391');
+        $campaignId = CampaignId::fromString('a1f4cc6d-2a3b-4c5d-9e6f-7a8b9c0d1e2f');
 
         $fileResource = fopen(__DIR__ . '/assets/test_image.jpg', 'rb');
         self::assertIsResource($fileResource);
@@ -39,7 +41,7 @@ final class UploadMediaTest extends TestCase
 
             $uploadMedia = new UploadMedia($baseMediaCreate, $fileResource, 'test_image.jpg');
 
-            $mediaItem = $client->mediaClient()->uploadMedia($customerId, $uploadMedia);
+            $mediaItem = $client->mediaClient()->uploadMedia($customerId, $campaignId, $uploadMedia);
 
             self::assertInstanceOf(MediaInterface::class, $mediaItem);
 
@@ -48,7 +50,7 @@ final class UploadMediaTest extends TestCase
 
             self::assertSame('POST', $sentRequest->getMethod());
             self::assertSame(
-                sprintf('/customers/%s/medium', $customerId->toString()),
+                sprintf('/customers/%s/campaigns/%s/medium', $customerId->toString(), $campaignId->toString()),
                 $sentRequest->getUri()->getPath()
             );
 

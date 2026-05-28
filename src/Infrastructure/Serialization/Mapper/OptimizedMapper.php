@@ -489,17 +489,6 @@ class OptimizedMapper implements ObjectMapper
 
             after_impressionsCtr:
 
-            $value = $payload['impressions_ctr_decimal'] ?? null;
-
-            if ($value === null) {
-                $missingFields[] = 'impressions_ctr_decimal';
-                goto after_impressionsCtrDecimal;
-            }
-
-            $properties['impressionsCtrDecimal'] = $value;
-
-            after_impressionsCtrDecimal:
-
             $value = $payload['impressions_by_channel'] ?? null;
 
             if ($value === null) {
@@ -564,17 +553,6 @@ class OptimizedMapper implements ObjectMapper
             $properties['reachCtr'] = $value;
 
             after_reachCtr:
-
-            $value = $payload['reach_ctr_decimal'] ?? null;
-
-            if ($value === null) {
-                $missingFields[] = 'reach_ctr_decimal';
-                goto after_reachCtrDecimal;
-            }
-
-            $properties['reachCtrDecimal'] = $value;
-
-            after_reachCtrDecimal:
 
             $value = $payload['reach_by_channel'] ?? null;
 
@@ -9351,10 +9329,6 @@ class OptimizedMapper implements ObjectMapper
         after_impressionsCtr:        $result['impressions_ctr'] = $impressionsCtr;
 
         
-        $impressionsCtrDecimal = $object->impressionsCtrDecimal;
-        after_impressionsCtrDecimal:        $result['impressions_ctr_decimal'] = $impressionsCtrDecimal;
-
-        
         $impressionsByChannel = $object->impressionsByChannel;
         static $impressionsByChannelSerializer0;
 
@@ -9394,10 +9368,6 @@ class OptimizedMapper implements ObjectMapper
         
         $reachCtr = $object->reachCtr;
         after_reachCtr:        $result['reach_ctr'] = $reachCtr;
-
-        
-        $reachCtrDecimal = $object->reachCtrDecimal;
-        after_reachCtrDecimal:        $result['reach_ctr_decimal'] = $reachCtrDecimal;
 
         
         $reachByChannel = $object->reachByChannel;
