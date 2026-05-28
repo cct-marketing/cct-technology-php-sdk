@@ -30,6 +30,7 @@ class OptimizedMapper implements ObjectMapper
                 'CCT\SDK\Analytics\Response\Analytics\Reach' => $this->hydrateCCT⚡️SDK⚡️Analytics⚡️Response⚡️Analytics⚡️Reach($payload),
                 'CCT\SDK\Analytics\Response\Analytics\Readers' => $this->hydrateCCT⚡️SDK⚡️Analytics⚡️Response⚡️Analytics⚡️Readers($payload),
                 'CCT\SDK\Analytics\Response\Analytics\Target' => $this->hydrateCCT⚡️SDK⚡️Analytics⚡️Response⚡️Analytics⚡️Target($payload),
+                'CCT\SDK\Analytics\Response\Analytics\VideoQuartiles' => $this->hydrateCCT⚡️SDK⚡️Analytics⚡️Response⚡️Analytics⚡️VideoQuartiles($payload),
                 'CCT\SDK\Analytics\Response\CampaignAnalytics' => $this->hydrateCCT⚡️SDK⚡️Analytics⚡️Response⚡️CampaignAnalytics($payload),
                 'CCT\SDK\Analytics\Response\Customer' => $this->hydrateCCT⚡️SDK⚡️Analytics⚡️Response⚡️Customer($payload),
                 'CCT\SDK\Analytics\Response\Period' => $this->hydrateCCT⚡️SDK⚡️Analytics⚡️Response⚡️Period($payload),
@@ -296,6 +297,25 @@ class OptimizedMapper implements ObjectMapper
 
             after_target:
 
+            $value = $payload['video_quartiles'] ?? null;
+
+            if ($value === null) {
+                goto after_videoQuartiles;
+            }
+
+            if (is_array($value)) {
+                try {
+                    $this->hydrationStack[] = 'videoQuartiles';
+                    $value = $this->hydrateCCT⚡️SDK⚡️Analytics⚡️Response⚡️Analytics⚡️VideoQuartiles($value);
+                } finally {
+                    array_pop($this->hydrationStack);
+                }
+            }
+
+            $properties['videoQuartiles'] = $value;
+
+            after_videoQuartiles:
+
         } catch (\Throwable $exception) {
             throw UnableToHydrateObject::dueToError('CCT\SDK\Analytics\Response\Analytics', $exception, stack: $this->hydrationStack);
         }
@@ -469,6 +489,17 @@ class OptimizedMapper implements ObjectMapper
 
             after_impressionsCtr:
 
+            $value = $payload['impressions_ctr_decimal'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'impressions_ctr_decimal';
+                goto after_impressionsCtrDecimal;
+            }
+
+            $properties['impressionsCtrDecimal'] = $value;
+
+            after_impressionsCtrDecimal:
+
             $value = $payload['impressions_by_channel'] ?? null;
 
             if ($value === null) {
@@ -533,6 +564,28 @@ class OptimizedMapper implements ObjectMapper
             $properties['reachCtr'] = $value;
 
             after_reachCtr:
+
+            $value = $payload['reach_ctr_decimal'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'reach_ctr_decimal';
+                goto after_reachCtrDecimal;
+            }
+
+            $properties['reachCtrDecimal'] = $value;
+
+            after_reachCtrDecimal:
+
+            $value = $payload['reach_by_channel'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'reach_by_channel';
+                goto after_reachByChannel;
+            }
+
+            $properties['reachByChannel'] = $value;
+
+            after_reachByChannel:
 
         } catch (\Throwable $exception) {
             throw UnableToHydrateObject::dueToError('CCT\SDK\Analytics\Response\Analytics\Reach', $exception, stack: $this->hydrationStack);
@@ -654,6 +707,104 @@ class OptimizedMapper implements ObjectMapper
             return new \CCT\SDK\Analytics\Response\Analytics\Target(...$properties);
         } catch (\Throwable $exception) {
             throw UnableToHydrateObject::dueToError('CCT\SDK\Analytics\Response\Analytics\Target', $exception, stack: $this->hydrationStack);
+        }
+    }
+
+        
+    private function hydrateCCT⚡️SDK⚡️Analytics⚡️Response⚡️Analytics⚡️VideoQuartiles(array $payload): \CCT\SDK\Analytics\Response\Analytics\VideoQuartiles
+    {
+        $properties = []; 
+        $missingFields = [];
+        try {
+            $value = $payload['plays'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'plays';
+                goto after_plays;
+            }
+
+            $properties['plays'] = $value;
+
+            after_plays:
+
+            $value = $payload['p25'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'p25';
+                goto after_p25;
+            }
+
+            $properties['p25'] = $value;
+
+            after_p25:
+
+            $value = $payload['p50'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'p50';
+                goto after_p50;
+            }
+
+            $properties['p50'] = $value;
+
+            after_p50:
+
+            $value = $payload['p75'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'p75';
+                goto after_p75;
+            }
+
+            $properties['p75'] = $value;
+
+            after_p75:
+
+            $value = $payload['p100'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'p100';
+                goto after_p100;
+            }
+
+            $properties['p100'] = $value;
+
+            after_p100:
+
+            $value = $payload['video_quartiles_per_channel'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'video_quartiles_per_channel';
+                goto after_videoQuartilesPerChannel;
+            }
+
+            $properties['videoQuartilesPerChannel'] = $value;
+
+            after_videoQuartilesPerChannel:
+
+            $value = $payload['video_quartiles_per_day'] ?? null;
+
+            if ($value === null) {
+                $missingFields[] = 'video_quartiles_per_day';
+                goto after_videoQuartilesPerDay;
+            }
+
+            $properties['videoQuartilesPerDay'] = $value;
+
+            after_videoQuartilesPerDay:
+
+        } catch (\Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('CCT\SDK\Analytics\Response\Analytics\VideoQuartiles', $exception, stack: $this->hydrationStack);
+        }
+
+        if (count($missingFields) > 0) {
+            throw UnableToHydrateObject::dueToMissingFields(\CCT\SDK\Analytics\Response\Analytics\VideoQuartiles::class, $missingFields, stack: $this->hydrationStack);
+        }
+
+        try {
+            return new \CCT\SDK\Analytics\Response\Analytics\VideoQuartiles(...$properties);
+        } catch (\Throwable $exception) {
+            throw UnableToHydrateObject::dueToError('CCT\SDK\Analytics\Response\Analytics\VideoQuartiles', $exception, stack: $this->hydrationStack);
         }
     }
 
@@ -8867,6 +9018,7 @@ class OptimizedMapper implements ObjectMapper
             'CCT\SDK\Analytics\Response\Analytics\Reach' => $this->serializeObjectCCT⚡️SDK⚡️Analytics⚡️Response⚡️Analytics⚡️Reach($object),
             'CCT\SDK\Analytics\Response\Analytics\Readers' => $this->serializeObjectCCT⚡️SDK⚡️Analytics⚡️Response⚡️Analytics⚡️Readers($object),
             'CCT\SDK\Analytics\Response\Analytics\Target' => $this->serializeObjectCCT⚡️SDK⚡️Analytics⚡️Response⚡️Analytics⚡️Target($object),
+            'CCT\SDK\Analytics\Response\Analytics\VideoQuartiles' => $this->serializeObjectCCT⚡️SDK⚡️Analytics⚡️Response⚡️Analytics⚡️VideoQuartiles($object),
             'CCT\SDK\Analytics\Response\CampaignAnalytics' => $this->serializeObjectCCT⚡️SDK⚡️Analytics⚡️Response⚡️CampaignAnalytics($object),
             'CCT\SDK\Analytics\Response\Customer' => $this->serializeObjectCCT⚡️SDK⚡️Analytics⚡️Response⚡️Customer($object),
             'CCT\SDK\Analytics\Response\Period' => $this->serializeObjectCCT⚡️SDK⚡️Analytics⚡️Response⚡️Period($object),
@@ -9098,6 +9250,15 @@ class OptimizedMapper implements ObjectMapper
         $target = $this->serializeObjectCCT⚡️SDK⚡️Analytics⚡️Response⚡️Analytics⚡️Target($target);
         after_target:        $result['target'] = $target;
 
+        
+        $videoQuartiles = $object->videoQuartiles;
+
+        if ($videoQuartiles === null) {
+            goto after_videoQuartiles;
+        }
+        $videoQuartiles = $this->serializeObjectCCT⚡️SDK⚡️Analytics⚡️Response⚡️Analytics⚡️VideoQuartiles($videoQuartiles);
+        after_videoQuartiles:        $result['video_quartiles'] = $videoQuartiles;
+
 
         return $result;
     }
@@ -9190,6 +9351,10 @@ class OptimizedMapper implements ObjectMapper
         after_impressionsCtr:        $result['impressions_ctr'] = $impressionsCtr;
 
         
+        $impressionsCtrDecimal = $object->impressionsCtrDecimal;
+        after_impressionsCtrDecimal:        $result['impressions_ctr_decimal'] = $impressionsCtrDecimal;
+
+        
         $impressionsByChannel = $object->impressionsByChannel;
         static $impressionsByChannelSerializer0;
 
@@ -9229,6 +9394,22 @@ class OptimizedMapper implements ObjectMapper
         
         $reachCtr = $object->reachCtr;
         after_reachCtr:        $result['reach_ctr'] = $reachCtr;
+
+        
+        $reachCtrDecimal = $object->reachCtrDecimal;
+        after_reachCtrDecimal:        $result['reach_ctr_decimal'] = $reachCtrDecimal;
+
+        
+        $reachByChannel = $object->reachByChannel;
+        static $reachByChannelSerializer0;
+
+        if ($reachByChannelSerializer0 === null) {
+            $reachByChannelSerializer0 = new \EventSauce\ObjectHydrator\PropertySerializers\SerializeArrayItems(...array (
+));
+        }
+        
+        $reachByChannel = $reachByChannelSerializer0->serialize($reachByChannel, $this);
+        after_reachByChannel:        $result['reach_by_channel'] = $reachByChannel;
 
 
         return $result;
@@ -9271,6 +9452,59 @@ class OptimizedMapper implements ObjectMapper
         
         $averageTime = $object->averageTime;
         after_averageTime:        $result['average_time'] = $averageTime;
+
+
+        return $result;
+    }
+
+
+    private function serializeObjectCCT⚡️SDK⚡️Analytics⚡️Response⚡️Analytics⚡️VideoQuartiles(mixed $object): mixed
+    {
+        \assert($object instanceof \CCT\SDK\Analytics\Response\Analytics\VideoQuartiles);
+        $result = [];
+
+        $plays = $object->plays;
+        after_plays:        $result['plays'] = $plays;
+
+        
+        $p25 = $object->p25;
+        after_p25:        $result['p25'] = $p25;
+
+        
+        $p50 = $object->p50;
+        after_p50:        $result['p50'] = $p50;
+
+        
+        $p75 = $object->p75;
+        after_p75:        $result['p75'] = $p75;
+
+        
+        $p100 = $object->p100;
+        after_p100:        $result['p100'] = $p100;
+
+        
+        $videoQuartilesPerChannel = $object->videoQuartilesPerChannel;
+        static $videoQuartilesPerChannelSerializer0;
+
+        if ($videoQuartilesPerChannelSerializer0 === null) {
+            $videoQuartilesPerChannelSerializer0 = new \EventSauce\ObjectHydrator\PropertySerializers\SerializeArrayItems(...array (
+));
+        }
+        
+        $videoQuartilesPerChannel = $videoQuartilesPerChannelSerializer0->serialize($videoQuartilesPerChannel, $this);
+        after_videoQuartilesPerChannel:        $result['video_quartiles_per_channel'] = $videoQuartilesPerChannel;
+
+        
+        $videoQuartilesPerDay = $object->videoQuartilesPerDay;
+        static $videoQuartilesPerDaySerializer0;
+
+        if ($videoQuartilesPerDaySerializer0 === null) {
+            $videoQuartilesPerDaySerializer0 = new \EventSauce\ObjectHydrator\PropertySerializers\SerializeArrayItems(...array (
+));
+        }
+        
+        $videoQuartilesPerDay = $videoQuartilesPerDaySerializer0->serialize($videoQuartilesPerDay, $this);
+        after_videoQuartilesPerDay:        $result['video_quartiles_per_day'] = $videoQuartilesPerDay;
 
 
         return $result;
@@ -12704,38 +12938,6 @@ class OptimizedMapper implements ObjectMapper
         \assert($object instanceof \CCT\SDK\MediaManagement\Request\Media\UploadMedia);
         $result = [];
 
-        $toMultipart = $object->toMultipart();
-        static $toMultipartSerializer0;
-
-        if ($toMultipartSerializer0 === null) {
-            $toMultipartSerializer0 = new \EventSauce\ObjectHydrator\PropertySerializers\SerializeArrayItems(...array (
-));
-        }
-        
-        $toMultipart = $toMultipartSerializer0->serialize($toMultipart, $this);
-        after_toMultipart:        $result['to_multipart'] = $toMultipart;
-
-        
-        $toArray = $object->toArray();
-        static $toArraySerializer0;
-
-        if ($toArraySerializer0 === null) {
-            $toArraySerializer0 = new \EventSauce\ObjectHydrator\PropertySerializers\SerializeArrayItems(...array (
-));
-        }
-        
-        $toArray = $toArraySerializer0->serialize($toArray, $this);
-        after_toArray:        $result['to_array'] = $toArray;
-
-        
-        $__toString = $object->__toString();
-        after___toString:        $result['__to_string'] = $__toString;
-
-        
-        $toString = $object->toString();
-        after_toString:        $result['to_string'] = $toString;
-
-        
         $baseMediaCreate = $object->baseMediaCreate;
         $baseMediaCreate = $this->serializeObjectCCT⚡️SDK⚡️MediaManagement⚡️Request⚡️Media⚡️BaseMediaCreate($baseMediaCreate);
         after_baseMediaCreate:        $result['id'] = $baseMediaCreate['id'];        $result['name'] = $baseMediaCreate['name'];        $result['description'] = $baseMediaCreate['description'];        $result['private'] = $baseMediaCreate['private'];        $result['type'] = $baseMediaCreate['type'];        $result['predefined_name'] = $baseMediaCreate['predefined_name'];

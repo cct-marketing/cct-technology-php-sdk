@@ -7,7 +7,9 @@ namespace CCT\SDK\MediaManagement\Request\Media;
 use CCT\SDK\Infrastructure\Assert\Assertion;
 use CCT\SDK\Infrastructure\ValueObject\AbstractMulti;
 use EventSauce\ObjectHydrator\MapFrom;
+use EventSauce\ObjectHydrator\MapperSettings;
 
+#[MapperSettings(serializePublicMethods: false)]
 final class UploadMedia extends AbstractMulti implements CreateMediaInterface
 {
     public function __construct(

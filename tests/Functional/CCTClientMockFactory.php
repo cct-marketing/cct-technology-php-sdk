@@ -16,6 +16,7 @@ use CCT\SDK\Client\Options\OAuthHost;
 use CCT\SDK\Client\Options\Options;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Middleware;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use GuzzleHttp\Client as GuzzleClient;
 
@@ -35,9 +36,24 @@ final class CCTClientMockFactory
      */
     public function createClientWithMock(MockHandler $mock): Client
     {
+        $history = [];
+
+        return $this->createClientWithMockAndHistory($mock, $history);
+    }
+
+    /**
+     * Like {@see createClientWithMock()}, but also pushes a history middleware so the test
+     * can assert on the outgoing request. The captured array receives one entry per request
+     * with keys: 'request', 'response', 'error', 'options'.
+     *
+     * @param array<int, array{request: \Psr\Http\Message\RequestInterface, response: \Psr\Http\Message\ResponseInterface|null, error: \Throwable|null, options: array<string, mixed>}> $history
+     */
+    public function createClientWithMockAndHistory(MockHandler $mock, array &$history): Client
+    {
         $option = $this->getOption();
 
         $handlerStack = HandlerStack::create($mock);
+        $handlerStack->push(Middleware::history($history));
 
         $guzzleClient = new GuzzleClient(['handler' => $handlerStack]);
 
