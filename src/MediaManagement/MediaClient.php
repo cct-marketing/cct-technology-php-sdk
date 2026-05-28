@@ -8,6 +8,7 @@ use CCT\SDK\Customer\Data\CustomerId;
 use CCT\SDK\Infrastructure\ValueObject\AbstractUrlOption;
 use CCT\SDK\MediaManagement\Request\Media\CreateMediaCollection;
 use CCT\SDK\MediaManagement\Request\Media\CreateMediaInterface;
+use CCT\SDK\MediaManagement\Request\Media\UploadMedia;
 use CCT\SDK\MediaManagement\ViewModel\MediaCollection;
 use CCT\SDK\MediaManagement\ViewModel\MediaInterface;
 use GuzzleHttp\Psr7\Request;
@@ -60,6 +61,31 @@ class MediaClient extends AbstractServiceClient
                 RequestOptions::FORM_PARAMS => [
                     'media' => $media->toArray(),
                 ],
+            ]
+        );
+
+        $mediaItem = MediaCollection::fromArray([$responseData])->first();
+
+        if (!$mediaItem instanceof MediaInterface) {
+            throw new \RuntimeException('Unexpected response from server, media item not found.');
+        }
+
+        return $mediaItem;
+    }
+
+    public function uploadMedia(CustomerId $customerId, UploadMedia $media): MediaInterface
+    {
+        $request = new Request(
+            'POST',
+            sprintf('/customers/%s/medium', $customerId->toString()),
+            $this->getHeaders()
+        );
+
+        $responseData = $this->sendJsonRequest(
+            $request,
+            201,
+            [
+                RequestOptions::MULTIPART => $media->toMultipart(),
             ]
         );
 
