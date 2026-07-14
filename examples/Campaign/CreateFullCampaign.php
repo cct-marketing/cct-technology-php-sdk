@@ -79,7 +79,21 @@ final class CreateFullCampaign
                 ['key' => 'logo_url', 'value' => 'https://example.com/logo.png'],
             ]);
 
-            $metadata = new Metadata($agents, $generic, $branding);
+            // Optional free-form property listing information, used to backfill the
+            // property widget, import listing images and resolve AI prompt tags
+            $listingData = [
+                'property_price' => 4500000,
+                'property_size' => 120,
+                'number_of_bedrooms' => 3,
+                'property_type' => 'House',
+                'property_description' => 'Charming family house close to the city centre',
+                'images' => [
+                    'https://example.com/image-1.jpg',
+                    'https://example.com/image-2.jpg',
+                ],
+            ];
+
+            $metadata = new Metadata($agents, $generic, $branding, $listingData);
 
             // This will initialize a campaign for specific product and return a campaign uuid
             $campaignId = self::startCampaign($client, $customerId, $campaignFlowId, $metadata);

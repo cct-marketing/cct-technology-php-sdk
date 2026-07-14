@@ -88,6 +88,39 @@ final class MetadataTest extends TestCase
         $this->assertCount(1, $metadata->generic);
     }
 
+    public function testFromArrayWithListingData(): void
+    {
+        $listingData = [
+            'property_price' => 4500000,
+            'property_size' => 120,
+            'number_of_bedrooms' => 3,
+            'property_type' => 'House',
+            'images' => ['https://example.com/image-1.jpg', 'https://example.com/image-2.jpg'],
+        ];
+
+        $metadata = Metadata::fromArray([
+            'agents' => null,
+            'listing_data' => $listingData,
+        ]);
+
+        $this->assertSame($listingData, $metadata->listingData);
+    }
+
+    public function testListingDataRoundTrip(): void
+    {
+        $listingData = [
+            'property_price' => 4500000,
+            'images' => ['https://example.com/image-1.jpg'],
+        ];
+
+        $metadata = new Metadata(null, listingData: $listingData);
+
+        $result = $metadata->toArray();
+
+        $this->assertSame($listingData, $result['listing_data']);
+        $this->assertTrue($metadata->equals(Metadata::fromArray($result)));
+    }
+
     public function testToArray(): void
     {
         $agent = new Agent(
