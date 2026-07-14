@@ -14,13 +14,18 @@ use EventSauce\ObjectHydrator\MapperSettings;
 #[MapperSettings(serializePublicMethods: false)]
 final class Metadata extends AbstractMulti
 {
+    /**
+     * @param array<string, mixed>|null $listingData Free-form property listing information
+     *                                               (e.g. property_price, property_size, images)
+     */
     public function __construct(
         #[CastToCollectionObject(Agents::class)]
         public readonly ?Agents $agents,
         #[CastToCollectionObject(GenericItems::class)]
         public readonly ?GenericItems $generic = null,
         #[CastToCollectionObject(BrandingItems::class)]
-        public readonly ?BrandingItems $branding = null
+        public readonly ?BrandingItems $branding = null,
+        public readonly ?array $listingData = null
     ) {
     }
 }

@@ -4786,6 +4786,16 @@ class OptimizedMapper implements ObjectMapper
 
             after_branding:
 
+            $value = $payload['listing_data'] ?? null;
+
+            if ($value === null) {
+                goto after_listingData;
+            }
+
+            $properties['listingData'] = $value;
+
+            after_listingData:
+
         } catch (\Throwable $exception) {
             throw UnableToHydrateObject::dueToError('CCT\SDK\Campaign\Data\Metadata\Metadata', $exception, stack: $this->hydrationStack);
         }
@@ -11454,6 +11464,22 @@ class OptimizedMapper implements ObjectMapper
         
         $branding = $brandingSerializer0->serialize($branding, $this);
         after_branding:        $result['branding'] = $branding;
+
+        
+        $listingData = $object->listingData;
+
+        if ($listingData === null) {
+            goto after_listingData;
+        }
+        static $listingDataSerializer0;
+
+        if ($listingDataSerializer0 === null) {
+            $listingDataSerializer0 = new \EventSauce\ObjectHydrator\PropertySerializers\SerializeArrayItems(...array (
+));
+        }
+        
+        $listingData = $listingDataSerializer0->serialize($listingData, $this);
+        after_listingData:        $result['listing_data'] = $listingData;
 
 
         return $result;

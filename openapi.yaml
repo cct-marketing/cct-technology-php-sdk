@@ -545,6 +545,29 @@ components:
           items:
             $ref: '#/components/schemas/BrandingItem'
           description: Branding key-value metadata items
+        listing_data:
+          type: object
+          additionalProperties: true
+          description: >-
+            Free-form property listing information supplied by the client at
+            campaign start. Used to backfill the property information widget,
+            import listing images and resolve AI prompt tags, replacing the
+            need for an internally configured data source. Keys are not
+            enforced; commonly consumed keys are property_price,
+            property_size, number_of_bedrooms, number_of_rooms,
+            number_of_bathrooms, property_description, property_type,
+            property_address, property_build_year, property_status,
+            property_total_price, property_energy_label and images (an array
+            of image URLs). Maximum encoded size is 64KB.
+          example:
+            property_price: 4500000
+            property_size: 120
+            number_of_bedrooms: 3
+            property_type: House
+            property_description: Charming family house close to the city centre
+            images:
+              - https://example.com/image-1.jpg
+              - https://example.com/image-2.jpg
 
     GenericItem:
       type: object
